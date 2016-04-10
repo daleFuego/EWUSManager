@@ -200,7 +200,7 @@ public class Manager extends JFrame {
 		btnSendZipZip.setBounds(227, 75, 109, 20);
 		btnSendMailSend = new JButton("Wy\u015Blij");
 		btnSendMailSend.setBounds(227, 106, 109, 20);
-		btnSendMailBrowse = new JButton("Przegl�daj");
+		btnSendMailBrowse = new JButton("Przegl\u0105daj");
 		btnSendMailBrowse.setBounds(10, 106, 109, 20);
 		btnSendZipBrowse = new JButton("Przegl\u0105daj");
 		btnSendZipBrowse.setBounds(10, 75, 109, 20);
@@ -375,7 +375,7 @@ public class Manager extends JFrame {
 		tableBrowseMain = new JTable(tableModel);
 		tableBrowseMain.setDefaultRenderer(String.class, new TableCellRender());
 		tableBrowseMain.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		String[] columnNames = { "Lp.", "Data", "Nazwisko", "Imi�", "PESEL", "Plik" };
+		String[] columnNames = { "Lp.", "Data", "Nazwisko", "Imię", "PESEL", "Plik" };
 		for (int i = 0; i < columnNames.length; i++) {
 			tableBrowseMain.addColumn(new TableColumn(i));
 		}
@@ -522,7 +522,7 @@ public class Manager extends JFrame {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Kolejka", null, panelQueue, null);
 		tabbedPane.addTab("Potwierdzenia", null, panelBrowse, null);
-		tabbedPane.addTab("Wysy�anie", null, panelSend, null);
+		tabbedPane.addTab("Wysyłanie", null, panelSend, null);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 		//FRAME

@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -26,7 +27,7 @@ public class Login extends JFrame {
 	private JPanel panelLogin;
 
 	private JTextField textFieldUserName;
-	private JTextField textFieldPassword;
+	private JPasswordField textFieldPassword;
 
 	private JLabel lblPassword;
 	private JLabel lblLogin;
@@ -53,17 +54,17 @@ public class Login extends JFrame {
 
 	private void initialize() {
 
-		//LABEL
+		// LABEL
 		lblPassword = new JLabel("Has\u0142o");
 		lblPassword.setBounds(6, 52, 46, 14);
 		lblLogin = new JLabel("Login");
 		lblLogin.setBounds(6, 22, 46, 14);
 
-		//TEXTFIELD
+		// TEXTFIELD
 		textFieldUserName = new JTextField();
 		textFieldUserName.setBounds(57, 19, 123, 20);
 		textFieldUserName.setColumns(10);
-		textFieldPassword = new JTextField();
+		textFieldPassword = new JPasswordField();
 		textFieldPassword.setBounds(57, 49, 123, 20);
 		textFieldPassword.setColumns(10);
 		try {
@@ -73,15 +74,15 @@ public class Login extends JFrame {
 			e.printStackTrace();
 		}
 
-		//TEXTAREA
+		// TEXTAREA
 
-		//BUTTON
+		// BUTTON
 		btnLogin = new JButton("Login");
 		btnLogin.setBounds(57, 79, 123, 23);
 
-		//TABLE
+		// TABLE
 
-		//PANEL
+		// PANEL
 		panelLogin = new JPanel();
 		panelLogin.setLayout(null);
 		panelLogin.setBorder(
@@ -93,13 +94,13 @@ public class Login extends JFrame {
 		panelLogin.add(textFieldUserName);
 		panelLogin.add(textFieldPassword);
 
-		//PANE
+		// PANE
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		contentPane.add(panelLogin);
 
-		//ACTION
+		// ACTION
 		btnLogin.addKeyListener(new KeyListener() {
 
 			@Override
@@ -143,7 +144,7 @@ public class Login extends JFrame {
 			}
 		});
 
-		//FRAME
+		// FRAME
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 214, 162);
@@ -155,7 +156,7 @@ public class Login extends JFrame {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		
+
 		btnLogin.requestFocus();
 	}
 }

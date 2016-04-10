@@ -44,7 +44,7 @@ public class DBData {
 					DefineUtils.DB_PASSWORD);
 			connection.setAutoCommit(false);
 			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT USERNAME, PASSWORD FROM USERS WHERE SAVED = 1");
+			ResultSet rs = stmt.executeQuery("SELECT \"USERNAME\", \"PASSWORD\" FROM \"USERS\" WHERE \"SAVED\" = 1");
 			while (rs.next()) {
 				username = rs.getString("username");
 				password = rs.getString("password");
@@ -73,7 +73,7 @@ public class DBData {
 					DefineUtils.DB_PASSWORD);
 			connection.setAutoCommit(false);
 			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT PASSWORD FROM USERS WHERE USERNAME = '" + userName + "'");
+			ResultSet rs = stmt.executeQuery("SELECT \"PASSWORD\" FROM \"USERS\" WHERE \"USERNAME\" = '" + userName + "'");
 			while (rs.next()) {
 				String dbPassword = rs.getString("password");
 				if (password.equals(dbPassword)) {
@@ -100,7 +100,7 @@ public class DBData {
 					DefineUtils.DB_PASSWORD);
 			connection.setAutoCommit(false);
 			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM USERS WHERE USERNAME = '" + username + "'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM \"USERS\" WHERE \"USERNAME\" = '" + username + "'");
 			while (rs.next()) {
 				pathInitBrowseFiles = rs.getString("pathbrowsefiles");
 				pathInitSendZipFile = rs.getString("pathsendzipsave");
@@ -128,8 +128,8 @@ public class DBData {
 			connection.setAutoCommit(false);
 			stmt = connection.createStatement();
 			
-			System.out.println("UPDATE USERS SET " + target + "='" + path + "' WHERE USERNAME = '" + username + "'");
-			String query = "UPDATE USERS SET " + target + "='" + path + "' WHERE USERNAME = '" + username + "';";
+			System.out.println("UPDATE \"USERS\" SET " + target + "='" + path + "' WHERE \"USERNAME\" = '" + username + "'");
+			String query = "UPDATE \"USERS\" SET " + target + "='" + path + "' WHERE \"USERNAME\" = '" + username + "';";
 
 			stmt.executeUpdate(query);
 			connection.commit();

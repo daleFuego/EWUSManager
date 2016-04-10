@@ -9,7 +9,7 @@ public class DefineUtils {
 	public static String BRWOSE_DESCRIPTION		 	= "";
 	public static String SEND_DESRIPTION 			= "";
 	public static String QUEUE_DESCRIPTION 			= "";
-	public static String DB_NAME 					= "jdbc:postgresql://localhost:5432/EWUS";
+	public static String DB_NAME 					= "jdbc:postgresql://localhost:5432/EWUSManager";
 	public static String DB_USERNAME 				= "postgres";
 	public static String DB_PASSWORD 				= "postgres";
 	public static String DB_pathbrowsefiles 		= "pathbrowsefiles";
@@ -24,7 +24,7 @@ public class DefineUtils {
 		String content = "";
 		try {
 			@SuppressWarnings("resource")
-			BufferedReader bufferedReader = new BufferedReader(new FileReader("C:\\Program Files\\EwusManager\\Init.txt"));
+			BufferedReader bufferedReader = new BufferedReader(new FileReader("Init.txt"));
 			while ((content = bufferedReader.readLine()) != null) {
 				if (content.contains("#BRWOSE_DESCRIPTION")) {
 					BRWOSE_DESCRIPTION = content.split("=")[1];
