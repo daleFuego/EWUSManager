@@ -99,6 +99,7 @@ public class PeselValidator {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private boolean checkMonth() {
 		int month = getBirthMonth();
 		int day = getBirthDay();

@@ -124,6 +124,7 @@ public class Login extends JFrame {
 
 		btnLogin.addActionListener(new ActionListener() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
