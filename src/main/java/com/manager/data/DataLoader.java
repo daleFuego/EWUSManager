@@ -140,6 +140,17 @@ public class DataLoader {
 		}
 		return infoText;
 	}
+	
+	public String ewusMailTopic() {
+		String infoText = "";
+		try {
+			infoText = "Potwierdzenia EWUS (od "
+					+ dataList.get(0).get(0) + " do " + dataList.get(dataList.size() - 1).get(0) + ")";
+		} catch (Exception ex) {
+			infoText = "Potwierdzenia EWUS";
+		}
+		return infoText;
+	}
 
 	public ArrayList<ArrayList<String>> getFileList() {
 		return dataList;

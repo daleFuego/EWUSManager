@@ -1,5 +1,7 @@
 package com.manager.panel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -17,50 +19,58 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.swing.JFrame;
-import javax.swing.JPopupMenu;
+import javax.swing.JOptionPane;
 
 import com.manager.dao.DBData;
+import com.manager.gui.PasswordPanel;
 import com.manager.utils.DefineUtils;
 
 public class MailManager {
 
 	private String receiver;
+	private String sender;
 	private String filePath;
+	private String topic;
 
-	public MailManager(JFrame frame, String sender, String receiver, String filePath) {
+	public MailManager(JFrame frame, String sender, String receiver, String filePath, String topic) {
 		this.receiver = receiver;
+		this.sender = sender;
 		this.filePath = filePath;
+		this.topic = topic;
 	}
 
 	public void sendMail() {
+		PasswordPanel passwordPanel = new PasswordPanel();
+		passwordPanel.btnConfirm.addActionListener(new ActionListener() {
 
-		String to = receiver;
+			@SuppressWarnings("deprecation")
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (sendMail(passwordPanel.passwordField.getText())) {
+					passwordPanel.dispose();
+				}
+			}
+		});
+	}
 
-		String from = "mailmail@mailmail.cba.pl";
-
-		final String username = from;
-		final String password = "password";
-
-		String host = "mail.cba.pl";
-
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", "587");
-
-
-
+	private boolean sendMail(String password) {
+		boolean result = true;
 		try {
+			Properties props = new Properties();
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.host", "smtp.gmail.com");
+			props.put("mail.smtp.port", "587");
+
 			Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(username, password);
+					return new PasswordAuthentication(sender, password);
 				}
 			});
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(from));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-			message.setSubject("EWUS Manager");
+			message.setFrom(new InternetAddress(sender));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiver));
+			message.setSubject(topic);
 			BodyPart messageBodyPart = new MimeBodyPart();
 			messageBodyPart.setText("");
 			Multipart multipart = new MimeMultipart();
@@ -72,14 +82,16 @@ public class MailManager {
 			multipart.addBodyPart(messageBodyPart);
 			message.setContent(multipart);
 			Transport.send(message);
-			JPopupMenu jPopupMenu = new JPopupMenu("Sent message successfully");
-			jPopupMenu.setVisible(true);
+			JOptionPane.showMessageDialog(null, "Wiadomość została wysłana", "EWUŚ MANAGER",
+					JOptionPane.INFORMATION_MESSAGE);
 			DBData.getInstance().updatePath(DefineUtils.DB_pathsendmailreceiver, receiver);
 			DBData.getInstance().updatePath(DefineUtils.DB_pathsendmailfile, filePath);
-			
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
-		}
-	}
 
+		} catch (MessagingException e) {
+			JOptionPane.showMessageDialog(null, "Logowanie nie powiodło się", "EWUŚ MANAGER",
+					JOptionPane.ERROR_MESSAGE);
+			result = false;
+		}
+		return result;
+	}
 }

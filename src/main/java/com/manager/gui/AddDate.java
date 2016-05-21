@@ -34,7 +34,7 @@ public class AddDate extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblWybierzDatPierwszego = new JLabel("Wybierz dat\u0119 pierwszego wolnego terminu");
+		JLabel lblWybierzDatPierwszego = new JLabel("Wybierz datę pierwszego wolnego terminu");
 		lblWybierzDatPierwszego.setBounds(14, 21, 222, 14);
 		contentPane.add(lblWybierzDatPierwszego);
 		

@@ -3,7 +3,9 @@ package com.manager.data;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -24,7 +26,7 @@ public class DataCompression {
 		byte[] buffer = new byte[1024];
 
 		try {
-			zipPath = outputDirectory + "\\ewus.zip";
+			zipPath = outputDirectory + "\\EWUS_" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".zip";
 			FileOutputStream fileOutputStream = new FileOutputStream(zipPath);
 			ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
 

@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.swing.JButton;
@@ -43,10 +45,10 @@ public class Manager extends JFrame {
 
 	private JPanel panelQueueMain;
 	private JLabel lblQueueMainFiles;
-	private JLabel lblSendMailReceiver;
-	private JLabel lblSendMailSender;
+	private JLabel lblSendFilesMailReceiver;
+	private JLabel lblSendFilesMailSender;
 	private JLabel lblSendZipFile;
-	private JLabel lblSendMailFile;
+	private JLabel lblSendFilesMailFile;
 	private JLabel lblSendZipFileQ;
 	private JTextField textFieldBrowseFiles;
 	private JTextArea textAreaSendInfo;
@@ -60,14 +62,14 @@ public class Manager extends JFrame {
 	private JPanel panelSendZip;
 	private JLabel lblBrowseFiles;
 	private JButton btnBrowseBrowseFiles;
-	private JButton btnSendMailSend;
+	private JButton btnSendFilesMailSend;
 	private JButton btnSendExit;
 	private JButton btnBrowseDeleteEntry;
 	private JButton btnBrowseExit;
 	private JButton btnBrowseUndoDelete;
 	private JButton btnSendZipZip;
 	private JButton btnSendZipBrowse;
-	private JButton btnSendMailBrowse;
+	private JButton btnSendFilesMailBrowse;
 	private JButton btnQueueMainFiles;
 	private JTable tableBrowseMain;
 	private JPanel panelBrowseMain;
@@ -77,11 +79,10 @@ public class Manager extends JFrame {
 	private DataLoader dataLoader;
 	private DefaultTableModel tableModel;
 	private JTextArea textAreaSendFilesInfo;
-	private JTextField textFieldSendMailReceiver;
+	private JTextField textFieldSendFilesMailReceiver;
 	private JTextField textFieldSendZipFile;
-	private JTextField textFieldSendMailFile;
-	private JTextField textFieldSendConsole;
-	private JTextField textFieldSendMailSender;
+	private JTextField textFieldSendFilesMailFile;
+	private JTextField textFieldSendFilesMailSender;
 	private JTextField textFieldQueueMainFiles;
 	private JScrollPane scrollPaneQueueMainFileContent;
 	private JButton btnQueueExit;
@@ -91,16 +92,19 @@ public class Manager extends JFrame {
 	private JButton btnQueueMainAddVisit;
 	private JButton btnQueueMainAddDate;
 	private JTextArea textAreaBrowseInfo;
-	private JPanel panelSendConsole;
+	private JPanel panelSendConsoleQueueFile;
 	private JEditorPane editorPaneQueueMainFileContent;
 	private QueueManager queueManager;
 	private JScrollPane scrollPaneBrowseInfo;
 	private JScrollPane scrollPaneQueueInfo;
 	private JScrollPane scrollPaneSendInfo;
+	private JTextField textFieldSendQueueMailSender;
+	private JTextField textFieldSendQueueMailReceiver;
+	private JTextField textFieldSendQueueMailFile;
 
 	public Manager() {
 		setLocale(new Locale("pl", "PL"));
-		setTitle("eWUŚ MANAGER");
+		setTitle("EWUŚ MANAGER");
 		DefineUtils defineUtils = new DefineUtils();
 		defineUtils.initDataLoad();
 		DBData.getInstance().getInitData();
@@ -113,18 +117,18 @@ public class Manager extends JFrame {
 		final JFrame frame = this;
 
 		//LABEL
-		lblSendMailSender = new JLabel("Nadawca");
-		lblSendMailSender.setBounds(10, 25, 73, 14);
+		lblSendFilesMailSender = new JLabel("Nadawca");
+		lblSendFilesMailSender.setBounds(10, 20, 73, 14);
 		lblBrowseFiles = new JLabel("Podaj ścieżkę do potwierdzeń");
 		lblBrowseFiles.setBounds(5, 68, 171, 20);
-		lblSendMailFile = new JLabel("Ścieżka");
-		lblSendMailFile.setBounds(10, 78, 73, 14);
+		lblSendFilesMailFile = new JLabel("Ścieżka");
+		lblSendFilesMailFile.setBounds(10, 78, 73, 14);
 		lblSendZipFile = new JLabel("Ścieżka");
 		lblSendZipFile.setBounds(10, 47, 73, 14);
 		lblSendZipFileQ = new JLabel("Gdzie zapisać spakowane potwierdzenia?");
 		lblSendZipFileQ.setBounds(10, 19, 326, 14);
-		lblSendMailReceiver = new JLabel("Odbiorca");
-		lblSendMailReceiver.setBounds(10, 50, 73, 14);
+		lblSendFilesMailReceiver = new JLabel("Odbiorca");
+		lblSendFilesMailReceiver.setBounds(10, 49, 73, 14);
 		lblQueueMainFiles = new JLabel("Podaj ścieżkę do pliku z kolejką");
 		lblQueueMainFiles.setBounds(10, 21, 219, 14);
 
@@ -133,24 +137,20 @@ public class Manager extends JFrame {
 		textFieldBrowseFiles.setBounds(181, 68, 389, 20);
 		textFieldBrowseFiles.setColumns(10);
 		textFieldBrowseFiles.setText(DBData.pathInitBrowseFiles);
-		textFieldSendMailReceiver = new JTextField();
-		textFieldSendMailReceiver.setText(DBData.pathInitSendMailReceiver);
-		textFieldSendMailReceiver.setBounds(80, 47, 256, 20);
-		textFieldSendMailFile = new JTextField();
-		textFieldSendMailFile.setBounds(80, 75, 256, 20);
-		textFieldSendMailFile.setText(DBData.pathInitQueueNewFile);
-		textFieldSendZipFile = new JTextField();
-		textFieldSendZipFile.setBounds(80, 44, 256, 20);
+		textFieldSendFilesMailReceiver = new JTextField();
+		textFieldSendFilesMailReceiver.setText(DBData.pathInitSendMailReceiver);
+		textFieldSendFilesMailReceiver.setBounds(80, 45, 352, 20);
+		textFieldSendFilesMailFile = new JTextField();
+		textFieldSendFilesMailFile.setBounds(80, 75, 352, 20);
+		textFieldSendFilesMailFile.setText(DBData.pathInitQueueNewFile);
+		textFieldSendZipFile = new JTextField(DBData.pathInitBrowseFiles);
+		textFieldSendZipFile.setBounds(80, 44, 352, 20);
 		textFieldSendZipFile.setColumns(10);
-		textFieldSendZipFile.setText(DBData.pathInitSendZipFile);
-		textFieldSendMailSender = new JTextField();
-		textFieldSendMailSender.setText("Editing not enabled");
-		textFieldSendMailSender.setBounds(80, 22, 256, 20);
-		textFieldSendMailSender.setEnabled(false);
-		textFieldSendMailSender.setText(DBData.pathInitSendMailSender);
-		textFieldSendConsole = new JTextField();
-		textFieldSendConsole.setBounds(10, 21, 326, 86);
-		textFieldSendConsole.setEditable(false);
+		textFieldSendFilesMailSender = new JTextField();
+		textFieldSendFilesMailSender.setText("Editing not enabled");
+		textFieldSendFilesMailSender.setBounds(80, 15, 352, 20);
+		textFieldSendFilesMailSender.setEnabled(false);
+		textFieldSendFilesMailSender.setText(DBData.pathInitSendMailSender);
 		textFieldQueueMainFiles = new JTextField();
 		textFieldQueueMainFiles.setBounds(197, 18, 346, 20);
 		textFieldQueueMainFiles.setColumns(10);
@@ -195,15 +195,15 @@ public class Manager extends JFrame {
 		btnBrowseDeleteEntry = new JButton("Usuń wpis");
 		btnBrowseDeleteEntry.setBounds(577, 120, 109, 20);
 		btnSendExit = new JButton("Zamknij");
-		btnSendExit.setBounds(577, 459, 109, 20);
+		btnSendExit.setBounds(577, 462, 109, 20);
 		btnSendZipZip = new JButton("Spakuj");
-		btnSendZipZip.setBounds(227, 75, 109, 20);
-		btnSendMailSend = new JButton("Wyślij");
-		btnSendMailSend.setBounds(227, 106, 109, 20);
-		btnSendMailBrowse = new JButton("Przeglądaj");
-		btnSendMailBrowse.setBounds(10, 106, 109, 20);
+		btnSendZipZip.setBounds(561, 44, 109, 20);
+		btnSendFilesMailSend = new JButton("Wyślij");
+		btnSendFilesMailSend.setBounds(561, 75, 109, 20);
+		btnSendFilesMailBrowse = new JButton("Przeglądaj");
+		btnSendFilesMailBrowse.setBounds(442, 75, 109, 20);
 		btnSendZipBrowse = new JButton("Przeglądaj");
-		btnSendZipBrowse.setBounds(10, 75, 109, 20);
+		btnSendZipBrowse.setBounds(442, 44, 109, 20);
 		btnQueueMainFiles = new JButton("Przeglądaj");
 		btnQueueMainFiles.setBounds(553, 17, 109, 20);
 		btnQueueMainSaveChanges = new JButton("Zapisz");
@@ -236,11 +236,11 @@ public class Manager extends JFrame {
 				fileManager.browseDirectory();
 			}
 		});
-		btnSendMailBrowse.addActionListener(new ActionListener() {
+		btnSendFilesMailBrowse.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				FileManager fileManager = new FileManager(textFieldSendMailFile);
+				FileManager fileManager = new FileManager(textFieldSendFilesMailFile);
 				fileManager.browseFile();
 			}
 		});
@@ -298,7 +298,7 @@ public class Manager extends JFrame {
 				DataCompression dataCompression = new DataCompression(dataLoader.getFileList(),
 						textFieldSendZipFile.getText(), textFieldBrowseFiles.getText());
 				dataCompression.zipFiles();
-				textFieldSendMailFile.setText(dataCompression.shareZipPath());
+				textFieldSendFilesMailFile.setText(dataCompression.shareZipPath());
 			}
 		});
 		btnQueueMainFiles.addActionListener(new ActionListener() {
@@ -313,11 +313,11 @@ public class Manager extends JFrame {
 				queueManager.parseFile();
 			}
 		});
-		btnSendMailSend.addActionListener(new ActionListener() {
+		btnSendFilesMailSend.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MailManager mailManager = new MailManager(frame, textFieldSendMailSender.getText(),
-						textFieldSendMailReceiver.getText(), textFieldSendMailFile.getText());
+				MailManager mailManager = new MailManager(frame, textFieldSendFilesMailSender.getText(),
+						textFieldSendFilesMailReceiver.getText(), textFieldSendFilesMailFile.getText(), dataLoader.ewusMailTopic());
 				mailManager.sendMail();
 			}
 		});
@@ -419,7 +419,7 @@ public class Manager extends JFrame {
 		scrollPaneBrowseMain.setSize(545, 348);
 		scrollPaneBrowseMain.setViewportView(tableBrowseMain);
 		scrollPaneSendFilesInfo = new JScrollPane();
-		scrollPaneSendFilesInfo.setBounds(6, 16, 312, 382);
+		scrollPaneSendFilesInfo.setBounds(6, 16, 664, 68);
 		scrollPaneSendFilesInfo.setViewportView(textAreaSendFilesInfo);
 		scrollPaneQueueMainFileContent = new JScrollPane();
 		scrollPaneQueueMainFileContent.setBounds(10, 46, 533, 325);
@@ -429,7 +429,7 @@ public class Manager extends JFrame {
 		scrollPaneBrowseInfo.setViewportView(textAreaBrowseInfo);
 		scrollPaneSendInfo = new JScrollPane();
 		scrollPaneSendInfo.setBorder(null);
-		scrollPaneSendInfo.setBounds(10, 11, 676, 44);
+		scrollPaneSendInfo.setBounds(10, 7, 676, 44);
 		scrollPaneSendInfo.setViewportView(textAreaSendInfo);
 		scrollPaneQueueInfo = new JScrollPane();
 		scrollPaneQueueInfo.setBorder(null);
@@ -438,13 +438,11 @@ public class Manager extends JFrame {
 		scrollPaneQueueMainFileContent.setViewportView(editorPaneQueueMainFileContent);
 
 		//PANEL
-		panelSendConsole = new JPanel();
-		panelSendConsole.setBorder(
-				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informacje o dzia\u0142aniu programu",
-						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelSendConsole.setBounds(340, 339, 346, 118);
-		panelSendConsole.setLayout(null);
-		panelSendConsole.add(textFieldSendConsole);
+		panelSendConsoleQueueFile = new JPanel();
+		panelSendConsoleQueueFile.setBorder(
+				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Wysy\u0142anie pliku z kolejk\u0105 pacjent\u00F3w", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelSendConsoleQueueFile.setBounds(10, 347, 680, 108);
+		panelSendConsoleQueueFile.setLayout(null);
 		panelQueueMain = new JPanel();
 		panelQueueMain.setBorder(new TitledBorder(null, "Zarz\u0105dzanie zapisami", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
@@ -461,22 +459,21 @@ public class Manager extends JFrame {
 		panelQueueMain.add(btnQueueMainAddDate);
 		panelQueueMain.add(btnQueueMainAddVisit);
 		panelSendMail = new JPanel();
-		panelSendMail.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Kontakt mailowy",
-				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelSendMail.setBounds(340, 190, 346, 140);
+		panelSendMail.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Wysy\u0142anie pliku z potwierdzeniami", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelSendMail.setBounds(10, 237, 680, 103);
 		panelSendMail.setLayout(null);
-		panelSendMail.add(textFieldSendMailReceiver);
-		panelSendMail.add(lblSendMailReceiver);
-		panelSendMail.add(btnSendMailSend);
-		panelSendMail.add(lblSendMailFile);
-		panelSendMail.add(textFieldSendMailFile);
-		panelSendMail.add(btnSendMailBrowse);
-		panelSendMail.add(lblSendMailSender);
-		panelSendMail.add(textFieldSendMailSender);
+		panelSendMail.add(textFieldSendFilesMailReceiver);
+		panelSendMail.add(lblSendFilesMailReceiver);
+		panelSendMail.add(btnSendFilesMailSend);
+		panelSendMail.add(lblSendFilesMailFile);
+		panelSendMail.add(textFieldSendFilesMailFile);
+		panelSendMail.add(btnSendFilesMailBrowse);
+		panelSendMail.add(lblSendFilesMailSender);
+		panelSendMail.add(textFieldSendFilesMailSender);
 		panelSendZip = new JPanel();
 		panelSendZip.setBorder(new TitledBorder(null, "Pakowanie potwierdze\u0144", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
-		panelSendZip.setBounds(340, 70, 346, 109);
+		panelSendZip.setBounds(10, 155, 680, 75);
 		panelSendZip.setLayout(null);
 		panelSendZip.add(lblSendZipFile);
 		panelSendZip.add(lblSendZipFileQ);
@@ -486,7 +483,7 @@ public class Manager extends JFrame {
 		panelSendFilesInfo = new JPanel();
 		panelSendFilesInfo.setBorder(new TitledBorder(null, "Informacje o potwierdzeniach", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
-		panelSendFilesInfo.setBounds(10, 70, 324, 409);
+		panelSendFilesInfo.setBounds(10, 58, 680, 90);
 		panelSendFilesInfo.setLayout(null);
 		panelSendFilesInfo.add(scrollPaneSendFilesInfo);
 		panelBrowseMain = new JPanel();
@@ -506,7 +503,59 @@ public class Manager extends JFrame {
 		panelBrowse.add(scrollPaneBrowseInfo);
 		panelSend = new JPanel();
 		panelSend.setLayout(null);
-		panelSend.add(panelSendConsole);
+		panelSend.add(panelSendConsoleQueueFile);
+		
+		JLabel lblSendQueueMailSender = new JLabel("Nadawca");
+		lblSendQueueMailSender.setBounds(10, 23, 73, 14);
+		panelSendConsoleQueueFile.add(lblSendQueueMailSender);
+		
+		textFieldSendQueueMailSender = new JTextField(DBData.pathInitSendMailSender);
+		textFieldSendQueueMailSender.setEnabled(false);
+		textFieldSendQueueMailSender.setEditable(false);
+		textFieldSendQueueMailSender.setBounds(80, 18, 352, 20);
+		panelSendConsoleQueueFile.add(textFieldSendQueueMailSender);
+		textFieldSendQueueMailSender.setColumns(10);
+		
+		JLabel lblSendQueueMailReceiver = new JLabel("Odbiorca");
+		lblSendQueueMailReceiver.setBounds(10, 52, 73, 14);
+		panelSendConsoleQueueFile.add(lblSendQueueMailReceiver);
+		
+		textFieldSendQueueMailReceiver = new JTextField(DBData.pathInitSendMailReceiver);
+		textFieldSendQueueMailReceiver.setBounds(80, 48, 352, 20);
+		panelSendConsoleQueueFile.add(textFieldSendQueueMailReceiver);
+		textFieldSendQueueMailReceiver.setColumns(10);
+		
+		JLabel lblSendQueueMailFile = new JLabel("Ścieżka");
+		lblSendQueueMailFile.setBounds(10, 81, 73, 14);
+		panelSendConsoleQueueFile.add(lblSendQueueMailFile);
+		
+		textFieldSendQueueMailFile = new JTextField(DBData.pathInitQueueExistingFile);
+		textFieldSendQueueMailFile.setBounds(80, 78, 352, 20);
+		panelSendConsoleQueueFile.add(textFieldSendQueueMailFile);
+		textFieldSendQueueMailFile.setColumns(10);
+		
+		JButton btnSendQueueMailSend = new JButton("Wyślij");
+		btnSendQueueMailSend.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MailManager mailManager = new MailManager(frame, textFieldSendFilesMailSender.getText(),
+						textFieldSendFilesMailReceiver.getText(), textFieldSendQueueMailFile.getText(), "Kolejka " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+				mailManager.sendMail();
+			}
+		});
+		btnSendQueueMailSend.setBounds(561, 78, 109, 20);
+		panelSendConsoleQueueFile.add(btnSendQueueMailSend);
+		
+		JButton btnSendQueueMailBrowse = new JButton("Przeglądaj");
+		btnSendQueueMailBrowse.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				FileManager fileManager = new FileManager(textFieldSendQueueMailFile);
+				fileManager.browseFile();
+			}
+		});
+		btnSendQueueMailBrowse.setBounds(442, 78, 109, 20);
+		panelSendConsoleQueueFile.add(btnSendQueueMailBrowse);
 		panelSend.add(panelSendFilesInfo);
 		panelSend.add(panelSendMail);
 		panelSend.add(btnSendExit);

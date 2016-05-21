@@ -55,17 +55,17 @@ public class Login extends JFrame {
 	private void initialize() {
 
 		// LABEL
-		lblPassword = new JLabel("Has\u0142o");
-		lblPassword.setBounds(6, 52, 46, 14);
+		lblPassword = new JLabel("Hasło");
+		lblPassword.setBounds(10, 50, 46, 14);
 		lblLogin = new JLabel("Login");
-		lblLogin.setBounds(6, 22, 46, 14);
+		lblLogin.setBounds(10, 22, 46, 14);
 
 		// TEXTFIELD
 		textFieldUserName = new JTextField();
 		textFieldUserName.setBounds(57, 19, 123, 20);
 		textFieldUserName.setColumns(10);
 		textFieldPassword = new JPasswordField();
-		textFieldPassword.setBounds(57, 49, 123, 20);
+		textFieldPassword.setBounds(57, 47, 123, 20);
 		textFieldPassword.setColumns(10);
 		try {
 			textFieldUserName.setText(DBData.getInstance().getInitLoginData().get(0));
@@ -77,8 +77,8 @@ public class Login extends JFrame {
 		// TEXTAREA
 
 		// BUTTON
-		btnLogin = new JButton("Login");
-		btnLogin.setBounds(57, 79, 123, 23);
+		btnLogin = new JButton("Zaloguj się");
+		btnLogin.setBounds(61, 72, 123, 23);
 
 		// TABLE
 
