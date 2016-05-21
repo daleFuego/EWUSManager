@@ -100,7 +100,7 @@ public class Manager extends JFrame {
 
 	public Manager() {
 		setLocale(new Locale("pl", "PL"));
-		setTitle("eWU\u015A MANAGER");
+		setTitle("eWUŚ MANAGER");
 		DefineUtils defineUtils = new DefineUtils();
 		defineUtils.initDataLoad();
 		DBData.getInstance().getInitData();
@@ -115,17 +115,17 @@ public class Manager extends JFrame {
 		//LABEL
 		lblSendMailSender = new JLabel("Nadawca");
 		lblSendMailSender.setBounds(10, 25, 73, 14);
-		lblBrowseFiles = new JLabel("Podaj \u015Bcie\u017Ck\u0119 do potwierdze\u0144");
+		lblBrowseFiles = new JLabel("Podaj ścieżkę do potwierdzeń");
 		lblBrowseFiles.setBounds(5, 68, 171, 20);
-		lblSendMailFile = new JLabel("\u015Acie\u017Cka");
+		lblSendMailFile = new JLabel("Ścieżka");
 		lblSendMailFile.setBounds(10, 78, 73, 14);
-		lblSendZipFile = new JLabel("\u015Acie\u017Cka");
+		lblSendZipFile = new JLabel("Ścieżka");
 		lblSendZipFile.setBounds(10, 47, 73, 14);
-		lblSendZipFileQ = new JLabel("Gdzie zapisa\u0107 spakowane potwierdzenia?");
+		lblSendZipFileQ = new JLabel("Gdzie zapisać spakowane potwierdzenia?");
 		lblSendZipFileQ.setBounds(10, 19, 326, 14);
 		lblSendMailReceiver = new JLabel("Odbiorca");
 		lblSendMailReceiver.setBounds(10, 50, 73, 14);
-		lblQueueMainFiles = new JLabel("Podaj \u015Bcie\u017Ck\u0119 do pliku z kolejk\u0105");
+		lblQueueMainFiles = new JLabel("Podaj ścieżkę do pliku z kolejką");
 		lblQueueMainFiles.setBounds(10, 21, 219, 14);
 
 		//TEXT FIELD
@@ -190,29 +190,29 @@ public class Manager extends JFrame {
 		btnBrowseUndoDelete = new JButton("Cofnij");
 		btnBrowseUndoDelete.setBounds(577, 151, 109, 20);
 		btnBrowseUndoDelete.setEnabled(false);
-		btnBrowseBrowseFiles = new JButton("Przegl\u0105daj");
+		btnBrowseBrowseFiles = new JButton("Przeglądaj");
 		btnBrowseBrowseFiles.setBounds(577, 68, 109, 20);
-		btnBrowseDeleteEntry = new JButton("Usu\u0144 wpis");
+		btnBrowseDeleteEntry = new JButton("Usuń wpis");
 		btnBrowseDeleteEntry.setBounds(577, 120, 109, 20);
 		btnSendExit = new JButton("Zamknij");
 		btnSendExit.setBounds(577, 459, 109, 20);
 		btnSendZipZip = new JButton("Spakuj");
 		btnSendZipZip.setBounds(227, 75, 109, 20);
-		btnSendMailSend = new JButton("Wy\u015Blij");
+		btnSendMailSend = new JButton("Wyślij");
 		btnSendMailSend.setBounds(227, 106, 109, 20);
-		btnSendMailBrowse = new JButton("Przegl\u0105daj");
+		btnSendMailBrowse = new JButton("Przeglądaj");
 		btnSendMailBrowse.setBounds(10, 106, 109, 20);
-		btnSendZipBrowse = new JButton("Przegl\u0105daj");
+		btnSendZipBrowse = new JButton("Przeglądaj");
 		btnSendZipBrowse.setBounds(10, 75, 109, 20);
-		btnQueueMainFiles = new JButton("Przegl\u0105daj");
+		btnQueueMainFiles = new JButton("Przeglądaj");
 		btnQueueMainFiles.setBounds(553, 17, 109, 20);
 		btnQueueMainSaveChanges = new JButton("Zapisz");
 		btnQueueMainSaveChanges.setBounds(553, 265, 109, 20);
-		btnQueueMainCreateNewFile = new JButton("Utw\u00F3rz nowy");
+		btnQueueMainCreateNewFile = new JButton("Utwórz nowy");
 		btnQueueMainCreateNewFile.setBounds(553, 64, 109, 20);
-		btnQueueMainRejectChanges = new JButton("Odrzu\u0107");
+		btnQueueMainRejectChanges = new JButton("Odrzuć");
 		btnQueueMainRejectChanges.setBounds(553, 332, 109, 20);
-		btnQueueMainAddVisit = new JButton("Dodaj wizyt\u0119");
+		btnQueueMainAddVisit = new JButton("Dodaj wizytę");
 		btnQueueMainAddVisit.setBounds(553, 131, 109, 20);
 		btnQueueMainAddDate = new JButton("Dodaj termin");
 		btnQueueMainAddDate.setBounds(553, 198, 109, 20);

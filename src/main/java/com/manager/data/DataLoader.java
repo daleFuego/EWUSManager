@@ -112,7 +112,7 @@ public class DataLoader {
 		}
 		loadFiles();
 		try {
-			for (int i = dataList.size() - 1; i > 0; i--) {
+			for (int i = 0; i < dataList.size();i++) {
 				Vector<Object> data = new Vector<Object>();
 				data.add(i);
 				data.add(dataList.get(i).get(0));
@@ -133,7 +133,7 @@ public class DataLoader {
 	public String provideInfo() {
 		String infoText = "";
 		try {
-			infoText = "Ilo�� potwierdze�: " + dataList.size() + "\n" + "Okres czasu: od "
+			infoText = "Ilość potwierdzeń: " + dataList.size() + "\n" + "Okres czasu: od "
 					+ dataList.get(0).get(0) + " do " + dataList.get(dataList.size() - 1).get(0) + "\n";
 		} catch (Exception ex) {
 
