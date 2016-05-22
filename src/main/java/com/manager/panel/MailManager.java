@@ -47,6 +47,7 @@ public class MailManager {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (sendMail(passwordPanel.passwordField.getText())) {
+					DefineUtils.MAIL_PASSWORD = passwordPanel.passwordField.getText();
 					passwordPanel.dispose();
 				}
 			}
@@ -67,6 +68,7 @@ public class MailManager {
 					return new PasswordAuthentication(sender, password);
 				}
 			});
+
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(sender));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiver));
@@ -92,6 +94,7 @@ public class MailManager {
 					JOptionPane.ERROR_MESSAGE);
 			result = false;
 		}
+		
 		return result;
 	}
 }

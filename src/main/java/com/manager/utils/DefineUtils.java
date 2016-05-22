@@ -6,6 +6,9 @@ import java.io.IOException;
 
 public class DefineUtils {
 
+	public static String APP_TITLE		 			= "EWUŚ Manager";
+	public static String FILE_SEPARATOR	 			= "";
+	public static String MAIL_PASSWORD	 			= "";
 	public static String BRWOSE_DESCRIPTION		 	= "";
 	public static String SEND_DESRIPTION 			= "";
 	public static String QUEUE_DESCRIPTION 			= "";
@@ -20,7 +23,13 @@ public class DefineUtils {
 	public static String DB_pathqueueexistingfile 	= "pathqueueexistingfile";
 	public static String DB_pathqueuenewfile 		= "pathqueuenewfile";
 
-	public void initDataLoad() {
+	public static void initDataLoad() {
+		if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {
+			FILE_SEPARATOR = "\\";
+		} else {
+			FILE_SEPARATOR = "/";
+		}
+		
 		String content = "";
 		try {
 			@SuppressWarnings("resource")

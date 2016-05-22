@@ -32,14 +32,15 @@ public class Login extends JFrame {
 	private JLabel lblPassword;
 	private JLabel lblLogin;
 
-	private JButton btnLogin;
+	public static JButton btnLogin;
 	private static Login frame;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
+				try {			
 					frame = new Login();
+					btnLogin.doClick();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

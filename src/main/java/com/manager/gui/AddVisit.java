@@ -82,7 +82,7 @@ public class AddVisit extends JDialog {
 			textFieldDate.setColumns(10);
 		}
 		{
-			JLabel lblName = new JLabel("Imi\u0119");
+			JLabel lblName = new JLabel("Imię");
 			lblName.setBounds(21, 36, 86, 14);
 			contentPanel.add(lblName);
 		}

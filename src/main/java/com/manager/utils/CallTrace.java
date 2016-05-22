@@ -24,7 +24,8 @@ public class CallTrace {
 
 	public static void log(String message) {
 		try {
-			path = "C:\\Users\\Magdalena\\Desktop\\Log.log";
+			path = System.getProperty("user.home") + DefineUtils.FILE_SEPARATOR + "Desktop" + DefineUtils.FILE_SEPARATOR
+					+ "Log.log";
 			FileHandler fileHandler = new FileHandler(path, true);
 			SimpleFormatter formatter = new SimpleFormatter();
 			fileHandler.setFormatter(formatter);

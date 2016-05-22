@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
+import com.manager.utils.DefineUtils;
+
 @SuppressWarnings("serial")
 public class PasswordPanel extends JFrame {
 
@@ -18,7 +20,7 @@ public class PasswordPanel extends JFrame {
 	public JButton btnConfirm;
 
 	public PasswordPanel() {
-		setTitle("EWUŚ MANAGER");
+		setTitle(DefineUtils.APP_TITLE);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 473, 63);
@@ -26,15 +28,15 @@ public class PasswordPanel extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblEnterPassword = new JLabel("Podaj hasło do swojego konta mailowego:");
 		lblEnterPassword.setBounds(6, 5, 208, 14);
 		contentPane.add(lblEnterPassword);
-		
-		passwordField = new JPasswordField();
+
+		passwordField = new JPasswordField(DefineUtils.MAIL_PASSWORD);
 		passwordField.setBounds(220, 2, 136, 20);
 		contentPane.add(passwordField);
-		
+
 		btnConfirm = new JButton("Potwierdź");
 		btnConfirm.setBounds(362, 1, 89, 23);
 

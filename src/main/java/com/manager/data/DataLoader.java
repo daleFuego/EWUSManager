@@ -16,6 +16,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.manager.utils.CallTrace;
+import com.manager.utils.DefineUtils;
 
 public class DataLoader {
 
@@ -65,14 +66,16 @@ public class DataLoader {
 
 	public boolean deleteFile(String fileName) {
 		boolean result = false;
-		String filePath = directory + "\\" + fileName;
+		String filePath = directory + DefineUtils.FILE_SEPARATOR + fileName;
 		File file = new File(filePath);
 		if (!file.isDirectory()) {
-			File binPath = new File(System.getProperty("user.home"), "Desktop" + "\\DeletedItems\\" + fileName);
+			File binPath = new File(System.getProperty("user.home"),
+					"Desktop" + DefineUtils.FILE_SEPARATOR + "DeletedItems" + DefineUtils.FILE_SEPARATOR + fileName);
 			if (file.renameTo(binPath)) {
 				result = true;
 			} else {
-				File dir = new File(System.getProperty("user.home"), "Desktop" + "\\DeletedItems");
+				File dir = new File(System.getProperty("user.home"),
+						"Desktop" + DefineUtils.FILE_SEPARATOR + "DeletedItems");
 				dir.mkdir();
 				file.renameTo(binPath);
 				result = true;
@@ -90,10 +93,10 @@ public class DataLoader {
 			while ((msg = bufferedReader.readLine()) != null) {
 				if (msg.contains("#delete")) {
 					String deletedFilePath = msg.split(":")[2];
-					String restoredFilePath = directory + "\\" + deletedFilePath;
+					String restoredFilePath = directory + DefineUtils.FILE_SEPARATOR + deletedFilePath;
 					File restoredFile = new File(restoredFilePath);
-					File binFile = new File(System.getProperty("user.home"),
-							"Desktop" + "\\DeletedItems\\" + deletedFilePath);
+					File binFile = new File(System.getProperty("user.home"), "Desktop" + DefineUtils.FILE_SEPARATOR
+							+ "DeletedItems" + DefineUtils.FILE_SEPARATOR + deletedFilePath);
 					binFile.renameTo(restoredFile);
 					CallTrace.getInstance().clearLogs();
 				}
@@ -112,7 +115,7 @@ public class DataLoader {
 		}
 		loadFiles();
 		try {
-			for (int i = 0; i < dataList.size();i++) {
+			for (int i = 0; i < dataList.size(); i++) {
 				Vector<Object> data = new Vector<Object>();
 				data.add(i);
 				data.add(dataList.get(i).get(0));
@@ -133,19 +136,19 @@ public class DataLoader {
 	public String provideInfo() {
 		String infoText = "";
 		try {
-			infoText = "Ilość potwierdzeń: " + dataList.size() + "\n" + "Okres czasu: od "
-					+ dataList.get(0).get(0) + " do " + dataList.get(dataList.size() - 1).get(0) + "\n";
+			infoText = "Ilość potwierdzeń: " + dataList.size() + "\n" + "Okres czasu: od " + dataList.get(0).get(0)
+					+ " do " + dataList.get(dataList.size() - 1).get(0) + "\n";
 		} catch (Exception ex) {
 
 		}
 		return infoText;
 	}
-	
+
 	public String ewusMailTopic() {
 		String infoText = "";
 		try {
-			infoText = "Potwierdzenia EWUS (od "
-					+ dataList.get(0).get(0) + " do " + dataList.get(dataList.size() - 1).get(0) + ")";
+			infoText = "Potwierdzenia EWUS (od " + dataList.get(0).get(0) + " do "
+					+ dataList.get(dataList.size() - 1).get(0) + ")";
 		} catch (Exception ex) {
 			infoText = "Potwierdzenia EWUS";
 		}
