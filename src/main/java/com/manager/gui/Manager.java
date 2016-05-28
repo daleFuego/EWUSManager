@@ -101,18 +101,21 @@ public class Manager extends JFrame {
 	private JTextField textFieldSendQueueMailSender;
 	private JTextField textFieldSendQueueMailReceiver;
 	private JTextField textFieldSendQueueMailFile;
+	private WaitFrame waitFrame;
 
 	public Manager() {
 		setLocale(new Locale("pl", "PL"));
 		setTitle(DefineUtils.APP_TITLE);
 		DefineUtils.initDataLoad();
 		DBData.getInstance().getInitData();
-
+		
 		initialize();
 	}
 
 	public void initialize() {
 
+		waitFrame = new WaitFrame();
+		
 		final JFrame frame = this;
 		lblBrowseFiles = new JLabel("Podaj ścieżkę do potwierdzeń");
 		lblBrowseFiles.setBounds(5, 68, 171, 20);
@@ -462,7 +465,7 @@ public class Manager extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				MailManager mailManager = new MailManager(frame, textFieldSendFilesMailSender.getText(),
 						textFieldSendFilesMailReceiver.getText(), textFieldSendFilesMailFile.getText(),
-						dataLoader.ewusMailTopic());
+						dataLoader.ewusMailTopic(), waitFrame);
 				mailManager.sendMail();
 			}
 		});
@@ -549,7 +552,7 @@ public class Manager extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				MailManager mailManager = new MailManager(frame, textFieldSendFilesMailSender.getText(),
 						textFieldSendFilesMailReceiver.getText(), textFieldSendQueueMailFile.getText(),
-						"Kolejka " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+						"Kolejka " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()), waitFrame);
 				mailManager.sendMail();
 			}
 		});

@@ -105,7 +105,7 @@ public class DBData {
 				pathInitBrowseFiles = rs.getString("pathbrowsefiles");
 				pathInitSendZipFile = rs.getString("pathsendzipsave");
 				pathInitSendMailSender = rs.getString("pathsendmailsender");
-				pathInitSendMailReceiver = "stomatologiamalgorzatamatusiak@gmail.com";//rs.getString("pathsendmailreceiver");
+				pathInitSendMailReceiver = rs.getString("pathsendmailreceiver");
 				pathInitSendMailFile = rs.getString("pathsendmailfile");
 				pathInitQueueExistingFile = rs.getString("pathqueueexistingfile");
 				pathInitQueueNewFile = rs.getString("pathqueuenewfile");
