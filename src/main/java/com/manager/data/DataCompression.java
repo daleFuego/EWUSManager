@@ -46,6 +46,7 @@ public class DataCompression {
 			}
 		});
 		progessDialog = new ProgressDialog("Buduję archiwum...");
+		progessDialog.setVisible(true);
 
 		task.execute();
 	}

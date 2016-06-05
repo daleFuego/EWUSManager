@@ -40,7 +40,6 @@ public class Login extends JFrame {
 			public void run() {
 				try {			
 					frame = new Login();
-					btnLogin.doClick();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -132,8 +131,7 @@ public class Login extends JFrame {
 				try {
 					if (DBData.verifyLoginData(textFieldUserName.getText(), textFieldPassword.getText())) {
 						setVisible(false);
-						@SuppressWarnings("unused")
-						Manager manager = new Manager();
+						new Manager();
 
 					} else {
 						JOptionPane.showMessageDialog(frame, "Verification failed, check username or password", "Error",

@@ -23,7 +23,6 @@ import javax.swing.JOptionPane;
 
 import com.manager.dao.DBData;
 import com.manager.gui.PasswordPanel;
-import com.manager.gui.WaitFrame;
 import com.manager.utils.DefineUtils;
 
 public class MailManager {
@@ -32,14 +31,12 @@ public class MailManager {
 	private String sender;
 	private String filePath;
 	private String topic;
-	private WaitFrame waitFrame;
 
-	public MailManager(JFrame frame, String sender, String receiver, String filePath, String topic, WaitFrame waitFrame) {
+	public MailManager(JFrame frame, String sender, String receiver, String filePath, String topic) {
 		this.receiver = receiver;
 		this.sender = sender;
 		this.filePath = filePath;
 		this.topic = topic;
-		this.waitFrame = waitFrame;
 	}
 
 	public void sendMail() {
@@ -49,7 +46,6 @@ public class MailManager {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				waitFrame.setVisible(true);
 				if (sendMail(passwordPanel.passwordField.getText())) {
 					DefineUtils.MAIL_PASSWORD = passwordPanel.passwordField.getText();
 					passwordPanel.dispose();
@@ -60,9 +56,7 @@ public class MailManager {
 
 	private boolean sendMail(String password) {
 		boolean result = true;
-		
-		
-		
+
 		try {
 			Properties props = new Properties();
 			props.put("mail.smtp.auth", "true");
@@ -87,11 +81,10 @@ public class MailManager {
 			messageBodyPart = new MimeBodyPart();
 			DataSource source = new FileDataSource(filePath);
 			messageBodyPart.setDataHandler(new DataHandler(source));
-			messageBodyPart.setFileName(filePath);
+			messageBodyPart.setFileName(source.getName());
 			multipart.addBodyPart(messageBodyPart);
 			message.setContent(multipart);
 			Transport.send(message);
-			waitFrame.setVisible(false);
 			JOptionPane.showMessageDialog(null, "Wiadomość została wysłana", "EWUŚ MANAGER",
 					JOptionPane.INFORMATION_MESSAGE);
 			DBData.getInstance().updatePath(DefineUtils.DB_pathsendmailreceiver, receiver);

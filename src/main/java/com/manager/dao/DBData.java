@@ -11,7 +11,7 @@ import com.manager.utils.DefineUtils;
 public class DBData {
 
 	private static DBData dbData;
-	private static String username;
+	public static String username;
 
 	public static String pathInitBrowseFiles = "";
 	public static String pathInitSendZipFile = "";

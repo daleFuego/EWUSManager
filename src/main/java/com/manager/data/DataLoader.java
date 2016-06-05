@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,7 +33,11 @@ public class DataLoader {
 
 	private ArrayList<ArrayList<String>> loadFiles() {
 		dataList = new ArrayList<ArrayList<String>>();
+	
 		try {
+			Cipher desCipher = Cipher.getInstance("DES");
+			desCipher.init(Cipher.ENCRYPT_MODE, KeyGenerator.getInstance("DES").generateKey());
+			
 			File folder = new File(directory);
 			for (File file : folder.listFiles()) {
 				if (file.isFile() && file.getName().endsWith(".xml")) {
@@ -51,8 +57,8 @@ public class DataLoader {
 
 					infoSet.add(nodeDate.item(0).getTextContent());
 					infoSet.add(nodeName.item(0).getTextContent());
-					infoSet.add(nodeSurname.item(0).getTextContent());
-					infoSet.add(nodePesel.item(0).getTextContent());
+					infoSet.add(new String(desCipher.doFinal(nodeSurname.item(0).getTextContent().getBytes("UTF8"))));
+					infoSet.add(new String(desCipher.doFinal(nodePesel.item(0).getTextContent().getBytes("UTF8"))));
 					infoSet.add(file.getName());
 
 					dataList.add(infoSet);
@@ -61,6 +67,7 @@ public class DataLoader {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return dataList;
 	}
 

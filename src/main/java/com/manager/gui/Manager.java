@@ -101,21 +101,18 @@ public class Manager extends JFrame {
 	private JTextField textFieldSendQueueMailSender;
 	private JTextField textFieldSendQueueMailReceiver;
 	private JTextField textFieldSendQueueMailFile;
-	private WaitFrame waitFrame;
 
 	public Manager() {
 		setLocale(new Locale("pl", "PL"));
 		setTitle(DefineUtils.APP_TITLE);
 		DefineUtils.initDataLoad();
 		DBData.getInstance().getInitData();
-		
+
 		initialize();
 	}
 
 	public void initialize() {
 
-		waitFrame = new WaitFrame();
-		
 		final JFrame frame = this;
 		lblBrowseFiles = new JLabel("Podaj ścieżkę do potwierdzeń");
 		lblBrowseFiles.setBounds(5, 68, 171, 20);
@@ -390,6 +387,7 @@ public class Manager extends JFrame {
 		lblSendFilesMailReceiver = new JLabel("Odbiorca");
 		lblSendFilesMailReceiver.setBounds(10, 49, 73, 14);
 		textFieldSendFilesMailReceiver = new JTextField();
+		textFieldSendFilesMailReceiver.setFont(new Font("OpenSymbol", Font.PLAIN, 11));
 		textFieldSendFilesMailReceiver.setText(DBData.pathInitSendMailReceiver);
 		textFieldSendFilesMailReceiver.setBounds(80, 45, 352, 20);
 		textFieldSendFilesMailFile = new JTextField();
@@ -399,6 +397,7 @@ public class Manager extends JFrame {
 		textFieldSendZipFile.setBounds(80, 44, 352, 20);
 		textFieldSendZipFile.setColumns(10);
 		textFieldSendFilesMailSender = new JTextField();
+		textFieldSendFilesMailSender.setFont(new Font("OpenSymbol", Font.PLAIN, 11));
 		textFieldSendFilesMailSender.setText("Editing not enabled");
 		textFieldSendFilesMailSender.setBounds(80, 15, 352, 20);
 		textFieldSendFilesMailSender.setEnabled(false);
@@ -465,7 +464,7 @@ public class Manager extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				MailManager mailManager = new MailManager(frame, textFieldSendFilesMailSender.getText(),
 						textFieldSendFilesMailReceiver.getText(), textFieldSendFilesMailFile.getText(),
-						dataLoader.ewusMailTopic(), waitFrame);
+						dataLoader.ewusMailTopic());
 				mailManager.sendMail();
 			}
 		});
@@ -522,6 +521,7 @@ public class Manager extends JFrame {
 		panelSendConsoleQueueFile.add(lblSendQueueMailSender);
 
 		textFieldSendQueueMailSender = new JTextField(DBData.pathInitSendMailSender);
+		textFieldSendQueueMailSender.setFont(new Font("OpenSymbol", Font.PLAIN, 11));
 		textFieldSendQueueMailSender.setEnabled(false);
 		textFieldSendQueueMailSender.setEditable(false);
 		textFieldSendQueueMailSender.setBounds(80, 18, 352, 20);
@@ -533,6 +533,7 @@ public class Manager extends JFrame {
 		panelSendConsoleQueueFile.add(lblSendQueueMailReceiver);
 
 		textFieldSendQueueMailReceiver = new JTextField(DBData.pathInitSendMailReceiver);
+		textFieldSendQueueMailReceiver.setFont(new Font("OpenSymbol", Font.PLAIN, 11));
 		textFieldSendQueueMailReceiver.setBounds(80, 48, 352, 20);
 		panelSendConsoleQueueFile.add(textFieldSendQueueMailReceiver);
 		textFieldSendQueueMailReceiver.setColumns(10);
@@ -552,7 +553,7 @@ public class Manager extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				MailManager mailManager = new MailManager(frame, textFieldSendFilesMailSender.getText(),
 						textFieldSendFilesMailReceiver.getText(), textFieldSendQueueMailFile.getText(),
-						"Kolejka " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()), waitFrame);
+						"Kolejka " + new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 				mailManager.sendMail();
 			}
 		});
