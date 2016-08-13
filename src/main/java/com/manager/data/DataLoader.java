@@ -99,8 +99,7 @@ public class DataLoader {
 					String deletedFilePath = msg.split(":")[2];
 					String restoredFilePath = directory + DefineUtils.FILE_SEPARATOR + deletedFilePath;
 					File restoredFile = new File(restoredFilePath);
-					File binFile = new File(System.getProperty("user.home"), "Desktop" + DefineUtils.FILE_SEPARATOR
-							+ "DeletedItems" + DefineUtils.FILE_SEPARATOR + deletedFilePath);
+					File binFile = new File("DeletedItems" + DefineUtils.FILE_SEPARATOR + deletedFilePath);
 					binFile.renameTo(restoredFile);
 					CallTrace.getInstance().clearLogs();
 				}
