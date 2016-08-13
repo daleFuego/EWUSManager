@@ -31,6 +31,7 @@ public class AddVisit extends JDialog {
 	public JTextField textFieldSurname;
 	public JTextField textFieldDate;
 	public JTextField textFieldDayOfSave;
+	public boolean dayOfSave = false;
 
 	public AddVisit(final QueueManager queueManager) {
 		this.queueManager = queueManager;
@@ -107,6 +108,7 @@ public class AddVisit extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				dayOfSave = false;
 				calendar.setVisible(true);
 			}
 		});
@@ -127,9 +129,10 @@ public class AddVisit extends JDialog {
 			JButton buttonDateOfSave = new JButton("Data");
 			buttonDateOfSave.setBounds(237, 7, 62, 23);
 			buttonDateOfSave.addActionListener(new ActionListener() {
-
+		
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					dayOfSave = true;
 					calendar.setVisible(true);
 				}
 			});
