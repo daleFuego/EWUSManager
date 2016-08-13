@@ -75,13 +75,11 @@ public class DataLoader {
 		String filePath = directory + DefineUtils.FILE_SEPARATOR + fileName;
 		File file = new File(filePath);
 		if (!file.isDirectory()) {
-			File binPath = new File(System.getProperty("user.home"),
-					"Desktop" + DefineUtils.FILE_SEPARATOR + "DeletedItems" + DefineUtils.FILE_SEPARATOR + fileName);
+			File binPath = new File("DeletedItems" + DefineUtils.FILE_SEPARATOR + fileName);
 			if (file.renameTo(binPath)) {
 				result = true;
 			} else {
-				File dir = new File(System.getProperty("user.home"),
-						"Desktop" + DefineUtils.FILE_SEPARATOR + "DeletedItems");
+				File dir = new File("DeletedItems");
 				dir.mkdir();
 				file.renameTo(binPath);
 				result = true;
