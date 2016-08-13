@@ -57,15 +57,14 @@ public class DataLoader {
 
 					infoSet.add(nodeDate.item(0).getTextContent());
 					infoSet.add(nodeName.item(0).getTextContent());
-					infoSet.add(new String(desCipher.doFinal(nodeSurname.item(0).getTextContent().getBytes("UTF8"))));
-					infoSet.add(new String(desCipher.doFinal(nodePesel.item(0).getTextContent().getBytes("UTF8"))));
+					infoSet.add(nodeSurname.item(0).getTextContent());
+					infoSet.add(nodePesel.item(0).getTextContent());
 					infoSet.add(file.getName());
 
 					dataList.add(infoSet);
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		
 		return dataList;

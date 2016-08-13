@@ -1,7 +1,9 @@
 package com.manager.panel;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -18,8 +20,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 import com.manager.dao.DBData;
 import com.manager.gui.PasswordPanel;
@@ -31,24 +38,56 @@ public class MailManager {
 	private String sender;
 	private String filePath;
 	private String topic;
+	private JDialog waitDialog;
+	private PasswordPanel passwordPanel;
 
 	public MailManager(JFrame frame, String sender, String receiver, String filePath, String topic) {
+		
 		this.receiver = receiver;
 		this.sender = sender;
 		this.filePath = filePath;
 		this.topic = topic;
+
+		waitDialog = new JDialog();
+		waitDialog.setLocationRelativeTo(null);
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setIndeterminate(true);
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(progressBar, BorderLayout.CENTER);
+		panel.add(new JLabel("Trwa wysyłanie wiadomości..."), BorderLayout.PAGE_START);
+		waitDialog.add(panel);
+		waitDialog.pack();
+		
 	}
 
 	public void sendMail() {
-		PasswordPanel passwordPanel = new PasswordPanel();
+
+		passwordPanel = new PasswordPanel();
 		passwordPanel.btnConfirm.addActionListener(new ActionListener() {
 
 			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (sendMail(passwordPanel.passwordField.getText())) {
-					DefineUtils.MAIL_PASSWORD = passwordPanel.passwordField.getText();
-					passwordPanel.dispose();
+				waitDialog.setVisible(true);
+				passwordPanel.setVisible(false);
+
+				Thread thread = new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						if (sendMail(passwordPanel.passwordField.getText())) {
+							DefineUtils.MAIL_PASSWORD = passwordPanel.passwordField.getText();
+							passwordPanel.dispose();
+						}
+					}
+				});
+
+				thread.start();
+
+				try {
+					SwingUtilities.invokeAndWait(thread);
+				} catch (InvocationTargetException e1) {
+				} catch (InterruptedException e1) {
 				}
 			}
 		});
@@ -85,17 +124,19 @@ public class MailManager {
 			multipart.addBodyPart(messageBodyPart);
 			message.setContent(multipart);
 			Transport.send(message);
+			waitDialog.dispose();
 			JOptionPane.showMessageDialog(null, "Wiadomość została wysłana", "EWUŚ MANAGER",
 					JOptionPane.INFORMATION_MESSAGE);
 			DBData.getInstance().updatePath(DefineUtils.DB_pathsendmailreceiver, receiver);
 			DBData.getInstance().updatePath(DefineUtils.DB_pathsendmailfile, filePath);
-
 		} catch (MessagingException e) {
+			waitDialog.dispose();
 			JOptionPane.showMessageDialog(null, "Logowanie nie powiodło się", "EWUŚ MANAGER",
 					JOptionPane.ERROR_MESSAGE);
 			result = false;
 		}
-		
+
 		return result;
 	}
+
 }

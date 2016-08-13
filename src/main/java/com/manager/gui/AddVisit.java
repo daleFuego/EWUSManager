@@ -1,6 +1,7 @@
 package com.manager.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 
 import com.manager.data.PeselValidator;
 import com.manager.panel.QueueManager;
@@ -28,7 +31,6 @@ public class AddVisit extends JDialog {
 	public JTextField textFieldSurname;
 	public JTextField textFieldDate;
 	public JTextField textFieldDayOfSave;
-	public boolean dayOfSave = false;
 
 	public AddVisit(final QueueManager queueManager) {
 		this.queueManager = queueManager;
@@ -55,6 +57,18 @@ public class AddVisit extends JDialog {
 		{
 			textFieldPesel = new JTextField();
 			textFieldPesel.setBounds(128, 83, 171, 20);
+			
+			textFieldPesel.addCaretListener(new CaretListener() {
+				
+				@Override
+				public void caretUpdate(CaretEvent e) {					
+					if(new PeselValidator(textFieldPesel.getText()).isValid()){
+						textFieldPesel.setForeground(Color.BLACK);
+					} else{
+						textFieldPesel.setForeground(Color.RED);
+					}
+				}
+			});
 			contentPanel.add(textFieldPesel);
 			textFieldPesel.setColumns(10);
 		}
@@ -93,7 +107,6 @@ public class AddVisit extends JDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dayOfSave = false;
 				calendar.setVisible(true);
 			}
 		});
@@ -117,7 +130,6 @@ public class AddVisit extends JDialog {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					dayOfSave = true;
 					calendar.setVisible(true);
 				}
 			});
@@ -135,13 +147,10 @@ public class AddVisit extends JDialog {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						calendar.setVisible(false);
-
-						PeselValidator peselValidator = new PeselValidator(textFieldPesel.getText());
-
-						if (peselValidator.isValid())
-							queueManager.deliverData(textFieldDayOfSave.getText(), textFieldName.getText(),
-									textFieldSurname.getText(), textFieldPesel.getText(), textFieldDate.getText());
+						queueManager.deliverData(textFieldDayOfSave.getText(), textFieldName.getText(),
+								textFieldSurname.getText(), textFieldPesel.getText(), textFieldDate.getText());
 					}
+
 				});
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -155,7 +164,7 @@ public class AddVisit extends JDialog {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						System.exit(0);
+						dispose();
 					}
 				});
 			}

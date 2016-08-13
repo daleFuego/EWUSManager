@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.manager.gui.AddDate;
@@ -40,7 +41,11 @@ public class QueueManager {
 			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
 			while ((msg = bufferedReader.readLine()) != null) {
-				editorPane.setText(editorPane.getText() + "\n" + msg);
+				if (editorPane.getCaretPosition() != 0) {
+					editorPane.setText(editorPane.getText() + "\n" + msg);
+				} else {
+					editorPane.setText(editorPane.getText() + msg);
+				}
 			}
 		} catch (IOException e) {
 		}
@@ -51,11 +56,14 @@ public class QueueManager {
 			BufferedWriter bufferedWriter = new BufferedWriter(
 					new OutputStreamWriter(new FileOutputStream(filePath), "UTF-8"));
 
-			bufferedWriter.append(editorPane.getText());
+			bufferedWriter.write(editorPane.getText());
 			bufferedWriter.flush();
 			bufferedWriter.close();
+			
+			JOptionPane.showMessageDialog(null,"Zmiany zostały pomyślnie zapisane", "Kolejkowanie", JOptionPane.INFORMATION_MESSAGE);
 		} catch (IOException ioe) {
 			System.err.println("IOException: " + ioe.getMessage());
+			JOptionPane.showMessageDialog(null,"Wystąpił błąd w trakcie zapisywania dokumentu: " + ioe.getMessage(), "Kolejkowanie", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

@@ -55,12 +55,11 @@ public class UnitTests {
 	private Task task;
 	private ProgressDialog progessDialog;
 
-	private String username = "";
-	private String password = "";
-	private String mailAdress = "";
-	private String mailPassword = "";
-	private String PESEL = "";
-
+	private String username = "admin";
+	private String password = "admin";
+	private String mailAdress = DefineUtils.mailAdress;
+	private String mailPassword = DefineUtils.mailPassword;
+	
 	@Before
 	public void initialize() {
 
@@ -210,8 +209,7 @@ public class UnitTests {
 
 	@Test
 	public void testPESELValidation() {
-		PeselValidator peselValidator = new PeselValidator(PESEL);
-		Assert.assertTrue(peselValidator.isValid());
+		Assert.assertTrue(new PeselValidator("92011408360").isValid());
 	}
 
 	// @Test

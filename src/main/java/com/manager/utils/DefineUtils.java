@@ -6,7 +6,11 @@ import java.io.IOException;
 
 public class DefineUtils {
 
+	public static String mailAdress = "";
+	public static String mailPassword = "";
+	
 	public static String APP_TITLE		 			= "EWUŚ Manager";
+	public static String APP_VERSION				= " wersja 2.0";
 	public static String FILE_SEPARATOR	 			= "";
 	public static String MAIL_PASSWORD	 			= "";
 	public static String BRWOSE_DESCRIPTION		 	= "";

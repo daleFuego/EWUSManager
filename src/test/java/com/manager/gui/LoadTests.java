@@ -29,10 +29,12 @@ import javax.swing.JOptionPane;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.manager.utils.DefineUtils;
+
 public class LoadTests {
 
-	private String mailAdress = "";
-	private String mailPassword = "";
+	private String mailAdress = DefineUtils.mailAdress;
+	private String mailPassword = DefineUtils.mailPassword;
 
 	private String filePath100 = "C:\\Users\\Magdalena\\Documents\\Szkoła\\Computer Science and Information Technology\\Semestr 1\\Modelling and Analysis of Information Systems\\Potwierdzenia100";
 	private String filePath500 = "C:\\Users\\Magdalena\\Documents\\Szkoła\\Computer Science and Information Technology\\Semestr 1\\Modelling and Analysis of Information Systems\\Potwierdzenia500";

@@ -117,7 +117,7 @@ public class Manager extends JFrame {
 		lblBrowseFiles = new JLabel("Podaj ścieżkę do potwierdzeń");
 		lblBrowseFiles.setBounds(5, 68, 171, 20);
 		lblQueueMainFiles = new JLabel("Podaj ścieżkę do pliku z kolejką");
-		lblQueueMainFiles.setBounds(10, 21, 219, 14);
+		lblQueueMainFiles.setBounds(10, 21, 177, 14);
 
 		// TEXT FIELD
 		textFieldBrowseFiles = new JTextField();
@@ -322,8 +322,8 @@ public class Manager extends JFrame {
 
 		// SCROLLPANE
 		scrollPaneBrowseMain = new JScrollPane();
-		scrollPaneBrowseMain.setLocation(10, 21);
-		scrollPaneBrowseMain.setSize(545, 348);
+		scrollPaneBrowseMain.setLocation(10, 11);
+		scrollPaneBrowseMain.setSize(545, 332);
 		scrollPaneBrowseMain.setViewportView(tableBrowseMain);
 		scrollPaneQueueMainFileContent = new JScrollPane();
 		scrollPaneQueueMainFileContent.setBounds(10, 46, 533, 325);
@@ -353,7 +353,7 @@ public class Manager extends JFrame {
 		panelQueueMain.add(btnQueueMainAddVisit);
 		panelBrowseMain = new JPanel();
 		panelBrowseMain.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelBrowseMain.setBounds(5, 99, 565, 380);
+		panelBrowseMain.setBounds(5, 99, 565, 354);
 		panelBrowseMain.setLayout(null);
 		panelBrowseMain.add(scrollPaneBrowseMain);
 		panelBrowse = new JPanel();
@@ -387,7 +387,7 @@ public class Manager extends JFrame {
 		lblSendFilesMailReceiver = new JLabel("Odbiorca");
 		lblSendFilesMailReceiver.setBounds(10, 49, 73, 14);
 		textFieldSendFilesMailReceiver = new JTextField();
-		textFieldSendFilesMailReceiver.setFont(new Font("OpenSymbol", Font.PLAIN, 11));
+		textFieldSendFilesMailReceiver.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textFieldSendFilesMailReceiver.setText(DBData.pathInitSendMailReceiver);
 		textFieldSendFilesMailReceiver.setBounds(80, 45, 352, 20);
 		textFieldSendFilesMailFile = new JTextField();
@@ -397,7 +397,7 @@ public class Manager extends JFrame {
 		textFieldSendZipFile.setBounds(80, 44, 352, 20);
 		textFieldSendZipFile.setColumns(10);
 		textFieldSendFilesMailSender = new JTextField();
-		textFieldSendFilesMailSender.setFont(new Font("OpenSymbol", Font.PLAIN, 11));
+		textFieldSendFilesMailSender.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textFieldSendFilesMailSender.setText("Editing not enabled");
 		textFieldSendFilesMailSender.setBounds(80, 15, 352, 20);
 		textFieldSendFilesMailSender.setEnabled(false);
@@ -521,7 +521,7 @@ public class Manager extends JFrame {
 		panelSendConsoleQueueFile.add(lblSendQueueMailSender);
 
 		textFieldSendQueueMailSender = new JTextField(DBData.pathInitSendMailSender);
-		textFieldSendQueueMailSender.setFont(new Font("OpenSymbol", Font.PLAIN, 11));
+		textFieldSendQueueMailSender.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textFieldSendQueueMailSender.setEnabled(false);
 		textFieldSendQueueMailSender.setEditable(false);
 		textFieldSendQueueMailSender.setBounds(80, 18, 352, 20);
@@ -533,7 +533,7 @@ public class Manager extends JFrame {
 		panelSendConsoleQueueFile.add(lblSendQueueMailReceiver);
 
 		textFieldSendQueueMailReceiver = new JTextField(DBData.pathInitSendMailReceiver);
-		textFieldSendQueueMailReceiver.setFont(new Font("OpenSymbol", Font.PLAIN, 11));
+		textFieldSendQueueMailReceiver.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textFieldSendQueueMailReceiver.setBounds(80, 48, 352, 20);
 		panelSendConsoleQueueFile.add(textFieldSendQueueMailReceiver);
 		textFieldSendQueueMailReceiver.setColumns(10);
@@ -576,8 +576,20 @@ public class Manager extends JFrame {
 		panelSend.add(panelSendZip);
 		panelSend.add(scrollPaneSendInfo);
 		tabbedPane.addTab("Wysyłanie", null, panelSend, null);
+		
+		JLabel lblSendVersion = new JLabel(DefineUtils.APP_TITLE + DefineUtils.APP_VERSION);
+		lblSendVersion.setBounds(10, 465, 160, 14);
+		panelSend.add(lblSendVersion);
 		tabbedPane.addTab("Kolejka", null, panelQueue, null);
+		
+		JLabel lblQueueVersion = new JLabel(DefineUtils.APP_TITLE + DefineUtils.APP_VERSION);
+		lblQueueVersion.setBounds(10, 462, 160, 14);
+		panelQueue.add(lblQueueVersion);
 		tabbedPane.addTab("Potwierdzenia", null, panelBrowse, null);
+		
+		JLabel lblBrowseVersion = new JLabel(DefineUtils.APP_TITLE + DefineUtils.APP_VERSION);
+		lblBrowseVersion.setBounds(5, 462, 160, 14);
+		panelBrowse.add(lblBrowseVersion);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 		// FRAME
@@ -589,7 +601,6 @@ public class Manager extends JFrame {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			SwingUtilities.updateComponentTreeUI(this);
 		} catch (Exception e1) {
-			e1.printStackTrace();
 		}
 
 		fillParts();

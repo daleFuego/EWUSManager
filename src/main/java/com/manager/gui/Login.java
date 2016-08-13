@@ -145,7 +145,9 @@ public class Login extends JFrame {
 		});
 
 		// FRAME
-		setVisible(true);
+		// One - user change
+		setVisible(false);
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 214, 162);
 		setContentPane(contentPane);
@@ -158,5 +160,8 @@ public class Login extends JFrame {
 		}
 
 		btnLogin.requestFocus();
+		
+		// One - user change
+		btnLogin.doClick();
 	}
 }
