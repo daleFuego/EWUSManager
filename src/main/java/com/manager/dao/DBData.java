@@ -19,7 +19,6 @@ public class DBData {
 	public static String pathInitSendMailReceiver = "";
 	public static String pathInitSendMailFile = "";
 	public static String pathInitQueueExistingFile = "";
-	public static String pathInitQueueNewFile = "";
 
 	private DBData() {
 	}
@@ -73,7 +72,8 @@ public class DBData {
 					DefineUtils.DB_PASSWORD);
 			connection.setAutoCommit(false);
 			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT \"PASSWORD\" FROM \"USERS\" WHERE \"USERNAME\" = '" + userName + "'");
+			ResultSet rs = stmt
+					.executeQuery("SELECT \"PASSWORD\" FROM \"USERS\" WHERE \"USERNAME\" = '" + userName + "'");
 			while (rs.next()) {
 				String dbPassword = rs.getString("password");
 				if (password.equals(dbPassword)) {
@@ -108,16 +108,15 @@ public class DBData {
 				pathInitSendMailReceiver = rs.getString("pathsendmailreceiver");
 				pathInitSendMailFile = rs.getString("pathsendmailfile");
 				pathInitQueueExistingFile = rs.getString("pathqueueexistingfile");
-				pathInitQueueNewFile = rs.getString("pathqueuenewfile");
 			}
-			rs.close();																													
+			rs.close();
 			stmt.close();
 			connection.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-																																																												
+
 	public void updatePath(String target, String path) {
 		Connection connection = null;
 		Statement stmt = null;
@@ -127,9 +126,11 @@ public class DBData {
 					DefineUtils.DB_PASSWORD);
 			connection.setAutoCommit(false);
 			stmt = connection.createStatement();
-			
-			System.out.println("UPDATE \"USERS\" SET " + target + "='" + path + "' WHERE \"USERNAME\" = '" + username + "'");
-			String query = "UPDATE \"USERS\" SET " + target + "='" + path + "' WHERE \"USERNAME\" = '" + username + "';";
+
+			System.out.println(
+					"UPDATE \"USERS\" SET " + target + "='" + path + "' WHERE \"USERNAME\" = '" + username + "'");
+			String query = "UPDATE \"USERS\" SET " + target + "='" + path + "' WHERE \"USERNAME\" = '" + username
+					+ "';";
 
 			stmt.executeUpdate(query);
 			connection.commit();

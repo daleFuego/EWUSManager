@@ -22,22 +22,38 @@ import com.manager.utils.DefineUtils;
 
 public class DataLoader {
 
+	private static DataLoader dataLoader;
 	private String directory;
+
 	private DefaultTableModel table;
 	private ArrayList<ArrayList<String>> dataList;
 
-	public DataLoader(String directory, DefaultTableModel tableModel) {
+	private DataLoader() {
+	}
+
+
+	public void setDirectory(String directory) {
 		this.directory = directory;
-		this.table = tableModel;
+	}
+
+	public void setTable(DefaultTableModel table) {
+		this.table = table;
+	}
+
+	public static DataLoader getInstance() {
+		if (dataLoader == null) {
+			dataLoader = new DataLoader();
+		}
+		return dataLoader;
 	}
 
 	private ArrayList<ArrayList<String>> loadFiles() {
 		dataList = new ArrayList<ArrayList<String>>();
-	
+
 		try {
 			Cipher desCipher = Cipher.getInstance("DES");
 			desCipher.init(Cipher.ENCRYPT_MODE, KeyGenerator.getInstance("DES").generateKey());
-			
+
 			File folder = new File(directory);
 			for (File file : folder.listFiles()) {
 				if (file.isFile() && file.getName().endsWith(".xml")) {
@@ -66,7 +82,7 @@ public class DataLoader {
 			}
 		} catch (Exception e) {
 		}
-		
+
 		return dataList;
 	}
 
@@ -99,7 +115,8 @@ public class DataLoader {
 					String deletedFilePath = msg.split(":")[2];
 					String restoredFilePath = directory + DefineUtils.FILE_SEPARATOR + deletedFilePath;
 					File restoredFile = new File(restoredFilePath);
-					File binFile = new File("DeletedItems" + DefineUtils.FILE_SEPARATOR + deletedFilePath);
+					File binFile = new File(System.getProperty("user.home"), "Desktop" + DefineUtils.FILE_SEPARATOR
+							+ "DeletedItems" + DefineUtils.FILE_SEPARATOR + deletedFilePath);
 					binFile.renameTo(restoredFile);
 					CallTrace.getInstance().clearLogs();
 				}
@@ -137,14 +154,13 @@ public class DataLoader {
 	}
 
 	public String provideInfo() {
-		String infoText = "";
-		try {
-			infoText = "Ilość potwierdzeń: " + dataList.size() + "\n" + "Okres czasu: od " + dataList.get(0).get(0)
-					+ " do " + dataList.get(dataList.size() - 1).get(0) + "\n";
-		} catch (Exception ex) {
+		return "Ilość potwierdzeń: \n   " + dataList.size() + "\n" + "\nOkres czasu: \nod \n   "
+				+ dataList.get(0).get(0) + " \ndo \n   " + dataList.get(dataList.size() - 1).get(0) + "\n";
+	}
 
-		}
-		return infoText;
+	public String provideInfoLong() {
+		return "Ilość potwierdzeń: " + dataList.size() + "\n" + "Okres czasu: od " + dataList.get(0).get(0) + " do "
+				+ dataList.get(dataList.size() - 1).get(0);
 	}
 
 	public String ewusMailTopic() {

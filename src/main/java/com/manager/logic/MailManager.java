@@ -1,4 +1,4 @@
-package com.manager.panel;
+package com.manager.logic;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -21,7 +21,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -41,8 +40,8 @@ public class MailManager {
 	private JDialog waitDialog;
 	private PasswordPanel passwordPanel;
 
-	public MailManager(JFrame frame, String sender, String receiver, String filePath, String topic) {
-		
+	public MailManager(String sender, String receiver, String filePath, String topic) {
+
 		this.receiver = receiver;
 		this.sender = sender;
 		this.filePath = filePath;
@@ -57,7 +56,7 @@ public class MailManager {
 		panel.add(new JLabel("Trwa wysyłanie wiadomości..."), BorderLayout.PAGE_START);
 		waitDialog.add(panel);
 		waitDialog.pack();
-		
+
 	}
 
 	public void sendMail() {

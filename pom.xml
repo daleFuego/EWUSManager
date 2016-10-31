@@ -4,8 +4,17 @@
 
 	<groupId>ewus</groupId>
 	<artifactId>EWUSManager</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>3.0</version>
 	<packaging>jar</packaging>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
 
 	<name>EWUSManager</name>
 	<url>http://maven.apache.org</url>
@@ -15,12 +24,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>

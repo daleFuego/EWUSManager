@@ -1,4 +1,4 @@
-package com.manager.panel;
+package com.manager.logic;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
