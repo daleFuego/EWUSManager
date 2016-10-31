@@ -13,6 +13,9 @@ import com.toedter.calendar.JCalendar;
 @SuppressWarnings("serial")
 public class Calendar extends JFrame {
 
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public Calendar(final AddVisit addVisit) {
 		setResizable(false);
 		setSize(new Dimension(200, 495));
@@ -34,7 +37,7 @@ public class Calendar extends JFrame {
 		calendarThirdMonth.setSize(new Dimension(194, 155));
 		calendarThirdMonth.getMonthChooser().setMonth(calendarSecondMonth.getMonthChooser().getMonth() + 1);
 		getContentPane().add(calendarThirdMonth);
-		
+
 		calendarFirstMonth.getDayChooser().addPropertyChangeListener(new PropertyChangeListener() {
 
 			@Override
@@ -44,12 +47,12 @@ public class Calendar extends JFrame {
 						addVisit.textFieldDayOfSave.setText(calendarFirstMonth.getDayChooser().getDay() + "/"
 								+ (calendarFirstMonth.getMonthChooser().getMonth() + 1) + "/"
 								+ calendarFirstMonth.getYearChooser().getYear());
-						
+
 					} else {
 						addVisit.textFieldDate.setText(calendarFirstMonth.getDayChooser().getDay() + "/"
 								+ (calendarFirstMonth.getMonthChooser().getMonth() + 1) + "/"
 								+ calendarFirstMonth.getYearChooser().getYear());
-						
+
 					}
 					setVisible(false);
 				} catch (Exception ex) {
@@ -63,15 +66,15 @@ public class Calendar extends JFrame {
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
 					if (addVisit.dayOfSave) {
-						addVisit.textFieldDayOfSave.setText(calendarFirstMonth.getDayChooser().getDay() + "/"
-								+ (calendarFirstMonth.getMonthChooser().getMonth() + 2) + "/"
-								+ calendarFirstMonth.getYearChooser().getYear());
-						
+						addVisit.textFieldDayOfSave.setText(calendarSecondMonth.getDayChooser().getDay() + "/"
+								+ (calendarSecondMonth.getMonthChooser().getMonth() + 1) + "/"
+								+ calendarSecondMonth.getYearChooser().getYear());
+
 					} else {
-						addVisit.textFieldDate.setText(calendarFirstMonth.getDayChooser().getDay() + "/"
-								+ (calendarFirstMonth.getMonthChooser().getMonth() + 2) + "/"
-								+ calendarFirstMonth.getYearChooser().getYear());
-						
+						addVisit.textFieldDate.setText(calendarSecondMonth.getDayChooser().getDay() + "/"
+								+ (calendarSecondMonth.getMonthChooser().getMonth() + 1) + "/"
+								+ calendarSecondMonth.getYearChooser().getYear());
+
 					}
 					setVisible(false);
 				} catch (Exception ex) {
@@ -85,15 +88,15 @@ public class Calendar extends JFrame {
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
 					if (addVisit.dayOfSave) {
-						addVisit.textFieldDayOfSave.setText(calendarFirstMonth.getDayChooser().getDay() + "/"
-								+ (calendarFirstMonth.getMonthChooser().getMonth() + 3) + "/"
-								+ calendarFirstMonth.getYearChooser().getYear());
-						
+						addVisit.textFieldDayOfSave.setText(calendarThirdMonth.getDayChooser().getDay() + "/"
+								+ (calendarThirdMonth.getMonthChooser().getMonth() + 1) + "/"
+								+ calendarThirdMonth.getYearChooser().getYear());
+
 					} else {
-						addVisit.textFieldDate.setText(calendarFirstMonth.getDayChooser().getDay() + "/"
-								+ (calendarFirstMonth.getMonthChooser().getMonth() + 3) + "/"
-								+ calendarFirstMonth.getYearChooser().getYear());
-						
+						addVisit.textFieldDate.setText(calendarThirdMonth.getDayChooser().getDay() + "/"
+								+ (calendarThirdMonth.getMonthChooser().getMonth() + 1) + "/"
+								+ calendarThirdMonth.getYearChooser().getYear());
+
 					}
 					setVisible(false);
 				} catch (Exception ex) {

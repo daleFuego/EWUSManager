@@ -366,8 +366,6 @@ public class UnitTests {
 					"C:\\Users\\Magdalena\\Documents\\Szkoła\\Computer Science and Information Technology\\Semestr 1\\Modelling and Analysis of Information Systems\\Potwierdzenia");
 			DBData.getInstance().updatePath(DefineUtils.DB_pathqueueexistingfile,
 					"C:\\Users\\Magdalena\\Documents\\Szkoła\\Computer Science and Information Technology\\Semestr 1\\Modelling and Analysis of Information Systems\\MAIS_Kolejka.txt");
-			DBData.getInstance().updatePath(DefineUtils.DB_pathqueuenewfile,
-					"C:\\Users\\Magdalena\\Documents\\Szkoła\\Computer Science and Information Technology\\Semestr 1\\Modelling and Analysis of Information Systems\\MAIS_Kolejka.txt");
 			DBData.getInstance().updatePath(DefineUtils.DB_pathsendmailfile,
 					"C:\\Users\\Magdalena\\Documents\\Szkoła\\Computer Science and Information Technology\\Semestr 1\\Modelling and Analysis of Information Systems\\EWUS_2016-06-05.zip");
 			DBData.getInstance().updatePath(DefineUtils.DB_pathsendmailreceiver, mailAdress);

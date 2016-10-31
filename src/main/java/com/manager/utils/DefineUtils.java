@@ -3,6 +3,7 @@ package com.manager.utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Properties;
 
 public class DefineUtils {
 
@@ -10,7 +11,7 @@ public class DefineUtils {
 	public static String mailPassword = "";
 	
 	public static String APP_TITLE		 			= "EWUŚ Manager";
-	public static String APP_VERSION				= " wersja 2.0";
+	public static String APP_VERSION				= " wersja ";
 	public static String FILE_SEPARATOR	 			= "";
 	public static String MAIL_PASSWORD	 			= "";
 	public static String BRWOSE_DESCRIPTION		 	= "";
@@ -25,7 +26,6 @@ public class DefineUtils {
 	public static String DB_pathsendmailreceiver 	= "pathsendmailreceiver";
 	public static String DB_pathsendmailfile 		= "pathsendmailfile";
 	public static String DB_pathqueueexistingfile 	= "pathqueueexistingfile";
-	public static String DB_pathqueuenewfile 		= "pathqueuenewfile";
 
 	public static void initDataLoad() {
 		if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {
@@ -33,7 +33,7 @@ public class DefineUtils {
 		} else {
 			FILE_SEPARATOR = "/";
 		}
-		
+
 		String content = "";
 		try {
 			@SuppressWarnings("resource")
@@ -52,5 +52,13 @@ public class DefineUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		Properties properties = new Properties();
+		try {
+			properties.load(DefineUtils.class.getResourceAsStream("/default.properties"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		APP_VERSION += properties.getProperty("app.version");
 	}
 }

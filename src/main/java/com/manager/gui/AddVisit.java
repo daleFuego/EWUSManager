@@ -18,14 +18,12 @@ import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
 import com.manager.data.PeselValidator;
-import com.manager.panel.QueueManager;
+import com.manager.logic.QueueManager;
 
 @SuppressWarnings("serial")
 public class AddVisit extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	@SuppressWarnings("unused")
-	private QueueManager queueManager;
 	public JTextField textFieldName;
 	public JTextField textFieldPesel;
 	public JTextField textFieldSurname;
@@ -34,7 +32,6 @@ public class AddVisit extends JDialog {
 	public boolean dayOfSave = false;
 
 	public AddVisit(final QueueManager queueManager) {
-		this.queueManager = queueManager;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(false);
 		final Calendar calendar = new Calendar(this);
@@ -58,14 +55,14 @@ public class AddVisit extends JDialog {
 		{
 			textFieldPesel = new JTextField();
 			textFieldPesel.setBounds(128, 83, 171, 20);
-			
+
 			textFieldPesel.addCaretListener(new CaretListener() {
-				
+
 				@Override
-				public void caretUpdate(CaretEvent e) {					
-					if(new PeselValidator(textFieldPesel.getText()).isValid()){
+				public void caretUpdate(CaretEvent e) {
+					if (new PeselValidator(textFieldPesel.getText()).isValid()) {
 						textFieldPesel.setForeground(Color.BLACK);
-					} else{
+					} else {
 						textFieldPesel.setForeground(Color.RED);
 					}
 				}
@@ -129,7 +126,7 @@ public class AddVisit extends JDialog {
 			JButton buttonDateOfSave = new JButton("Data");
 			buttonDateOfSave.setBounds(237, 7, 62, 23);
 			buttonDateOfSave.addActionListener(new ActionListener() {
-		
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dayOfSave = true;
@@ -150,8 +147,9 @@ public class AddVisit extends JDialog {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						calendar.setVisible(false);
-						queueManager.deliverData(textFieldDayOfSave.getText(), textFieldName.getText(),
-								textFieldSurname.getText(), textFieldPesel.getText(), textFieldDate.getText());
+						queueManager.deliverData(textFieldDayOfSave.getText() + "\t" + textFieldName.getText() + "\t"
+								+ textFieldSurname.getText() + "\t" + textFieldPesel.getText() + "\t"
+								+ textFieldDate.getText() + System.lineSeparator());
 					}
 
 				});
