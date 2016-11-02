@@ -1,4 +1,4 @@
-package com.manager.gui;
+package com.manager.gui.panel.export;
 
 import java.awt.BorderLayout;
 

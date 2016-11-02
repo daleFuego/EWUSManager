@@ -28,7 +28,7 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import com.manager.dao.DBData;
-import com.manager.gui.PasswordPanel;
+import com.manager.gui.panel.export.PasswordPanel;
 import com.manager.utils.DefineUtils;
 
 public class MailManager {

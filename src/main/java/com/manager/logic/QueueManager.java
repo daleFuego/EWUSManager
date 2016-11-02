@@ -21,16 +21,16 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.manager.dao.DBData;
-import com.manager.gui.AddDate;
-import com.manager.gui.AddVisit;
-import com.manager.newgui.QueueTableModel;
+import com.manager.gui.panel.queue.DateFrame;
+import com.manager.gui.panel.queue.VisitDialog;
+import com.manager.gui.panel.queue.QueueTableModel;
 import com.manager.utils.DefineUtils;
 
 public class QueueManager {
 
 	private String filePath;
-	private AddVisit addVisit;
-	private AddDate addDate;
+	private VisitDialog addVisit;
+	private DateFrame addDate;
 	private JTextField textField;
 	private JTable queueTable;
 	private String tmpFileName;
@@ -159,12 +159,12 @@ public class QueueManager {
 	}
 
 	public void addDate() {
-		addDate = new AddDate(this);
+		addDate = new DateFrame(this);
 		addDate.setVisible(true);
 	}
 
 	public void addVisit() {
-		addVisit = new AddVisit(this);
+		addVisit = new VisitDialog(this);
 		addVisit.setVisible(true);
 	}
 

@@ -21,7 +21,7 @@ import javax.swing.border.TitledBorder;
 import com.manager.dao.DBData;
 
 @SuppressWarnings("serial")
-public class Login extends JFrame {
+public class LoginFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panelLogin;
@@ -33,13 +33,13 @@ public class Login extends JFrame {
 	private JLabel lblLogin;
 
 	public static JButton btnLogin;
-	private static Login frame;
+	private static LoginFrame frame;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {			
-					frame = new Login();
+					frame = new LoginFrame();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,7 +47,7 @@ public class Login extends JFrame {
 		});
 	}
 
-	public Login() {
+	public LoginFrame() {
 		initialize();
 
 	}
@@ -131,7 +131,7 @@ public class Login extends JFrame {
 				try {
 					if (DBData.verifyLoginData(textFieldUserName.getText(), textFieldPassword.getText())) {
 						setVisible(false);
-						new Manager();
+						new MainFrame();
 
 					} else {
 						JOptionPane.showMessageDialog(frame, "Verification failed, check username or password", "Error",

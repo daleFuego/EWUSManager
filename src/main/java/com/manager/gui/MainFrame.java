@@ -15,24 +15,25 @@ import javax.swing.table.DefaultTableModel;
 
 import com.manager.dao.DBData;
 import com.manager.data.DataLoader;
+import com.manager.gui.panel.certificates.CertificatesPanel;
+import com.manager.gui.panel.export.ExportPanel;
+import com.manager.gui.panel.queue.QueuePanel;
 import com.manager.logic.QueueManager;
-import com.manager.newgui.PanelCertificates;
-import com.manager.newgui.PanelQueue;
-import com.manager.newgui.PanelSend;
-import com.manager.utils.CallTrace;
 import com.manager.utils.DefineUtils;
 
 @SuppressWarnings("serial")
-public class Manager extends JFrame {
+public class MainFrame extends JFrame {
+	
 	private JTabbedPane tabbedPane;
 	private QueueManager queueManager;
 	private JPanel commonsPane;
 	private JLabel lblCommonsAppVersionDesc;
 	private JButton btnCommonsClose;
-	private PanelQueue panelQueue;
-	private PanelCertificates panelCertificates;
+	private QueuePanel panelQueue;
+	private CertificatesPanel panelCertificates;
+	private ExportPanel panelSend;
 
-	public Manager() {
+	public MainFrame() {
 		setLocale(new Locale("pl", "PL"));
 		setTitle(DefineUtils.APP_TITLE);
 		DefineUtils.initDataLoad();
@@ -47,14 +48,14 @@ public class Manager extends JFrame {
 		tabbedPane.setBounds(0, 0, 705, 487);
 		getContentPane().setLayout(null);
 
-		PanelSend panelSend = new PanelSend();
+		panelSend = new ExportPanel();
 
-		panelQueue = new PanelQueue();
+		panelQueue = new QueuePanel();
 		panelQueue.setTextFieldSendQueue(panelSend.getPanelSendQueue().getTextFieldFilePath());
 		panelQueue.setBounds(5, 0, 690, 459);
 		tabbedPane.addTab("Kolejkowanie", null, panelQueue, null);
 
-		panelCertificates = new PanelCertificates(panelSend.getPanelSendInfo().getTextAreaDetails());
+		panelCertificates = new CertificatesPanel(panelSend.getPanelSendInfo().getTextAreaDetails());
 		panelCertificates.setLocation(0, 0);
 		panelCertificates.setSize(690, 459);
 		tabbedPane.addTab("Potwierdzenia", null, panelCertificates, null);
@@ -75,7 +76,7 @@ public class Manager extends JFrame {
 		btnCommonsClose = new JButton("Zamknij");
 		btnCommonsClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				quit();
+				System.exit(0);
 			}
 		});
 		btnCommonsClose.setBounds(580, 6, 109, 20);
@@ -85,6 +86,7 @@ public class Manager extends JFrame {
 		setBounds(100, 100, 705, 553);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			SwingUtilities.updateComponentTreeUI(this);
@@ -108,13 +110,5 @@ public class Manager extends JFrame {
 					.setTable(((DefaultTableModel) panelCertificates.getCertificatesTable().getTable().getModel()));
 			panelCertificates.refreshTable();
 		}
-	}
-
-	private void quit() {
-		try {
-			CallTrace.getInstance().clearLogs();
-		} catch (Exception ex) {
-		}
-		System.exit(0);
 	}
 }

@@ -1,4 +1,4 @@
-package com.manager.newgui;
+package com.manager.gui.panel.queue;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -11,12 +11,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import com.manager.logic.QueueFileParser;
 
 @SuppressWarnings("serial")
-public class PanelQueueTable extends JPanel {
+public class QueueTable extends JPanel {
 
 	private JTable table;
 	private QueueTableModel model;
 
-	public PanelQueueTable(String filePath) {
+	public QueueTable(String filePath) {
 		setLayout(null);
 		setVisible(true);
 

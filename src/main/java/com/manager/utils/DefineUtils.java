@@ -14,7 +14,7 @@ public class DefineUtils {
 	public static String APP_VERSION				= " wersja ";
 	public static String FILE_SEPARATOR	 			= "";
 	public static String MAIL_PASSWORD	 			= "";
-	public static String BRWOSE_DESCRIPTION		 	= "";
+	public static String CERTIFICATES_DESCRIPTION	= "";
 	public static String SEND_DESRIPTION 			= "";
 	public static String QUEUE_DESCRIPTION 			= "";
 	public static String DB_NAME 					= "jdbc:postgresql://localhost:5432/EWUSManager";
@@ -40,7 +40,7 @@ public class DefineUtils {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader("Init.txt"));
 			while ((content = bufferedReader.readLine()) != null) {
 				if (content.contains("#BRWOSE_DESCRIPTION")) {
-					BRWOSE_DESCRIPTION = content.split("=")[1];
+					CERTIFICATES_DESCRIPTION = content.split("=")[1];
 				}
 				if (content.contains("#SEND_DESRIPTION")) {
 					SEND_DESRIPTION = content.split("=")[1];

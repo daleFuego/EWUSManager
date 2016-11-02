@@ -1,9 +1,6 @@
 package com.manager.data;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -17,7 +14,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.manager.utils.CallTrace;
 import com.manager.utils.DefineUtils;
 
 public class DataLoader {
@@ -105,27 +101,8 @@ public class DataLoader {
 	}
 
 	public boolean undoDeleteFile() {
-		boolean result = false;
-		String msg;
-		try {
-			@SuppressWarnings("resource")
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(CallTrace.getInstance().getLogFile()));
-			while ((msg = bufferedReader.readLine()) != null) {
-				if (msg.contains("#delete")) {
-					String deletedFilePath = msg.split(":")[2];
-					String restoredFilePath = directory + DefineUtils.FILE_SEPARATOR + deletedFilePath;
-					File restoredFile = new File(restoredFilePath);
-					File binFile = new File(System.getProperty("user.home"), "Desktop" + DefineUtils.FILE_SEPARATOR
-							+ "DeletedItems" + DefineUtils.FILE_SEPARATOR + deletedFilePath);
-					binFile.renameTo(restoredFile);
-					CallTrace.getInstance().clearLogs();
-				}
-			}
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-
-		return result;
+		// TODO
+		return false;
 	}
 
 	public boolean fillTable() {

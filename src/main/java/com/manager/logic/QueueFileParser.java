@@ -11,7 +11,7 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.manager.newgui.QueueTableModel;
+import com.manager.gui.panel.queue.QueueTableModel;
 
 public class QueueFileParser {
 

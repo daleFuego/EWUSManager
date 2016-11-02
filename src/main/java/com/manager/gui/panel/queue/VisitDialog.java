@@ -1,4 +1,4 @@
-package com.manager.gui;
+package com.manager.gui.panel.queue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,7 +21,7 @@ import com.manager.data.PeselValidator;
 import com.manager.logic.QueueManager;
 
 @SuppressWarnings("serial")
-public class AddVisit extends JDialog {
+public class VisitDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	public JTextField textFieldName;
@@ -31,7 +31,7 @@ public class AddVisit extends JDialog {
 	public JTextField textFieldDayOfSave;
 	public boolean dayOfSave = false;
 
-	public AddVisit(final QueueManager queueManager) {
+	public VisitDialog(final QueueManager queueManager) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(false);
 		final Calendar calendar = new Calendar(this);

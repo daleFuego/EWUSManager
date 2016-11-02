@@ -48,6 +48,7 @@ import org.w3c.dom.Element;
 
 import com.manager.dao.DBData;
 import com.manager.data.PeselValidator;
+import com.manager.gui.panel.export.ProgressDialog;
 import com.manager.utils.DefineUtils;
 
 public class UnitTests {

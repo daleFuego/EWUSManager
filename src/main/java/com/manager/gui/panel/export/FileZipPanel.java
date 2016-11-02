@@ -1,4 +1,4 @@
-package com.manager.newgui;
+package com.manager.gui.panel.export;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -17,10 +17,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class PanelPackFiles extends JPanel {
+public class FileZipPanel extends JPanel {
 	private JTextField textFieldFilePath;
 
-	public PanelPackFiles(String pathToCertificates, JTextField textFieldSendFilesMailFile) {
+	public FileZipPanel(String pathToCertificates, JTextField textFieldSendFilesMailFile) {
 		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Pakowanie potwierdze\u0144",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(null);
@@ -58,9 +58,5 @@ public class PanelPackFiles extends JPanel {
 		});
 		buttonBrowses.setBounds(444, 41, 109, 20);
 		add(buttonBrowses);
-	}
-
-	public JTextField getTextFieldFilePath() {
-		return textFieldFilePath;
 	}
 }

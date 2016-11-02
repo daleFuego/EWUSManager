@@ -1,4 +1,4 @@
-package com.manager.newgui;
+package com.manager.gui.panel.export;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -17,12 +17,12 @@ import java.util.Date;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class PanelSendQueue extends JPanel {
+public class QueueExportPanel extends JPanel {
 	private JTextField textFieldSender;
 	private JTextField textFieldReceiver;
 	private JTextField textFieldFilePath;
 
-	public PanelSendQueue() {
+	public QueueExportPanel() {
 		setBorder(new TitledBorder(null, "Wysy\u0142anie pliku z kolejk\u0105 pacjent\u00F3w", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		setLayout(null);
@@ -79,14 +79,6 @@ public class PanelSendQueue extends JPanel {
 		});
 		buttonBrowse.setBounds(444, 76, 109, 20);
 		add(buttonBrowse);
-	}
-
-	public JTextField getTextFieldSender() {
-		return textFieldSender;
-	}
-
-	public JTextField getTextFieldReceiver() {
-		return textFieldReceiver;
 	}
 
 	public JTextField getTextFieldFilePath() {

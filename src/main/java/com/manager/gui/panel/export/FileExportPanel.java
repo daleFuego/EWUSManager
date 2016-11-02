@@ -1,4 +1,4 @@
-package com.manager.newgui;
+package com.manager.gui.panel.export;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -16,12 +16,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class PanelSendFiles extends JPanel {
+public class FileExportPanel extends JPanel {
 	private JTextField textFieldFilePath;
 	private JTextField textFieldReceiver;
 	private JTextField textFieldSender;
 
-	public PanelSendFiles() {
+	public FileExportPanel() {
 		setBorder(new TitledBorder(null, "Wysy\u0142anie paczki z potwierdzeniami", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		setLayout(null);

@@ -1,4 +1,4 @@
-package com.manager.gui;
+package com.manager.gui.panel.queue;
 
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
@@ -16,7 +16,7 @@ public class Calendar extends JFrame {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public Calendar(final AddVisit addVisit) {
+	public Calendar(final VisitDialog addVisit) {
 		setResizable(false);
 		setSize(new Dimension(200, 495));
 		getContentPane().setLayout(null);
@@ -112,7 +112,7 @@ public class Calendar extends JFrame {
 		}
 	}
 
-	public Calendar(final AddDate addDate) {
+	public Calendar(final DateFrame addDate) {
 		setResizable(false);
 		setSize(new Dimension(200, 495));
 		getContentPane().setLayout(null);
