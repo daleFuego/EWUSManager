@@ -79,6 +79,15 @@ public class QueueExportPanel extends JPanel {
 		});
 		buttonBrowse.setBounds(444, 76, 109, 20);
 		add(buttonBrowse);
+		
+		JButton button = new JButton("Książka adresowa");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new AddresssBook(textFieldReceiver);
+			}
+		});
+		button.setBounds(445, 46, 226, 20);
+		add(button);
 	}
 
 	public JTextField getTextFieldFilePath() {

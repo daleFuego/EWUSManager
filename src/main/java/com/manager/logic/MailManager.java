@@ -3,7 +3,6 @@ package com.manager.logic;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -85,8 +84,7 @@ public class MailManager {
 
 				try {
 					SwingUtilities.invokeAndWait(thread);
-				} catch (InvocationTargetException e1) {
-				} catch (InterruptedException e1) {
+				} catch (Exception ex) {
 				}
 			}
 		});
@@ -126,8 +124,9 @@ public class MailManager {
 			waitDialog.dispose();
 			JOptionPane.showMessageDialog(null, "Wiadomość została wysłana", "EWUŚ MANAGER",
 					JOptionPane.INFORMATION_MESSAGE);
-			DBData.getInstance().updatePath(DefineUtils.DB_pathsendmailreceiver, receiver);
-			DBData.getInstance().updatePath(DefineUtils.DB_pathsendmailfile, filePath);
+			DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailreceiver, receiver);
+			DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailfile, filePath);
+			DBData.getInstance().update(DefineUtils.DB_TABLE_CONTACTS, DefineUtils.DB_mailAddress, receiver);
 		} catch (MessagingException e) {
 			waitDialog.dispose();
 			JOptionPane.showMessageDialog(null, "Logowanie nie powiodło się", "EWUŚ MANAGER",

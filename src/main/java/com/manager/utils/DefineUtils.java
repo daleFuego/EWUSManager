@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class DefineUtils {
-
+	
 	public static String mailAdress = "";
 	public static String mailPassword = "";
 	
@@ -20,12 +20,15 @@ public class DefineUtils {
 	public static String DB_NAME 					= "jdbc:postgresql://localhost:5432/EWUSManager";
 	public static String DB_USERNAME 				= "postgres";
 	public static String DB_PASSWORD 				= "postgres";
+	public static String DB_TABLE_PATHS 			= "PATHS";
+	public static String DB_TABLE_CONTACTS 			= "CONTACTS";
 	public static String DB_pathbrowsefiles 		= "pathbrowsefiles";
 	public static String DB_pathsendzipsave 		= "pathsendzipsave";
 	public static String DB_pathsendmailsender 		= "pathsendmailsender";
 	public static String DB_pathsendmailreceiver 	= "pathsendmailreceiver";
 	public static String DB_pathsendmailfile 		= "pathsendmailfile";
 	public static String DB_pathqueueexistingfile 	= "pathqueueexistingfile";
+	public static String DB_mailAddress 			= "mailAddress";
 
 	public static void initDataLoad() {
 		if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {

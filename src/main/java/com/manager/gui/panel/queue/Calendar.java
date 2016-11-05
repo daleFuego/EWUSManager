@@ -24,10 +24,11 @@ public class Calendar extends JFrame {
 		JCalendar calendarFirstMonth = new JCalendar();
 		calendarFirstMonth.setLocation(0, 0);
 		calendarFirstMonth.setSize(new Dimension(194, 155));
+		calendarFirstMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth() - 1);
 		getContentPane().add(calendarFirstMonth);
 
 		JCalendar calendarSecondMonth = new JCalendar();
-		calendarSecondMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth() + 1);
+//		calendarSecondMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth());
 		calendarSecondMonth.setLocation(0, 155);
 		calendarSecondMonth.setSize(new Dimension(194, 155));
 		getContentPane().add(calendarSecondMonth);
@@ -120,10 +121,10 @@ public class Calendar extends JFrame {
 		JCalendar calendarFirstMonth = new JCalendar();
 		calendarFirstMonth.setLocation(0, 0);
 		calendarFirstMonth.setSize(new Dimension(194, 155));
+		calendarFirstMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth() - 1);
 		getContentPane().add(calendarFirstMonth);
 
 		JCalendar calendarSecondMonth = new JCalendar();
-		calendarSecondMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth() + 1);
 		calendarSecondMonth.setLocation(0, 155);
 		calendarSecondMonth.setSize(new Dimension(194, 155));
 		getContentPane().add(calendarSecondMonth);

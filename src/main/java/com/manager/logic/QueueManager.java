@@ -135,6 +135,7 @@ public class QueueManager {
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (IOException ioe) {
 			System.err.println("IOException: " + ioe.getMessage());
+			ioe.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Wystąpił błąd w trakcie zapisywania dokumentu: " + ioe.getMessage(),
 					"Kolejkowanie", JOptionPane.ERROR_MESSAGE);
 		}
@@ -149,7 +150,7 @@ public class QueueManager {
 			try {
 				file.createNewFile();
 				filePath = fileChooser.getSelectedFile().toString() + ".txt";
-				DBData.getInstance().updatePath(DefineUtils.DB_pathqueueexistingfile, filePath);
+				DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathqueueexistingfile, filePath);
 				textField.setText(filePath);
 				refreshTable(true);
 			} catch (IOException e) {

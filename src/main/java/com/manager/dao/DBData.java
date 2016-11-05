@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
+
+import javax.swing.DefaultListModel;
 
 import com.manager.utils.DefineUtils;
 
@@ -30,67 +31,6 @@ public class DBData {
 		return dbData;
 	}
 
-	public ArrayList<String> getInitLoginData() {
-		ArrayList<String> pass = new ArrayList<String>();
-		Connection connection = null;
-		Statement stmt = null;
-		String username = "";
-		String password = "";
-
-		try {
-			Class.forName("org.postgresql.Driver");
-			connection = DriverManager.getConnection(DefineUtils.DB_NAME, DefineUtils.DB_USERNAME,
-					DefineUtils.DB_PASSWORD);
-			connection.setAutoCommit(false);
-			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT \"USERNAME\", \"PASSWORD\" FROM \"USERS\" WHERE \"SAVED\" = 1");
-			while (rs.next()) {
-				username = rs.getString("username");
-				password = rs.getString("password");
-			}
-
-			rs.close();
-			stmt.close();
-			connection.close();
-
-			pass.add(username);
-			pass.add(password);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return pass;
-	}
-
-	public static boolean verifyLoginData(String userName, String password) {
-		boolean result = false;
-		Connection connection = null;
-		Statement stmt = null;
-		try {
-			Class.forName("org.postgresql.Driver");
-			connection = DriverManager.getConnection(DefineUtils.DB_NAME, DefineUtils.DB_USERNAME,
-					DefineUtils.DB_PASSWORD);
-			connection.setAutoCommit(false);
-			stmt = connection.createStatement();
-			ResultSet rs = stmt
-					.executeQuery("SELECT \"PASSWORD\" FROM \"USERS\" WHERE \"USERNAME\" = '" + userName + "'");
-			while (rs.next()) {
-				String dbPassword = rs.getString("password");
-				if (password.equals(dbPassword)) {
-					result = true;
-					username = userName;
-				}
-			}
-			rs.close();
-			stmt.close();
-			connection.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return result;
-	}
-
 	public void getInitData() {
 		Connection connection = null;
 		Statement stmt = null;
@@ -100,7 +40,7 @@ public class DBData {
 					DefineUtils.DB_PASSWORD);
 			connection.setAutoCommit(false);
 			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM \"USERS\" WHERE \"USERNAME\" = '" + username + "'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM \"" + DefineUtils.DB_TABLE_PATHS + "\"");
 			while (rs.next()) {
 				pathInitBrowseFiles = rs.getString("pathbrowsefiles");
 				pathInitSendZipFile = rs.getString("pathsendzipsave");
@@ -117,7 +57,16 @@ public class DBData {
 		}
 	}
 
-	public void updatePath(String target, String path) {
+	public void update(String table, String target, String value) {
+		String query = "UPDATE \"" + table + "\" SET " + target + "='" + value + "';";
+		System.out.println(query);
+		executeQuery(query);
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public DefaultListModel getReceivers() {
+		DefaultListModel listModel = new DefaultListModel();
+
 		Connection connection = null;
 		Statement stmt = null;
 		try {
@@ -127,12 +76,40 @@ public class DBData {
 			connection.setAutoCommit(false);
 			stmt = connection.createStatement();
 
-			System.out.println(
-					"UPDATE \"USERS\" SET " + target + "='" + path + "' WHERE \"USERNAME\" = '" + username + "'");
-			String query = "UPDATE \"USERS\" SET " + target + "='" + path + "' WHERE \"USERNAME\" = '" + username
-					+ "';";
+			String query = "SELECT * FROM \"" + DefineUtils.DB_TABLE_CONTACTS + "\"";
+			System.out.println(query);
 
-			stmt.executeUpdate(query);
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				listModel.addElement(rs.getString("mailAddress"));
+			}
+			rs.close();
+			stmt.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return listModel;
+	}
+
+	public void removeFromContacts(String mailAddress) {
+		String query = "DELETE FROM \"" + DefineUtils.DB_TABLE_CONTACTS + "\" WHERE \"mailAddress\" = '" + mailAddress
+				+ "';";
+		System.out.println(query);
+		executeQuery(query);
+	}
+
+	private void executeQuery(String query) {
+		Connection connection = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.postgresql.Driver");
+			connection = DriverManager.getConnection(DefineUtils.DB_NAME, DefineUtils.DB_USERNAME,
+					DefineUtils.DB_PASSWORD);
+			connection.setAutoCommit(false);
+			stmt = connection.createStatement();
+			stmt.execute(query);
 			connection.commit();
 			stmt.close();
 			connection.close();
@@ -140,4 +117,5 @@ public class DBData {
 			e.printStackTrace();
 		}
 	}
+
 }

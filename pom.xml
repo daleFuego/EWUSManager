@@ -4,7 +4,7 @@
 
 	<groupId>ewus</groupId>
 	<artifactId>EWUSManager</artifactId>
-	<version>3.0</version>
+	<version>3.1</version>
 	<packaging>jar</packaging>
 
 	<build>

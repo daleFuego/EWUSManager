@@ -1,5 +1,6 @@
 package com.manager.gui;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
@@ -33,6 +34,18 @@ public class MainFrame extends JFrame {
 	private CertificatesPanel panelCertificates;
 	private ExportPanel panelSend;
 
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {			
+					new MainFrame();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	public MainFrame() {
 		setLocale(new Locale("pl", "PL"));
 		setTitle(DefineUtils.APP_TITLE);

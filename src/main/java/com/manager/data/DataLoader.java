@@ -27,7 +27,6 @@ public class DataLoader {
 	private DataLoader() {
 	}
 
-
 	public void setDirectory(String directory) {
 		this.directory = directory;
 	}
@@ -131,13 +130,21 @@ public class DataLoader {
 	}
 
 	public String provideInfo() {
-		return "Ilość potwierdzeń: \n   " + dataList.size() + "\n" + "\nOkres czasu: \nod \n   "
-				+ dataList.get(0).get(0) + " \ndo \n   " + dataList.get(dataList.size() - 1).get(0) + "\n";
+		try {
+			return "Ilość potwierdzeń: \n   " + dataList.size() + "\n" + "\nOkres czasu: \nod \n   "
+					+ dataList.get(0).get(0) + " \ndo \n   " + dataList.get(dataList.size() - 1).get(0) + "\n";
+		} catch (IndexOutOfBoundsException e) {
+			return "Brak potwierdzeń";
+		}
 	}
 
 	public String provideInfoLong() {
-		return "Ilość potwierdzeń: " + dataList.size() + "\n" + "Okres czasu: od " + dataList.get(0).get(0) + " do "
-				+ dataList.get(dataList.size() - 1).get(0);
+		try {
+			return "Ilość potwierdzeń: \n   " + dataList.size() + "\n" + "\nOkres czasu: \nod \n   "
+					+ dataList.get(0).get(0) + " \ndo \n   " + dataList.get(dataList.size() - 1).get(0) + "\n";
+		} catch (IndexOutOfBoundsException e) {
+			return "Brak potwierdzeń";
+		}
 	}
 
 	public String ewusMailTopic() {
