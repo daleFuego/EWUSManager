@@ -1,4 +1,4 @@
-package com.manager.gui;
+package com.manager.gui.panel.queue;
 
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
@@ -16,7 +16,7 @@ public class Calendar extends JFrame {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public Calendar(final AddVisit addVisit) {
+	public Calendar(final VisitDialog addVisit) {
 		setResizable(false);
 		setSize(new Dimension(200, 495));
 		getContentPane().setLayout(null);
@@ -24,10 +24,11 @@ public class Calendar extends JFrame {
 		JCalendar calendarFirstMonth = new JCalendar();
 		calendarFirstMonth.setLocation(0, 0);
 		calendarFirstMonth.setSize(new Dimension(194, 155));
+		calendarFirstMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth() - 1);
 		getContentPane().add(calendarFirstMonth);
 
 		JCalendar calendarSecondMonth = new JCalendar();
-		calendarSecondMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth() + 1);
+//		calendarSecondMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth());
 		calendarSecondMonth.setLocation(0, 155);
 		calendarSecondMonth.setSize(new Dimension(194, 155));
 		getContentPane().add(calendarSecondMonth);
@@ -112,7 +113,7 @@ public class Calendar extends JFrame {
 		}
 	}
 
-	public Calendar(final AddDate addDate) {
+	public Calendar(final DateFrame addDate) {
 		setResizable(false);
 		setSize(new Dimension(200, 495));
 		getContentPane().setLayout(null);
@@ -120,10 +121,10 @@ public class Calendar extends JFrame {
 		JCalendar calendarFirstMonth = new JCalendar();
 		calendarFirstMonth.setLocation(0, 0);
 		calendarFirstMonth.setSize(new Dimension(194, 155));
+		calendarFirstMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth() - 1);
 		getContentPane().add(calendarFirstMonth);
 
 		JCalendar calendarSecondMonth = new JCalendar();
-		calendarSecondMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth() + 1);
 		calendarSecondMonth.setLocation(0, 155);
 		calendarSecondMonth.setSize(new Dimension(194, 155));
 		getContentPane().add(calendarSecondMonth);

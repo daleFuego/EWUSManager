@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class DefineUtils {
-
+	
 	public static String mailAdress = "";
 	public static String mailPassword = "";
 	
@@ -14,18 +14,21 @@ public class DefineUtils {
 	public static String APP_VERSION				= " wersja ";
 	public static String FILE_SEPARATOR	 			= "";
 	public static String MAIL_PASSWORD	 			= "";
-	public static String BRWOSE_DESCRIPTION		 	= "";
+	public static String CERTIFICATES_DESCRIPTION	= "";
 	public static String SEND_DESRIPTION 			= "";
 	public static String QUEUE_DESCRIPTION 			= "";
 	public static String DB_NAME 					= "jdbc:postgresql://localhost:5432/EWUSManager";
 	public static String DB_USERNAME 				= "postgres";
 	public static String DB_PASSWORD 				= "postgres";
+	public static String DB_TABLE_PATHS 			= "PATHS";
+	public static String DB_TABLE_CONTACTS 			= "CONTACTS";
 	public static String DB_pathbrowsefiles 		= "pathbrowsefiles";
 	public static String DB_pathsendzipsave 		= "pathsendzipsave";
 	public static String DB_pathsendmailsender 		= "pathsendmailsender";
 	public static String DB_pathsendmailreceiver 	= "pathsendmailreceiver";
 	public static String DB_pathsendmailfile 		= "pathsendmailfile";
 	public static String DB_pathqueueexistingfile 	= "pathqueueexistingfile";
+	public static String DB_mailAddress 			= "mailAddress";
 
 	public static void initDataLoad() {
 		if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {
@@ -40,7 +43,7 @@ public class DefineUtils {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader("Init.txt"));
 			while ((content = bufferedReader.readLine()) != null) {
 				if (content.contains("#BRWOSE_DESCRIPTION")) {
-					BRWOSE_DESCRIPTION = content.split("=")[1];
+					CERTIFICATES_DESCRIPTION = content.split("=")[1];
 				}
 				if (content.contains("#SEND_DESRIPTION")) {
 					SEND_DESRIPTION = content.split("=")[1];

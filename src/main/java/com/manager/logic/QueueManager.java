@@ -21,16 +21,16 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.manager.dao.DBData;
-import com.manager.gui.AddDate;
-import com.manager.gui.AddVisit;
-import com.manager.newgui.QueueTableModel;
+import com.manager.gui.panel.queue.DateFrame;
+import com.manager.gui.panel.queue.VisitDialog;
+import com.manager.gui.panel.queue.QueueTableModel;
 import com.manager.utils.DefineUtils;
 
 public class QueueManager {
 
 	private String filePath;
-	private AddVisit addVisit;
-	private AddDate addDate;
+	private VisitDialog addVisit;
+	private DateFrame addDate;
 	private JTextField textField;
 	private JTable queueTable;
 	private String tmpFileName;
@@ -135,6 +135,7 @@ public class QueueManager {
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (IOException ioe) {
 			System.err.println("IOException: " + ioe.getMessage());
+			ioe.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Wystąpił błąd w trakcie zapisywania dokumentu: " + ioe.getMessage(),
 					"Kolejkowanie", JOptionPane.ERROR_MESSAGE);
 		}
@@ -149,7 +150,7 @@ public class QueueManager {
 			try {
 				file.createNewFile();
 				filePath = fileChooser.getSelectedFile().toString() + ".txt";
-				DBData.getInstance().updatePath(DefineUtils.DB_pathqueueexistingfile, filePath);
+				DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathqueueexistingfile, filePath);
 				textField.setText(filePath);
 				refreshTable(true);
 			} catch (IOException e) {
@@ -159,12 +160,12 @@ public class QueueManager {
 	}
 
 	public void addDate() {
-		addDate = new AddDate(this);
+		addDate = new DateFrame(this);
 		addDate.setVisible(true);
 	}
 
 	public void addVisit() {
-		addVisit = new AddVisit(this);
+		addVisit = new VisitDialog(this);
 		addVisit.setVisible(true);
 	}
 

@@ -1,4 +1,4 @@
-package com.manager.newgui;
+package com.manager.gui.panel.export;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -16,12 +16,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class PanelSendFiles extends JPanel {
+public class FileExportPanel extends JPanel {
 	private JTextField textFieldFilePath;
 	private JTextField textFieldReceiver;
 	private JTextField textFieldSender;
 
-	public PanelSendFiles() {
+	public FileExportPanel() {
 		setBorder(new TitledBorder(null, "Wysy\u0142anie paczki z potwierdzeniami", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		setLayout(null);
@@ -75,6 +75,15 @@ public class PanelSendFiles extends JPanel {
 		textFieldSender.setEnabled(false);
 		textFieldSender.setBounds(83, 17, 352, 20);
 		add(textFieldSender);
+		
+		JButton btnBrowseContacts = new JButton("Książka adresowa");
+		btnBrowseContacts.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new AddresssBook(textFieldReceiver);
+			}
+		});
+		btnBrowseContacts.setBounds(445, 46, 226, 20);
+		add(btnBrowseContacts);
 	}
 
 	public JTextField getTextFieldFilePath() {

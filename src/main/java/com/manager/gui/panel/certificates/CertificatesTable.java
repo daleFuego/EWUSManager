@@ -1,4 +1,4 @@
-package com.manager.newgui;
+package com.manager.gui.panel.certificates;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -8,13 +8,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("serial")
-public class PanellCertificatesTable extends JPanel {
+public class CertificatesTable extends JPanel {
 
 	private JTable table;
 	private DefaultTableModel model;
 	private String deleteFile;
 
-	public PanellCertificatesTable(String filePath) {
+	public CertificatesTable(String filePath) {
 		setLayout(null);
 		setVisible(true);
 

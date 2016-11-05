@@ -1,4 +1,4 @@
-package com.manager.gui;
+package com.manager.gui.panel.queue;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 import com.manager.logic.QueueManager;
 
 @SuppressWarnings("serial")
-public class AddDate extends JFrame {
+public class DateFrame extends JFrame {
 
 	@SuppressWarnings("unused")
 
@@ -23,7 +23,7 @@ public class AddDate extends JFrame {
 	private JPanel contentPane;
 	public JTextField textField;
 
-	public AddDate(final QueueManager queueManager) {
+	public DateFrame(final QueueManager queueManager) {
 		this.queueManager = queueManager;
 		final Calendar calendar = new Calendar(this);
 		setTitle("Piewszy wolny termin");
@@ -34,9 +34,9 @@ public class AddDate extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblWybierzDatPierwszego = new JLabel("Wybierz datę pierwszego wolnego terminu");
-		lblWybierzDatPierwszego.setBounds(14, 21, 222, 14);
-		contentPane.add(lblWybierzDatPierwszego);
+		JLabel lblDate = new JLabel("Wybierz datę pierwszego wolnego terminu");
+		lblDate.setBounds(14, 21, 222, 14);
+		contentPane.add(lblDate);
 
 		textField = new JTextField();
 		textField.setEditable(false);

@@ -1,4 +1,4 @@
-package com.manager.newgui;
+package com.manager.gui.panel.export;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -12,16 +12,16 @@ import javax.swing.border.TitledBorder;
 import com.manager.utils.DefineUtils;
 
 @SuppressWarnings("serial")
-public class PanelSend extends JPanel {
+public class ExportPanel extends JPanel {
 	private JTextArea textAreaDescription;
-	private PanelSendInfo panelSendInfo;
+	private ExportInfoPanel panelSendInfo;
 	private String pathToCertificates;
-	private PanelSendQueue panelSendQueue;
+	private QueueExportPanel panelSendQueue;
 
-	public PanelSend() {
+	public ExportPanel() {
 		setLayout(null);
 
-		panelSendInfo = new PanelSendInfo();
+		panelSendInfo = new ExportInfoPanel();
 		panelSendInfo.getTextAreaDetails().setEditable(false);
 		panelSendInfo.getTextAreaDetails().setRows(0);
 		panelSendInfo.getTextAreaDetails().setFont(new Font("Arial", Font.PLAIN, 11));
@@ -42,28 +42,24 @@ public class PanelSend extends JPanel {
 		textAreaDescription.setLineWrap(true);
 		textAreaDescription.setFont(new Font("Arial", Font.PLAIN, 11));
 		textAreaDescription.setEditable(false);
-		PanelSendFiles panelSendFiles = new PanelSendFiles();
+		FileExportPanel panelSendFiles = new FileExportPanel();
 		panelSendFiles.setBorder(
 				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Wysy\u0142anie paczki z potwierdzeniami",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelSendFiles.setBounds(5, 230, 679, 105);
 		add(panelSendFiles);
-		PanelPackFiles panelPackFiles = new PanelPackFiles(pathToCertificates, panelSendFiles.getTextFieldFilePath());
+		FileZipPanel panelPackFiles = new FileZipPanel(pathToCertificates, panelSendFiles.getTextFieldFilePath());
 		panelPackFiles.setBorder(new TitledBorder(null, "Pakowanie potwierdze\u0144", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelPackFiles.setBounds(5, 146, 679, 75);
 		add(panelPackFiles);
-		panelSendQueue = new PanelSendQueue();
+		panelSendQueue = new QueueExportPanel();
 		panelSendQueue.setBounds(5, 344, 679, 105);
 		add(panelSendQueue);
 
 	}
-
-	public JTextArea getTextAreaDescription() {
-		return textAreaDescription;
-	}
-
-	public PanelSendInfo getPanelSendInfo() {
+	
+	public ExportInfoPanel getPanelSendInfo() {
 		return panelSendInfo;
 	}
 
@@ -71,7 +67,7 @@ public class PanelSend extends JPanel {
 		this.pathToCertificates = pathToCertificates;
 	}
 
-	public PanelSendQueue getPanelSendQueue() {
+	public QueueExportPanel getPanelSendQueue() {
 		return panelSendQueue;
 	}
 }

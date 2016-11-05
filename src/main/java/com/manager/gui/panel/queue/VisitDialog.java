@@ -1,10 +1,12 @@
-package com.manager.gui;
+package com.manager.gui.panel.queue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -21,7 +23,7 @@ import com.manager.data.PeselValidator;
 import com.manager.logic.QueueManager;
 
 @SuppressWarnings("serial")
-public class AddVisit extends JDialog {
+public class VisitDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	public JTextField textFieldName;
@@ -30,8 +32,9 @@ public class AddVisit extends JDialog {
 	public JTextField textFieldDate;
 	public JTextField textFieldDayOfSave;
 	public boolean dayOfSave = false;
+	private String currentDate = new SimpleDateFormat("dd/MM/yyyy").format((new Date())).toString();
 
-	public AddVisit(final QueueManager queueManager) {
+	public VisitDialog(final QueueManager queueManager) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(false);
 		final Calendar calendar = new Calendar(this);
@@ -87,7 +90,7 @@ public class AddVisit extends JDialog {
 			contentPanel.add(lblSurname);
 		}
 		{
-			textFieldDate = new JTextField();
+			textFieldDate = new JTextField(currentDate);
 			textFieldDate.setEditable(false);
 			textFieldDate.setBounds(128, 108, 99, 20);
 			contentPanel.add(textFieldDate);
@@ -116,7 +119,7 @@ public class AddVisit extends JDialog {
 			contentPanel.add(lblDayOfSave);
 		}
 		{
-			textFieldDayOfSave = new JTextField();
+			textFieldDayOfSave = new JTextField(currentDate);
 			textFieldDayOfSave.setEditable(false);
 			textFieldDayOfSave.setColumns(10);
 			textFieldDayOfSave.setBounds(128, 8, 99, 20);

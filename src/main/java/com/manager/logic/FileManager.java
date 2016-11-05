@@ -25,7 +25,7 @@ public class FileManager {
 		if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
 			this.pathBrowser = fileChooser.getSelectedFile().getAbsolutePath();
 		}
-		DBData.getInstance().updatePath(DefineUtils.DB_pathbrowsefiles, pathBrowser);
+		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathbrowsefiles, pathBrowser);
 		textFieldFilePath.setText(pathBrowser);
 		return pathBrowser;
 	}
@@ -37,7 +37,7 @@ public class FileManager {
 		if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
 			this.pathSend = fileChooser.getSelectedFile().getAbsolutePath();
 		}
-		DBData.getInstance().updatePath(DefineUtils.DB_pathsendmailfile, pathSend);
+		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailfile, pathSend);
 		textFieldFilePath.setText(pathSend);
 		return pathSend;
 	}
@@ -49,7 +49,7 @@ public class FileManager {
 		if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
 			this.pathQueue = fileChooser.getSelectedFile().getAbsolutePath();
 		}
-		DBData.getInstance().updatePath(DefineUtils.DB_pathqueueexistingfile, pathQueue);
+		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathqueueexistingfile, pathQueue);
 		textFieldFilePath.setText(pathQueue);
 		return pathQueue;
 	}

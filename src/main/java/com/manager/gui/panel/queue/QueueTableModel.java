@@ -1,4 +1,4 @@
-package com.manager.newgui;
+package com.manager.gui.panel.queue;
 
 import java.awt.Color;
 import java.util.Arrays;

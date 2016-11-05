@@ -1,4 +1,4 @@
-package com.manager.newgui;
+package com.manager.gui.panel.certificates;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,24 +17,23 @@ import javax.swing.table.DefaultTableModel;
 import com.manager.dao.DBData;
 import com.manager.data.DataLoader;
 import com.manager.logic.FileManager;
-import com.manager.utils.CallTrace;
 import com.manager.utils.DefineUtils;
 
 @SuppressWarnings("serial")
-public class PanelCertificates extends JPanel {
+public class CertificatesPanel extends JPanel {
 	private JTextField textFieldFilePath;
 	private DataLoader dataLoader;
-	private PanellCertificatesTable certificatesTable;
+	private CertificatesTable certificatesTable;
 	private JTextArea textAreaFileDetails;
 	private JTextArea panelSendDescription;
 	private JButton buttonUndo;
 
-	public PanelCertificates(JTextArea panelSendDescription) {
+	public CertificatesPanel(JTextArea panelSendDescription) {
 		setLayout(null);
 
 		this.panelSendDescription = panelSendDescription;
 
-		certificatesTable = new PanellCertificatesTable("");
+		certificatesTable = new CertificatesTable("");
 		certificatesTable.setBounds(6, 105, 553, 347);
 		add(certificatesTable);
 
@@ -45,7 +44,7 @@ public class PanelCertificates extends JPanel {
 		JTextArea textAreaDescription = new JTextArea();
 		scrollPaneDescription.setViewportView(textAreaDescription);
 		textAreaDescription.setWrapStyleWord(true);
-		textAreaDescription.setText(DefineUtils.BRWOSE_DESCRIPTION);
+		textAreaDescription.setText(DefineUtils.CERTIFICATES_DESCRIPTION);
 		textAreaDescription.setRows(2);
 		textAreaDescription.setLineWrap(true);
 		textAreaDescription.setFont(new Font("Arial", Font.PLAIN, 11));
@@ -62,7 +61,6 @@ public class PanelCertificates extends JPanel {
 				if (dataLoader.deleteFile(certificatesTable.getDeleteFile())) {
 					refreshTable();
 					buttonUndo.setEnabled(true);
-					CallTrace.log("#delete:" + certificatesTable.getDeleteFile());
 				}
 			}
 		});
@@ -144,7 +142,7 @@ public class PanelCertificates extends JPanel {
 		return textFieldFilePath;
 	}
 
-	public PanellCertificatesTable getCertificatesTable() {
+	public CertificatesTable getCertificatesTable() {
 		return certificatesTable;
 	}
 }

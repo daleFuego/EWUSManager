@@ -1,4 +1,4 @@
-package com.manager.newgui;
+package com.manager.gui.panel.export;
 
 import java.awt.Color;
 
@@ -9,10 +9,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
-public class PanelSendInfo extends JPanel {
+public class ExportInfoPanel extends JPanel {
 	private JTextArea textAreaDetails;
 
-	public PanelSendInfo() {
+	public ExportInfoPanel() {
 		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Informacje o potwierdzeniach",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(null);

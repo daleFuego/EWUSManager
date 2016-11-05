@@ -1,4 +1,4 @@
-package com.manager.newgui;
+package com.manager.gui.panel.queue;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -18,19 +18,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class PanelQueue extends JPanel {
+public class QueuePanel extends JPanel {
 
 	private JTextField textFieldFilePath;
 	private JTextField textFieldSendQueue;
 
 	private QueueManager queueManager;
-	private PanelQueueTable panelQueueTable;
+	private QueueTable panelQueueTable;
 
-	public PanelQueue() {
+	public QueuePanel() {
 		setLayout(null);
 		setVisible(true);
 
-		panelQueueTable = new PanelQueueTable("");
+		panelQueueTable = new QueueTable("");
 		panelQueueTable.setBounds(6, 105, 553, 345);
 		add(panelQueueTable);
 
@@ -139,6 +139,7 @@ public class PanelQueue extends JPanel {
 		add(scrollPaneDescription);
 
 		JTextArea textAreaDescription = new JTextArea();
+		textAreaDescription.setEditable(false);
 		textAreaDescription.setLineWrap(true);
 		textAreaDescription.setRows(2);
 		textAreaDescription.setFont(new Font("Arial", Font.PLAIN, 11));
@@ -151,7 +152,7 @@ public class PanelQueue extends JPanel {
 		return textFieldFilePath;
 	}
 
-	public PanelQueueTable getPanelQueueTable() {
+	public QueueTable getPanelQueueTable() {
 		return panelQueueTable;
 	}
 
