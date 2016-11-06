@@ -2,6 +2,8 @@ package com.manager.data;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Vector;
 
 import javax.crypto.Cipher;
@@ -50,7 +52,10 @@ public class DataLoader {
 			desCipher.init(Cipher.ENCRYPT_MODE, KeyGenerator.getInstance("DES").generateKey());
 
 			File folder = new File(directory);
-			for (File file : folder.listFiles()) {
+			
+			
+			
+			for (File file : sortFiles(folder)) {
 				if (file.isFile() && file.getName().endsWith(".xml")) {
 					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -64,7 +69,7 @@ public class DataLoader {
 					NodeList nodeSurname = docElement.getElementsByTagName("ns2:nazwisko");
 					NodeList nodePesel = docElement.getElementsByTagName("ns2:numer_pesel");
 
-					ArrayList<String> infoSet = new ArrayList<>();
+					ArrayList<String> infoSet = new ArrayList<String>();
 
 					infoSet.add(nodeDate.item(0).getTextContent());
 					infoSet.add(nodeName.item(0).getTextContent());
@@ -75,18 +80,44 @@ public class DataLoader {
 					dataList.add(infoSet);
 				}
 			}
+			
 		} catch (Exception e) {
 		}
 
 		return dataList;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private File[] sortFiles(File folder) {
+		File [] files = folder.listFiles();
+
+		Arrays.sort( files, new Comparator()
+		{
+		    public int compare(Object o1, Object o2) {
+
+		        if (((File)o1).lastModified() > ((File)o2).lastModified()) {
+		            return -1;
+		        } else if (((File)o1).lastModified() < ((File)o2).lastModified()) {
+		            return +1;
+		        } else {
+		            return 0;
+		        }
+		    }
+
+		});
+		
+		return files;
+	}
+
 	public boolean deleteFile(String fileName) {
 		boolean result = false;
+		
 		String filePath = directory + DefineUtils.FILE_SEPARATOR + fileName;
+		System.out.println(filePath);
 		File file = new File(filePath);
 		if (!file.isDirectory()) {
 			File binPath = new File("DeletedItems" + DefineUtils.FILE_SEPARATOR + fileName);
+			System.out.println(binPath);
 			if (file.renameTo(binPath)) {
 				result = true;
 			} else {
@@ -140,8 +171,14 @@ public class DataLoader {
 
 	public String provideInfoLong() {
 		try {
-			return "Ilość potwierdzeń: \n   " + dataList.size() + "\n" + "\nOkres czasu: \nod \n   "
-					+ dataList.get(0).get(0) + " \ndo \n   " + dataList.get(dataList.size() - 1).get(0) + "\n";
+			if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {
+				return "Ilość potwierdzeń: \n   " + dataList.size() + "\n" + "\nOkres czasu: \nod \n   "
+						+ dataList.get(0).get(0) + " \ndo \n   " + dataList.get(dataList.size() - 1).get(0) + "\n";
+			} else {
+				return "Ilość potwierdzeń: " + dataList.size() + "\n" + "Okres czasu: od " + dataList.get(0).get(0)
+						+ " do " + dataList.get(dataList.size() - 1).get(0) + "\n";
+			}
+
 		} catch (IndexOutOfBoundsException e) {
 			return "Brak potwierdzeń";
 		}

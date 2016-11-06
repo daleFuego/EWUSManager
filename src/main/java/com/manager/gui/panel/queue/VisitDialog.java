@@ -21,6 +21,7 @@ import javax.swing.event.CaretListener;
 
 import com.manager.data.PeselValidator;
 import com.manager.logic.QueueManager;
+import com.manager.utils.DefineUtils;
 
 @SuppressWarnings("serial")
 public class VisitDialog extends JDialog {
@@ -46,22 +47,24 @@ public class VisitDialog extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblDate = new JLabel("Data wizyty");
+			lblDate.setFont(DefineUtils.FONT);
 			lblDate.setBounds(21, 111, 86, 14);
 			contentPanel.add(lblDate);
 		}
 		{
 			textFieldSurname = new JTextField();
+			textFieldSurname.setFont(DefineUtils.FONT);
 			textFieldSurname.setBounds(128, 58, 171, 20);
 			contentPanel.add(textFieldSurname);
 			textFieldSurname.setColumns(10);
 		}
 		{
 			textFieldPesel = new JTextField();
+			textFieldPesel.setFont(DefineUtils.FONT);
 			textFieldPesel.setBounds(128, 83, 171, 20);
 
 			textFieldPesel.addCaretListener(new CaretListener() {
 
-				@Override
 				public void caretUpdate(CaretEvent e) {
 					if (new PeselValidator(textFieldPesel.getText()).isValid()) {
 						textFieldPesel.setForeground(Color.BLACK);
@@ -75,22 +78,26 @@ public class VisitDialog extends JDialog {
 		}
 		{
 			textFieldName = new JTextField();
+			textFieldName.setFont(DefineUtils.FONT);
 			textFieldName.setBounds(128, 33, 171, 20);
 			contentPanel.add(textFieldName);
 			textFieldName.setColumns(10);
 		}
 		{
 			JLabel lblPesel = new JLabel("PESEL");
+			lblPesel.setFont(DefineUtils.FONT);
 			lblPesel.setBounds(21, 86, 86, 14);
 			contentPanel.add(lblPesel);
 		}
 		{
 			JLabel lblSurname = new JLabel("Nazwisko");
+			lblSurname.setFont(DefineUtils.FONT);
 			lblSurname.setBounds(21, 61, 86, 14);
 			contentPanel.add(lblSurname);
 		}
 		{
 			textFieldDate = new JTextField(currentDate);
+			textFieldDate.setFont(DefineUtils.FONT);
 			textFieldDate.setEditable(false);
 			textFieldDate.setBounds(128, 108, 99, 20);
 			contentPanel.add(textFieldDate);
@@ -99,14 +106,15 @@ public class VisitDialog extends JDialog {
 		{
 			JLabel lblName = new JLabel("Imię");
 			lblName.setBounds(21, 36, 86, 14);
+			lblName.setFont(DefineUtils.FONT);
 			contentPanel.add(lblName);
 		}
 
 		JButton btnDate = new JButton("Data");
+		btnDate.setFont(DefineUtils.FONT);
 		btnDate.setBounds(237, 107, 62, 23);
 		btnDate.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				dayOfSave = false;
 				calendar.setVisible(true);
@@ -115,7 +123,8 @@ public class VisitDialog extends JDialog {
 		contentPanel.add(btnDate);
 		{
 			JLabel lblDayOfSave = new JLabel("Zapisany dnia");
-			lblDayOfSave.setBounds(21, 11, 76, 14);
+			lblDayOfSave.setFont(DefineUtils.FONT);
+			lblDayOfSave.setBounds(21, 11, 86, 14);
 			contentPanel.add(lblDayOfSave);
 		}
 		{
@@ -123,14 +132,15 @@ public class VisitDialog extends JDialog {
 			textFieldDayOfSave.setEditable(false);
 			textFieldDayOfSave.setColumns(10);
 			textFieldDayOfSave.setBounds(128, 8, 99, 20);
+			textFieldDayOfSave.setFont(DefineUtils.FONT);
 			contentPanel.add(textFieldDayOfSave);
 		}
 		{
 			JButton buttonDateOfSave = new JButton("Data");
 			buttonDateOfSave.setBounds(237, 7, 62, 23);
+			buttonDateOfSave.setFont(DefineUtils.FONT);
 			buttonDateOfSave.addActionListener(new ActionListener() {
 
-				@Override
 				public void actionPerformed(ActionEvent e) {
 					dayOfSave = true;
 					calendar.setVisible(true);
@@ -140,6 +150,7 @@ public class VisitDialog extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setFont(DefineUtils.FONT);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
@@ -147,7 +158,6 @@ public class VisitDialog extends JDialog {
 				okButton.setActionCommand("OK");
 				okButton.addActionListener(new ActionListener() {
 
-					@Override
 					public void actionPerformed(ActionEvent e) {
 						calendar.setVisible(false);
 						queueManager.deliverData(textFieldDayOfSave.getText() + "\t" + textFieldName.getText() + "\t"
@@ -161,12 +171,12 @@ public class VisitDialog extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Anuluj");
+				cancelButton.setFont(DefineUtils.FONT);
 				cancelButton.setSize(89, 23);
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 				cancelButton.addActionListener(new ActionListener() {
 
-					@Override
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}

@@ -1,5 +1,6 @@
 package com.manager.utils;
 
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,12 +24,15 @@ public class DefineUtils {
 	public static String DB_TABLE_PATHS 			= "PATHS";
 	public static String DB_TABLE_CONTACTS 			= "CONTACTS";
 	public static String DB_pathbrowsefiles 		= "pathbrowsefiles";
-	public static String DB_pathsendzipsave 		= "pathsendzipsave";
 	public static String DB_pathsendmailsender 		= "pathsendmailsender";
 	public static String DB_pathsendmailreceiver 	= "pathsendmailreceiver";
 	public static String DB_pathsendmailfile 		= "pathsendmailfile";
 	public static String DB_pathqueueexistingfile 	= "pathqueueexistingfile";
+	public static String DB_pathArchive 			= "\"pathArchive\"";
+	public static String DB_pathDeletedItems 		= "\"pathDeletedItems\"";
 	public static String DB_mailAddress 			= "mailAddress";
+	
+	public static Font FONT 						= new Font("Arial", Font.PLAIN, 11);
 
 	public static void initDataLoad() {
 		if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {

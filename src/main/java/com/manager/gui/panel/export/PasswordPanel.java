@@ -30,27 +30,21 @@ public class PasswordPanel extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblEnterPassword = new JLabel("Podaj hasło do swojego konta mailowego:");
-		lblEnterPassword.setBounds(6, 5, 208, 14);
+		lblEnterPassword.setFont(DefineUtils.FONT);
+		lblEnterPassword.setBounds(6, 5, 239, 14);
 		contentPane.add(lblEnterPassword);
 
 		passwordField = new JPasswordField(DefineUtils.MAIL_PASSWORD);
-		passwordField.setBounds(220, 2, 136, 20);
+		passwordField.setBounds(253, 2, 103, 20);
+		passwordField.setFont(DefineUtils.FONT);
 		contentPane.add(passwordField);
 
 		btnConfirm = new JButton("Potwierdź");
+		btnConfirm.setFont(DefineUtils.FONT);
 		btnConfirm.setBounds(362, 1, 89, 23);
 
 		passwordField.addKeyListener(new KeyListener() {
 
-			@Override
-			public void keyTyped(KeyEvent e) {
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-			}
-
-			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					btnConfirm.doClick();
@@ -58,6 +52,12 @@ public class PasswordPanel extends JFrame {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					dispose();
 				}
+			}
+
+			public void keyTyped(KeyEvent e) {				
+			}
+
+			public void keyReleased(KeyEvent e) {
 			}
 		});
 		contentPane.add(btnConfirm);

@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import com.manager.utils.DefineUtils;
 import com.toedter.calendar.JCalendar;
 
 @SuppressWarnings("serial")
@@ -18,30 +19,32 @@ public class Calendar extends JFrame {
 	 */
 	public Calendar(final VisitDialog addVisit) {
 		setResizable(false);
-		setSize(new Dimension(200, 495));
+		setSize(new Dimension(302, 606));
 		getContentPane().setLayout(null);
 
-		JCalendar calendarFirstMonth = new JCalendar();
+		final JCalendar calendarFirstMonth = new JCalendar();
+		calendarFirstMonth.setFont(DefineUtils.FONT);
 		calendarFirstMonth.setLocation(0, 0);
-		calendarFirstMonth.setSize(new Dimension(194, 155));
+		calendarFirstMonth.setSize(new Dimension(300, 200));
+		calendarFirstMonth.getDayChooser().getDayPanel().setFont(DefineUtils.FONT);
 		calendarFirstMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth() - 1);
 		getContentPane().add(calendarFirstMonth);
 
-		JCalendar calendarSecondMonth = new JCalendar();
-//		calendarSecondMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth());
-		calendarSecondMonth.setLocation(0, 155);
-		calendarSecondMonth.setSize(new Dimension(194, 155));
+		final JCalendar calendarSecondMonth = new JCalendar();
+		calendarSecondMonth.setFont(DefineUtils.FONT);
+		calendarSecondMonth.setLocation(0, 201);
+		calendarSecondMonth.setSize(new Dimension(300, 200));
 		getContentPane().add(calendarSecondMonth);
 
-		JCalendar calendarThirdMonth = new JCalendar();
-		calendarThirdMonth.setLocation(0, 310);
-		calendarThirdMonth.setSize(new Dimension(194, 155));
+		final JCalendar calendarThirdMonth = new JCalendar();
+		calendarThirdMonth.setLocation(0, 402);
+		calendarThirdMonth.setSize(new Dimension(300, 200));
+		calendarThirdMonth.setFont(DefineUtils.FONT);
 		calendarThirdMonth.getMonthChooser().setMonth(calendarSecondMonth.getMonthChooser().getMonth() + 1);
 		getContentPane().add(calendarThirdMonth);
 
 		calendarFirstMonth.getDayChooser().addPropertyChangeListener(new PropertyChangeListener() {
 
-			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
 					if (addVisit.dayOfSave) {
@@ -63,7 +66,6 @@ public class Calendar extends JFrame {
 
 		calendarSecondMonth.getDayChooser().addPropertyChangeListener(new PropertyChangeListener() {
 
-			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
 					if (addVisit.dayOfSave) {
@@ -85,7 +87,6 @@ public class Calendar extends JFrame {
 
 		calendarThirdMonth.getDayChooser().addPropertyChangeListener(new PropertyChangeListener() {
 
-			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
 					if (addVisit.dayOfSave) {
@@ -118,26 +119,28 @@ public class Calendar extends JFrame {
 		setSize(new Dimension(200, 495));
 		getContentPane().setLayout(null);
 
-		JCalendar calendarFirstMonth = new JCalendar();
+		final JCalendar calendarFirstMonth = new JCalendar();
+		calendarFirstMonth.setFont(DefineUtils.FONT);
 		calendarFirstMonth.setLocation(0, 0);
 		calendarFirstMonth.setSize(new Dimension(194, 155));
 		calendarFirstMonth.getMonthChooser().setMonth(calendarFirstMonth.getMonthChooser().getMonth() - 1);
 		getContentPane().add(calendarFirstMonth);
 
-		JCalendar calendarSecondMonth = new JCalendar();
+		final JCalendar calendarSecondMonth = new JCalendar();
+		calendarSecondMonth.setFont(DefineUtils.FONT);
 		calendarSecondMonth.setLocation(0, 155);
 		calendarSecondMonth.setSize(new Dimension(194, 155));
 		getContentPane().add(calendarSecondMonth);
 
-		JCalendar calendarThirdMonth = new JCalendar();
+		final JCalendar calendarThirdMonth = new JCalendar();
 		calendarThirdMonth.setLocation(0, 310);
 		calendarThirdMonth.setSize(new Dimension(194, 155));
+		calendarThirdMonth.setFont(DefineUtils.FONT);
 		calendarThirdMonth.getMonthChooser().setMonth(calendarSecondMonth.getMonthChooser().getMonth() + 1);
 		getContentPane().add(calendarThirdMonth);
 
 		calendarFirstMonth.getDayChooser().addPropertyChangeListener(new PropertyChangeListener() {
 
-			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
 					addDate.textField.setText(calendarFirstMonth.getDayChooser().getDay() + "/"
@@ -152,7 +155,6 @@ public class Calendar extends JFrame {
 
 		calendarSecondMonth.getDayChooser().addPropertyChangeListener(new PropertyChangeListener() {
 
-			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
 					addDate.textField.setText(calendarSecondMonth.getDayChooser().getDay() + "/"
@@ -167,7 +169,6 @@ public class Calendar extends JFrame {
 
 		calendarThirdMonth.getDayChooser().addPropertyChangeListener(new PropertyChangeListener() {
 
-			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
 					addDate.textField.setText(calendarThirdMonth.getDayChooser().getDay() + "/"
