@@ -44,7 +44,7 @@ public class DefineUtils {
 		String content = "";
 		try {
 			@SuppressWarnings("resource")
-			BufferedReader bufferedReader = new BufferedReader(new FileReader("Init.txt"));
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(DefineUtils.class.getClassLoader().getResource("Init.txt").getFile()));
 			while ((content = bufferedReader.readLine()) != null) {
 				if (content.contains("#BRWOSE_DESCRIPTION")) {
 					CERTIFICATES_DESCRIPTION = content.split("=")[1];
