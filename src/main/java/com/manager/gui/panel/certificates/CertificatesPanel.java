@@ -1,7 +1,6 @@
 package com.manager.gui.panel.certificates;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,7 +21,6 @@ import com.manager.utils.DefineUtils;
 @SuppressWarnings("serial")
 public class CertificatesPanel extends JPanel {
 	private JTextField textFieldFilePath;
-	private DataLoader dataLoader;
 	private CertificatesTable certificatesTable;
 	private JTextArea textAreaFileDetails;
 	private JTextArea panelSendDescription;
@@ -47,7 +45,7 @@ public class CertificatesPanel extends JPanel {
 		textAreaDescription.setText(DefineUtils.CERTIFICATES_DESCRIPTION);
 		textAreaDescription.setRows(2);
 		textAreaDescription.setLineWrap(true);
-		textAreaDescription.setFont(new Font("Arial", Font.PLAIN, 11));
+		textAreaDescription.setFont(DefineUtils.FONT);
 		textAreaDescription.setEditable(false);
 
 		JPanel panelControls = new JPanel();
@@ -56,9 +54,10 @@ public class CertificatesPanel extends JPanel {
 		panelControls.setLayout(null);
 
 		JButton buttonDelete = new JButton("Usuń wpis");
+		buttonDelete.setFont(DefineUtils.FONT);
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (dataLoader.deleteFile(certificatesTable.getDeleteFile())) {
+				if (DataLoader.getInstance().deleteFile(certificatesTable.getDeleteFile())) {
 					refreshTable();
 					buttonUndo.setEnabled(true);
 				}
@@ -68,14 +67,13 @@ public class CertificatesPanel extends JPanel {
 		panelControls.add(buttonDelete);
 
 		buttonUndo = new JButton("Cofnij");
+		buttonUndo.setFont(DefineUtils.FONT);
 		buttonUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Fix this one day
-				if (dataLoader != null) {
-					dataLoader.undoDeleteFile();
+					DataLoader.getInstance().undoDeleteFile();
 					refreshTable();
 					buttonUndo.setEnabled(false);
-				}
 			}
 		});
 		buttonUndo.setBounds(1, 312, 109, 20);
@@ -94,7 +92,7 @@ public class CertificatesPanel extends JPanel {
 		textAreaFileDetails.setEditable(false);
 		textAreaFileDetails.setWrapStyleWord(true);
 		textAreaFileDetails.setRows(2);
-		textAreaFileDetails.setFont(new Font("Arial", Font.PLAIN, 11));
+		textAreaFileDetails.setFont(DefineUtils.FONT);
 
 		JPanel panelFilePath = new JPanel();
 		panelFilePath.setBounds(6, 58, 674, 40);
@@ -102,21 +100,24 @@ public class CertificatesPanel extends JPanel {
 		panelFilePath.setLayout(null);
 
 		JLabel labelFilePath = new JLabel("Podaj ścieżkę do potwierdzeń");
-		labelFilePath.setBounds(8, 13, 163, 14);
+		labelFilePath.setFont(DefineUtils.FONT);
+		labelFilePath.setBounds(8, 13, 185, 14);
 		panelFilePath.add(labelFilePath);
 
 		textFieldFilePath = new JTextField();
-		textFieldFilePath.setBounds(168, 10, 387, 20);
+		textFieldFilePath.setBounds(192, 10, 363, 20);
+		textFieldFilePath.setFont(DefineUtils.FONT);
 		panelFilePath.add(textFieldFilePath);
 		textFieldFilePath.setText(DBData.pathInitBrowseFiles);
 		textFieldFilePath.setColumns(10);
 
 		JButton buttonBrowse = new JButton("Przeglądaj");
+		buttonBrowse.setFont(DefineUtils.FONT);
 		buttonBrowse.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 				FileManager fileManager = new FileManager(textFieldFilePath);
-				DataLoader.getInstance().setDirectory(fileManager.browseDirectory());
+				DataLoader.getInstance().setDirectory(fileManager.browseDirectory(DefineUtils.DB_pathbrowsefiles));
 				DataLoader.getInstance().setTable((DefaultTableModel) certificatesTable.getTable().getModel());
 				refreshTable();
 			}
@@ -133,6 +134,7 @@ public class CertificatesPanel extends JPanel {
 			DataLoader.getInstance().fillTable();
 			textAreaFileDetails.setText(DataLoader.getInstance().provideInfo());
 			panelSendDescription.setText(DataLoader.getInstance().provideInfoLong());
+			certificatesTable.getTable().setRowSelectionInterval(0, 0);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

@@ -36,6 +36,7 @@ public class ProgressDialog extends JFrame {
 		contentPane.add(progressBarProcessingTask, BorderLayout.CENTER);
 
 		JLabel lblProcessingTask = new JLabel();
+		lblProcessingTask.setFont(DefineUtils.FONT);
 		contentPane.add(lblProcessingTask, BorderLayout.NORTH);
 
 		setTitle(DefineUtils.APP_TITLE);

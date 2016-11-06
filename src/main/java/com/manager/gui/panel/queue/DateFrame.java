@@ -13,6 +13,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import com.manager.logic.QueueManager;
+import com.manager.utils.DefineUtils;
 
 @SuppressWarnings("serial")
 public class DateFrame extends JFrame {
@@ -35,20 +36,22 @@ public class DateFrame extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblDate = new JLabel("Wybierz datę pierwszego wolnego terminu");
-		lblDate.setBounds(14, 21, 222, 14);
+		lblDate.setFont(DefineUtils.FONT);
+		lblDate.setBounds(14, 21, 238, 14);
 		contentPane.add(lblDate);
 
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(250, 18, 86, 20);
+		textField.setFont(DefineUtils.FONT);
+		textField.setBounds(262, 18, 74, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		JButton btnDate = new JButton("Data");
+		btnDate.setFont(DefineUtils.FONT);
 		btnDate.setBounds(350, 17, 68, 23);
 		btnDate.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				calendar.setVisible(true);
 			}
@@ -56,10 +59,10 @@ public class DateFrame extends JFrame {
 		contentPane.add(btnDate);
 
 		JButton btnOk = new JButton("OK");
+		btnOk.setFont(DefineUtils.FONT);
 		btnOk.setBounds(350, 51, 68, 23);
 		btnOk.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				calendar.setVisible(false);
 				queueManager.deliverData("====================================\nPierwszy wolny termin na "

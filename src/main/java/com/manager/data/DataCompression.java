@@ -38,7 +38,6 @@ public class DataCompression {
 		task = new Task();
 		task.addPropertyChangeListener(new PropertyChangeListener() {
 
-			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				if ("progress" == evt.getPropertyName()) {
 					progessDialog.progressBarProcessingTask.setValue((Integer) evt.getNewValue());
@@ -70,6 +69,7 @@ public class DataCompression {
 					String fileName = dataList.get(index).get(4);
 
 					zipOutputStream.putNextEntry(new ZipEntry(fileName));
+
 					FileInputStream in = new FileInputStream(sourceDirectory + DefineUtils.FILE_SEPARATOR + fileName);
 
 					int len;

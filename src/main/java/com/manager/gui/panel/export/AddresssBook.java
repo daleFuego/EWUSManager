@@ -21,13 +21,14 @@ import com.manager.utils.DefineUtils;
 public class AddresssBook extends JFrame {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public AddresssBook(JTextField textFieldReceiver) {
+	public AddresssBook(final JTextField textFieldReceiver) {
 		setResizable(false);
 		setSize(416, 168);
 		getContentPane().setLayout(null);
 		setVisible(true);
 
 		JLabel lblWybierzOdbiorc = new JLabel("Odbiorcy");
+		lblWybierzOdbiorc.setFont(DefineUtils.FONT);
 		lblWybierzOdbiorc.setBounds(8, 8, 66, 14);
 		getContentPane().add(lblWybierzOdbiorc);
 
@@ -35,10 +36,12 @@ public class AddresssBook extends JFrame {
 		scrollPaneReceivers.setBounds(8, 30, 260, 87);
 		getContentPane().add(scrollPaneReceivers);
 
-		JList listReceivers = new JList(DBData.getInstance().getReceivers());
+		final JList listReceivers = new JList(DBData.getInstance().getReceivers());
+		listReceivers.setFont(DefineUtils.FONT);
 		scrollPaneReceivers.setViewportView(listReceivers);
 
 		JButton btnSelect = new JButton("Wybierz");
+		btnSelect.setFont(DefineUtils.FONT);
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textFieldReceiver.setText(listReceivers.getSelectedValue().toString());
@@ -49,6 +52,7 @@ public class AddresssBook extends JFrame {
 		getContentPane().add(btnSelect);
 
 		JButton btnDelete = new JButton("Usuń");
+		btnDelete.setFont(DefineUtils.FONT);
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {

@@ -5,12 +5,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -22,8 +20,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.manager.dao.DBData;
 import com.manager.gui.panel.queue.DateFrame;
-import com.manager.gui.panel.queue.VisitDialog;
 import com.manager.gui.panel.queue.QueueTableModel;
+import com.manager.gui.panel.queue.VisitDialog;
 import com.manager.utils.DefineUtils;
 
 public class QueueManager {
@@ -50,8 +48,8 @@ public class QueueManager {
 
 	public void parseFile(boolean useTmpFile) {
 		String msg;
-		ArrayList<ArrayList<String>> dataList = new ArrayList<>();
-		ArrayList<String> partsData = new ArrayList<>();
+		ArrayList<ArrayList<String>> dataList = new ArrayList<ArrayList<String>>();
+		ArrayList<String> partsData = new ArrayList<String>();
 		BufferedReader bufferedReader;
 		int index = 0;
 		tmpText = "";
@@ -74,7 +72,7 @@ public class QueueManager {
 						parts = msg.split("\t");
 					}
 
-					partsData = new ArrayList<>();
+					partsData = new ArrayList<String>();
 
 					for (String part : parts) {
 						partsData.add(part);
@@ -193,9 +191,7 @@ public class QueueManager {
 			bufferedWriter.write(msg);
 			bufferedWriter.flush();
 			bufferedWriter.close();
-		} catch (UnsupportedEncodingException | FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
