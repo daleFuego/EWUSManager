@@ -18,14 +18,14 @@ public class FileManager {
 		this.textFieldFilePath = textFieldFilePath;
 	}
 
-	public String browseDirectory() {
+	public String browseDirectory(String dbPath) {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileFilter(new FileNameExtensionFilter("xml files (*.xml)", "xml"));
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
 			this.pathBrowser = fileChooser.getSelectedFile().getAbsolutePath();
 		}
-		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathbrowsefiles, pathBrowser);
+		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, dbPath, pathBrowser);
 		textFieldFilePath.setText(pathBrowser);
 		return pathBrowser;
 	}

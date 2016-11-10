@@ -8,13 +8,15 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import com.manager.utils.DefineUtils;
+
 @SuppressWarnings("serial")
 public class ExportInfoPanel extends JPanel {
 	private JTextArea textAreaDetails;
 
 	public ExportInfoPanel() {
 		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Informacje o potwierdzeniach",
-				TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				TitledBorder.LEADING, TitledBorder.TOP, DefineUtils.FONT, new Color(0, 0, 0)));
 		setLayout(null);
 
 		JScrollPane scrollPaneDetails = new JScrollPane();
@@ -22,6 +24,8 @@ public class ExportInfoPanel extends JPanel {
 		add(scrollPaneDetails);
 
 		textAreaDetails = new JTextArea();
+		textAreaDetails.setColumns(3);
+		textAreaDetails.setFont(DefineUtils.FONT);
 		textAreaDetails.setRows(2);
 		textAreaDetails.setLineWrap(true);
 		scrollPaneDetails.setViewportView(textAreaDetails);

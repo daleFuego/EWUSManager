@@ -7,6 +7,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import com.manager.utils.DefineUtils;
+
 @SuppressWarnings("serial")
 public class CertificatesTable extends JPanel {
 
@@ -23,6 +25,8 @@ public class CertificatesTable extends JPanel {
 		add(scrollPane);
 
 		table = new JTable();
+		table.setFont(DefineUtils.FONT);
+		table.getTableHeader().setFont(DefineUtils.FONT);
 
 		model = new DefaultTableModel();
 		model.setColumnIdentifiers(new String[] { "Lp.", "Data", "Nazwisko", "Imię", "PESEL", "Plik" });
@@ -32,12 +36,12 @@ public class CertificatesTable extends JPanel {
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
-			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
 					try {
 						deleteFile = table.getValueAt(table.getSelectedRow(), 5).toString();
 					} catch (Exception ex) {
+						ex.printStackTrace();
 					}
 				}
 			}

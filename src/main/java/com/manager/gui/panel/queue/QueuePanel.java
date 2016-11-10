@@ -1,21 +1,19 @@
 package com.manager.gui.panel.queue;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.manager.dao.DBData;
 import com.manager.logic.FileManager;
 import com.manager.logic.QueueManager;
 import com.manager.utils.DefineUtils;
-
-import java.awt.Font;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class QueuePanel extends JPanel {
@@ -40,6 +38,7 @@ public class QueuePanel extends JPanel {
 		add(panelControls);
 
 		JButton buttonSave = new JButton("Zapisz");
+		buttonSave.setFont(DefineUtils.FONT);
 		buttonSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (queueManager != null) {
@@ -51,10 +50,10 @@ public class QueuePanel extends JPanel {
 		panelControls.add(buttonSave);
 
 		JButton buttonCreateNew = new JButton("Utwórz nowy");
+		buttonCreateNew.setFont(DefineUtils.FONT);
 		buttonCreateNew.setBounds(5, 40, 109, 20);
 		buttonCreateNew.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (queueManager == null) {
 					queueManager = new QueueManager(null, textFieldFilePath, panelQueueTable.getTable());
@@ -65,6 +64,7 @@ public class QueuePanel extends JPanel {
 		panelControls.add(buttonCreateNew);
 
 		JButton buttonReject = new JButton("Odrzuć");
+		buttonReject.setFont(DefineUtils.FONT);
 		buttonReject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (queueManager != null) {
@@ -76,6 +76,7 @@ public class QueuePanel extends JPanel {
 		panelControls.add(buttonReject);
 
 		JButton buttonAddDate = new JButton("Dodaj termin");
+		buttonAddDate.setFont(DefineUtils.FONT);
 		buttonAddDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (queueManager != null) {
@@ -87,6 +88,7 @@ public class QueuePanel extends JPanel {
 		panelControls.add(buttonAddDate);
 
 		JButton buttonAddVisit = new JButton("Dodaj wizytę");
+		buttonAddVisit.setFont(DefineUtils.FONT);
 		buttonAddVisit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (queueManager == null) {
@@ -107,21 +109,23 @@ public class QueuePanel extends JPanel {
 		panelFilePath.setLayout(null);
 
 		JLabel labelFilePath = new JLabel("Podaj ścieżkę do pliku z kolejką");
-		labelFilePath.setBounds(12, 13, 147, 14);
+		labelFilePath.setFont(DefineUtils.FONT);
+		labelFilePath.setBounds(12, 13, 191, 14);
 		panelFilePath.add(labelFilePath);
 
 		textFieldFilePath = new JTextField();
-		textFieldFilePath.setBounds(171, 10, 384, 20);
+		textFieldFilePath.setBounds(198, 10, 357, 20);
+		textFieldFilePath.setFont(DefineUtils.FONT);
 		panelFilePath.add(textFieldFilePath);
 		textFieldFilePath.setText(DBData.pathInitQueueExistingFile);
 		textFieldFilePath.setColumns(10);
 
 		JButton buttonBrowse = new JButton("Przeglądaj");
+		buttonBrowse.setFont(DefineUtils.FONT);
 		buttonBrowse.addActionListener(new ActionListener() {
 
 			private FileManager fileManager;
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				fileManager = new FileManager(textFieldFilePath);
 				queueManager = new QueueManager(fileManager.browseFile(), textFieldFilePath,
@@ -142,7 +146,7 @@ public class QueuePanel extends JPanel {
 		textAreaDescription.setEditable(false);
 		textAreaDescription.setLineWrap(true);
 		textAreaDescription.setRows(2);
-		textAreaDescription.setFont(new Font("Arial", Font.PLAIN, 11));
+		textAreaDescription.setFont(DefineUtils.FONT);
 		textAreaDescription.setWrapStyleWord(true);
 		textAreaDescription.setText(DefineUtils.QUEUE_DESCRIPTION);
 		scrollPaneDescription.setViewportView(textAreaDescription);

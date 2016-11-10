@@ -25,7 +25,7 @@ public class QueueFileParser {
 
 	public void fillTable() {
 		String msg;
-		ArrayList<ArrayList<String>> dataList = new ArrayList<>();
+		ArrayList<ArrayList<String>> dataList = new ArrayList<ArrayList<String>>();
 
 		try {
 			@SuppressWarnings("resource")
@@ -45,7 +45,7 @@ public class QueueFileParser {
 						parts = msg.split("\t");
 					}
 
-					ArrayList<String> tmp = new ArrayList<>();
+					ArrayList<String> tmp = new ArrayList<String>();
 
 					for (String part : parts) {
 						tmp.add(part);

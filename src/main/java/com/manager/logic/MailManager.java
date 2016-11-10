@@ -64,14 +64,12 @@ public class MailManager {
 		passwordPanel.btnConfirm.addActionListener(new ActionListener() {
 
 			@SuppressWarnings("deprecation")
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				waitDialog.setVisible(true);
 				passwordPanel.setVisible(false);
 
 				Thread thread = new Thread(new Runnable() {
 
-					@Override
 					public void run() {
 						if (sendMail(passwordPanel.passwordField.getText())) {
 							DefineUtils.MAIL_PASSWORD = passwordPanel.passwordField.getText();
@@ -90,7 +88,7 @@ public class MailManager {
 		});
 	}
 
-	private boolean sendMail(String password) {
+	private boolean sendMail(final String password) {
 		boolean result = true;
 
 		try {

@@ -15,11 +15,11 @@ public class DBData {
 	public static String username;
 
 	public static String pathInitBrowseFiles = "";
-	public static String pathInitSendZipFile = "";
 	public static String pathInitSendMailSender = "";
 	public static String pathInitSendMailReceiver = "";
 	public static String pathInitSendMailFile = "";
 	public static String pathInitQueueExistingFile = "";
+	public static String pathInitArchive = "";
 
 	private DBData() {
 	}
@@ -43,11 +43,11 @@ public class DBData {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM \"" + DefineUtils.DB_TABLE_PATHS + "\"");
 			while (rs.next()) {
 				pathInitBrowseFiles = rs.getString("pathbrowsefiles");
-				pathInitSendZipFile = rs.getString("pathsendzipsave");
 				pathInitSendMailSender = rs.getString("pathsendmailsender");
 				pathInitSendMailReceiver = rs.getString("pathsendmailreceiver");
 				pathInitSendMailFile = rs.getString("pathsendmailfile");
 				pathInitQueueExistingFile = rs.getString("pathqueueexistingfile");
+				pathInitArchive = rs.getString("pathArchive");
 			}
 			rs.close();
 			stmt.close();

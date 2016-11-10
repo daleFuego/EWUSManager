@@ -9,6 +9,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import com.manager.logic.QueueFileParser;
+import com.manager.utils.DefineUtils;
 
 @SuppressWarnings("serial")
 public class QueueTable extends JPanel {
@@ -25,6 +26,8 @@ public class QueueTable extends JPanel {
 		add(scrollPane);
 
 		table = new JTable();
+		table.setFont(DefineUtils.FONT);
+		table.getTableHeader().setFont(DefineUtils.FONT);
 
 		model = new QueueTableModel();
 		model.setColumnIdentifiers(new String[] { "Data zapisu", "Imię", "Nazwisko", "PESEL", "Data wizyty" });

@@ -1,5 +1,6 @@
 package com.manager.gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,12 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.manager.dao.DBData;
 import com.manager.data.DataLoader;
 import com.manager.gui.panel.certificates.CertificatesPanel;
 import com.manager.gui.panel.export.ExportPanel;
+import com.manager.gui.panel.export.FileExportPanel;
+import com.manager.gui.panel.export.FileZipPanel;
 import com.manager.gui.panel.queue.QueuePanel;
 import com.manager.logic.QueueManager;
 import com.manager.utils.DefineUtils;
@@ -59,6 +63,7 @@ public class MainFrame extends JFrame {
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 705, 487);
+		tabbedPane.setFont(DefineUtils.FONT);
 		getContentPane().setLayout(null);
 
 		panelSend = new ExportPanel();
@@ -73,7 +78,17 @@ public class MainFrame extends JFrame {
 		panelCertificates.setSize(690, 459);
 		tabbedPane.addTab("Potwierdzenia", null, panelCertificates, null);
 
-		panelSend.setPathToCertificates(panelCertificates.getTextFieldFilePath().getText());
+		FileExportPanel panelSendFiles = new FileExportPanel();
+		panelSendFiles.setBorder(
+				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Wysy\u0142anie paczki z potwierdzeniami",
+						TitledBorder.LEADING, TitledBorder.TOP, DefineUtils.FONT, new Color(0, 0, 0)));
+		panelSendFiles.setBounds(5, 230, 679, 105);
+		panelSend.add(panelSendFiles);
+		FileZipPanel panelPackFiles = new FileZipPanel(panelCertificates.getTextFieldFilePath().getText(), panelSendFiles.getTextFieldFilePath());
+		panelPackFiles.setBorder(new TitledBorder(null, "Pakowanie potwierdze\u0144", TitledBorder.LEADING,
+				TitledBorder.TOP, DefineUtils.FONT, new Color(0, 0, 0)));
+		panelPackFiles.setBounds(5, 146, 679, 75);
+		panelSend.add(panelPackFiles);
 		tabbedPane.addTab("Wysyłanie plików", null, panelSend, null);
 		getContentPane().add(tabbedPane);
 
@@ -83,10 +98,12 @@ public class MainFrame extends JFrame {
 		commonsPane.setLayout(null);
 
 		lblCommonsAppVersionDesc = new JLabel(DefineUtils.APP_TITLE + DefineUtils.APP_VERSION);
+		lblCommonsAppVersionDesc.setFont(DefineUtils.FONT);
 		lblCommonsAppVersionDesc.setBounds(10, 9, 159, 14);
 		commonsPane.add(lblCommonsAppVersionDesc);
 
 		btnCommonsClose = new JButton("Zamknij");
+		btnCommonsClose.setFont(DefineUtils.FONT);
 		btnCommonsClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
@@ -98,7 +115,6 @@ public class MainFrame extends JFrame {
 		setVisible(true);
 		setBounds(100, 100, 705, 553);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
