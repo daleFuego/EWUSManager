@@ -20,7 +20,6 @@ public class DBData {
 	public static String pathInitSendMailFile = "";
 	public static String pathInitQueueExistingFile = "";
 	public static String pathInitArchive = "";
-	public static String pathInitDeletedItems = "";
 
 	private DBData() {
 	}
@@ -49,7 +48,6 @@ public class DBData {
 				pathInitSendMailFile = rs.getString("pathsendmailfile");
 				pathInitQueueExistingFile = rs.getString("pathqueueexistingfile");
 				pathInitArchive = rs.getString("pathArchive");
-				pathInitDeletedItems = rs.getString("pathDeletedItems");
 			}
 			rs.close();
 			stmt.close();

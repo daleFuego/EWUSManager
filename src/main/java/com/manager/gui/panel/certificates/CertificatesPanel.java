@@ -71,9 +71,9 @@ public class CertificatesPanel extends JPanel {
 		buttonUndo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Fix this one day
-					DataLoader.getInstance().undoDeleteFile();
-					refreshTable();
-					buttonUndo.setEnabled(false);
+				DataLoader.getInstance().undoDeleteFile();
+				refreshTable();
+				buttonUndo.setEnabled(false);
 			}
 		});
 		buttonUndo.setBounds(1, 312, 109, 20);
@@ -134,7 +134,9 @@ public class CertificatesPanel extends JPanel {
 			DataLoader.getInstance().fillTable();
 			textAreaFileDetails.setText(DataLoader.getInstance().provideInfo());
 			panelSendDescription.setText(DataLoader.getInstance().provideInfoLong());
-			certificatesTable.getTable().setRowSelectionInterval(0, 0);
+			if (certificatesTable.getTable().getRowCount() > 0) {
+				certificatesTable.getTable().setRowSelectionInterval(0, 0);
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
