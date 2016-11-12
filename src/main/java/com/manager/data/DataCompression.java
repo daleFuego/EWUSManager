@@ -14,7 +14,7 @@ import java.util.zip.ZipOutputStream;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
-import com.manager.gui.panel.export.ProgressDialog;
+import com.manager.gui.ProgressDialog;
 import com.manager.utils.DefineUtils;
 
 public class DataCompression {

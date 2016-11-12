@@ -1,7 +1,6 @@
 package com.manager.logic;
 
 import javax.swing.JFileChooser;
-import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.manager.dao.DBData;
@@ -9,48 +8,29 @@ import com.manager.utils.DefineUtils;
 
 public class FileManager {
 
-	private String pathBrowser = DBData.pathInitBrowseFiles;
-	private String pathSend = DBData.pathInitSendMailFile;
-	private String pathQueue = DBData.pathInitQueueExistingFile;
-	private JTextField textFieldFilePath;
-
-	public FileManager(JTextField textFieldFilePath) {
-		this.textFieldFilePath = textFieldFilePath;
-	}
-
-	public String browseDirectory(String dbPath) {
+	public String browseDirectory(String dbPath, String filter, String fileType) {
+		String path = "";
 		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setFileFilter(new FileNameExtensionFilter("xml files (*.xml)", "xml"));
+		fileChooser.setFileFilter(new FileNameExtensionFilter(filter, fileType));
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
-			this.pathBrowser = fileChooser.getSelectedFile().getAbsolutePath();
+			path = fileChooser.getSelectedFile().getAbsolutePath();
 		}
-		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, dbPath, pathBrowser);
-		textFieldFilePath.setText(pathBrowser);
-		return pathBrowser;
+		if (!dbPath.equals("")) {
+			DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, dbPath, path);
+		}
+		return path;
 	}
 
-	public String browseZipFile() {
+	public String browseFile(String dbPath, String filter, String fileType) {
+		String path = "";
 		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		fileChooser.setFileFilter(new FileNameExtensionFilter("Zip Files", "zip"));
-		if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
-			this.pathSend = fileChooser.getSelectedFile().getAbsolutePath();
-		}
-		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailfile, pathSend);
-		textFieldFilePath.setText(pathSend);
-		return pathSend;
-	}
-
-	public String browseFile() {
-		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setFileFilter(new FileNameExtensionFilter("text files (*.txt)", "txt"));
+		fileChooser.setFileFilter(new FileNameExtensionFilter(filter, fileType));
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
-			this.pathQueue = fileChooser.getSelectedFile().getAbsolutePath();
+			path = fileChooser.getSelectedFile().getAbsolutePath();
 		}
-		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathqueueexistingfile, pathQueue);
-		textFieldFilePath.setText(pathQueue);
-		return pathQueue;
+		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, dbPath, path);
+		return path;
 	}
 }

@@ -36,6 +36,7 @@ public class VisitDialog extends JDialog {
 	private String currentDate = new SimpleDateFormat("dd/MM/yyyy").format((new Date())).toString();
 
 	public VisitDialog(final QueueManager queueManager) {
+		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(false);
 		final Calendar calendar = new Calendar(this);

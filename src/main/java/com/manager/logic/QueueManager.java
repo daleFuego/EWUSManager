@@ -34,8 +34,8 @@ public class QueueManager {
 	private String tmpFileName;
 	private String tmpText;
 
-	public QueueManager(String filePath, JTextField textFieldQueueMainFiles, JTable queueTable) {
-		this.filePath = filePath;
+	public QueueManager(JTextField textFieldQueueMainFiles, JTable queueTable) {
+		this.filePath = textFieldQueueMainFiles.getText();
 		this.textField = textFieldQueueMainFiles;
 		this.queueTable = queueTable;
 

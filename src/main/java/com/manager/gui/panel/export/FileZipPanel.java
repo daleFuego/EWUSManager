@@ -60,8 +60,7 @@ public class FileZipPanel extends JPanel {
 		buttonBrowses.setFont(DefineUtils.FONT);
 		buttonBrowses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				FileManager fileManager = new FileManager(textFieldFilePath);
-				fileManager.browseDirectory(DefineUtils.DB_pathArchive);
+				textFieldFilePath.setText((new FileManager()).browseDirectory(DefineUtils.DB_pathArchive, "Pliki zip (*.zip)", "zip"));
 			}
 		});
 		buttonBrowses.setBounds(444, 41, 109, 20);
