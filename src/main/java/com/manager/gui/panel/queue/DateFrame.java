@@ -25,11 +25,12 @@ public class DateFrame extends JFrame {
 	public JTextField textField;
 
 	public DateFrame(final QueueManager queueManager) {
+		setResizable(false);
 		this.queueManager = queueManager;
 		final Calendar calendar = new Calendar(this);
 		setTitle("Piewszy wolny termin");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 127);
+		setBounds(100, 100, 450, 101);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -37,19 +38,19 @@ public class DateFrame extends JFrame {
 
 		JLabel lblDate = new JLabel("Wybierz datę pierwszego wolnego terminu");
 		lblDate.setFont(DefineUtils.FONT);
-		lblDate.setBounds(14, 21, 238, 14);
+		lblDate.setBounds(10, 13, 221, 14);
 		contentPane.add(lblDate);
 
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setFont(DefineUtils.FONT);
-		textField.setBounds(262, 18, 74, 20);
+		textField.setBounds(241, 10, 74, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		JButton btnDate = new JButton("Data");
 		btnDate.setFont(DefineUtils.FONT);
-		btnDate.setBounds(350, 17, 68, 23);
+		btnDate.setBounds(325, 10, 109, 20);
 		btnDate.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -60,7 +61,7 @@ public class DateFrame extends JFrame {
 
 		JButton btnOk = new JButton("OK");
 		btnOk.setFont(DefineUtils.FONT);
-		btnOk.setBounds(350, 51, 68, 23);
+		btnOk.setBounds(325, 40, 109, 20);
 		btnOk.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {

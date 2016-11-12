@@ -28,7 +28,7 @@ import com.manager.utils.DefineUtils;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
-	
+
 	private JTabbedPane tabbedPane;
 	private QueueManager queueManager;
 	private JPanel commonsPane;
@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {			
+				try {
 					new MainFrame();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,12 +49,14 @@ public class MainFrame extends JFrame {
 			}
 		});
 	}
-	
+
 	public MainFrame() {
+		setResizable(false);
 		setLocale(new Locale("pl", "PL"));
 		setTitle(DefineUtils.APP_TITLE);
 		DefineUtils.initDataLoad();
 		DBData.getInstance().getInitData();
+		DBData.getInstance().checkEncryptionStatus();
 
 		initialize();
 	}
@@ -84,7 +86,8 @@ public class MainFrame extends JFrame {
 						TitledBorder.LEADING, TitledBorder.TOP, DefineUtils.FONT, new Color(0, 0, 0)));
 		panelSendFiles.setBounds(5, 230, 679, 105);
 		panelSend.add(panelSendFiles);
-		FileZipPanel panelPackFiles = new FileZipPanel(panelCertificates.getTextFieldFilePath().getText(), panelSendFiles.getTextFieldFilePath());
+		FileZipPanel panelPackFiles = new FileZipPanel(panelCertificates.getTextFieldFilePath().getText(),
+				panelSendFiles.getTextFieldFilePath());
 		panelPackFiles.setBorder(new TitledBorder(null, "Pakowanie potwierdze\u0144", TitledBorder.LEADING,
 				TitledBorder.TOP, DefineUtils.FONT, new Color(0, 0, 0)));
 		panelPackFiles.setBounds(5, 146, 679, 75);
@@ -127,8 +130,8 @@ public class MainFrame extends JFrame {
 
 	private void fillParts() {
 		if (!panelQueue.getTextFieldFilePath().equals("")) {
-			queueManager = new QueueManager(panelQueue.getTextFieldFilePath().getText(),
-					panelQueue.getTextFieldFilePath(), panelQueue.getPanelQueueTable().getTable());
+			queueManager = new QueueManager(panelQueue.getTextFieldFilePath(),
+					panelQueue.getPanelQueueTable().getTable());
 			queueManager.parseFile(false);
 			panelQueue.setQueueManager(queueManager);
 		}

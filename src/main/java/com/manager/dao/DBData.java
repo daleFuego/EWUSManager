@@ -20,6 +20,8 @@ public class DBData {
 	public static String pathInitSendMailFile = "";
 	public static String pathInitQueueExistingFile = "";
 	public static String pathInitArchive = "";
+	public static String pathInitPublicKey = "";
+	public static String pathInitPrivateKey = "";
 
 	private DBData() {
 	}
@@ -42,12 +44,14 @@ public class DBData {
 			stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM \"" + DefineUtils.DB_TABLE_PATHS + "\"");
 			while (rs.next()) {
-				pathInitBrowseFiles = rs.getString("pathbrowsefiles");
-				pathInitSendMailSender = rs.getString("pathsendmailsender");
-				pathInitSendMailReceiver = rs.getString("pathsendmailreceiver");
-				pathInitSendMailFile = rs.getString("pathsendmailfile");
-				pathInitQueueExistingFile = rs.getString("pathqueueexistingfile");
-				pathInitArchive = rs.getString("pathArchive");
+				pathInitBrowseFiles = rs.getString(DefineUtils.DB_pathbrowsefiles);
+				pathInitSendMailSender = rs.getString(DefineUtils.DB_pathsendmailsender);
+				pathInitSendMailReceiver = rs.getString(DefineUtils.DB_pathsendmailreceiver);
+				pathInitSendMailFile = rs.getString(DefineUtils.DB_pathsendmailfile);
+				pathInitQueueExistingFile = rs.getString(DefineUtils.DB_pathqueueexistingfile);
+				pathInitArchive = rs.getString(DefineUtils.DB_pathArchive);
+				pathInitPublicKey = rs.getString(DefineUtils.DB_pathpublickey);
+				pathInitPrivateKey = rs.getString(DefineUtils.DB_pathprivatekey);
 			}
 			rs.close();
 			stmt.close();
@@ -59,7 +63,6 @@ public class DBData {
 
 	public void update(String table, String target, String value) {
 		String query = "UPDATE \"" + table + "\" SET " + target + "='" + value + "';";
-		System.out.println(query);
 		executeQuery(query);
 	}
 
@@ -77,7 +80,6 @@ public class DBData {
 			stmt = connection.createStatement();
 
 			String query = "SELECT * FROM \"" + DefineUtils.DB_TABLE_CONTACTS + "\"";
-			System.out.println(query);
 
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -93,10 +95,35 @@ public class DBData {
 		return listModel;
 	}
 
+	public void checkEncryptionStatus() {
+
+		Connection connection = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.postgresql.Driver");
+			connection = DriverManager.getConnection(DefineUtils.DB_NAME, DefineUtils.DB_USERNAME,
+					DefineUtils.DB_PASSWORD);
+			connection.setAutoCommit(false);
+			stmt = connection.createStatement();
+
+			String query = "SELECT * FROM \"" + DefineUtils.DB_TABLE_ENCRYPTION + "\"";
+
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				DefineUtils.FILE_ENCRYPTION_STATUS = rs.getBoolean(1);
+				DefineUtils.QUEUE_ENCRYPTION_STATUS = rs.getBoolean(2);
+			}
+			rs.close();
+			stmt.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void removeFromContacts(String mailAddress) {
-		String query = "DELETE FROM \"" + DefineUtils.DB_TABLE_CONTACTS + "\" WHERE \"mailAddress\" = '" + mailAddress
-				+ "';";
-		System.out.println(query);
+		String query = "DELETE FROM \"" + DefineUtils.DB_TABLE_CONTACTS + "\" WHERE " + DefineUtils.DB_mailAddress
+				+ " = '" + mailAddress + "';";
 		executeQuery(query);
 	}
 
@@ -116,6 +143,46 @@ public class DBData {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void update(String table, String target, boolean value) {
+		String query = "UPDATE \"" + table + "\" SET " + target + "='" + value + "';";
+		executeQuery(query);
+	}
+
+	public void insertOrUpdate(String table, String target, String value) {
+		if (!checkIfExists(table, target, value)) {
+			String query = "INSERT INTO \"" + table + "\" (" + target + ") VALUES ('" + value + "');";
+			executeQuery(query);
+		}
+	}
+
+	private boolean checkIfExists(String table, String target, String value) {
+		Connection connection = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.postgresql.Driver");
+			connection = DriverManager.getConnection(DefineUtils.DB_NAME, DefineUtils.DB_USERNAME,
+					DefineUtils.DB_PASSWORD);
+			connection.setAutoCommit(false);
+			stmt = connection.createStatement();
+
+			String query = "SELECT * FROM \"" + table + "\"";
+
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				if (rs.getString(target).equals(value)) {
+					return true;
+				}
+			}
+			rs.close();
+			stmt.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 
 }

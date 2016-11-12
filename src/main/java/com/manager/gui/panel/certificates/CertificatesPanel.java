@@ -116,8 +116,7 @@ public class CertificatesPanel extends JPanel {
 		buttonBrowse.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				FileManager fileManager = new FileManager(textFieldFilePath);
-				DataLoader.getInstance().setDirectory(fileManager.browseDirectory(DefineUtils.DB_pathbrowsefiles));
+				DataLoader.getInstance().setDirectory((new FileManager()).browseDirectory(DefineUtils.DB_pathbrowsefiles, "Pliki xml (*.xml)", "xml"));
 				DataLoader.getInstance().setTable((DefaultTableModel) certificatesTable.getTable().getModel());
 				refreshTable();
 			}

@@ -56,7 +56,7 @@ public class QueuePanel extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				if (queueManager == null) {
-					queueManager = new QueueManager(null, textFieldFilePath, panelQueueTable.getTable());
+					queueManager = new QueueManager(textFieldFilePath, panelQueueTable.getTable());
 				}
 				queueManager.createNewFile();
 			}
@@ -92,7 +92,7 @@ public class QueuePanel extends JPanel {
 		buttonAddVisit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (queueManager == null) {
-					queueManager = new QueueManager(textFieldFilePath.getText(), textFieldFilePath,
+					queueManager = new QueueManager(textFieldFilePath,
 							panelQueueTable.getTable());
 				}
 				setEnabled(false);
@@ -127,8 +127,9 @@ public class QueuePanel extends JPanel {
 			private FileManager fileManager;
 
 			public void actionPerformed(ActionEvent e) {
-				fileManager = new FileManager(textFieldFilePath);
-				queueManager = new QueueManager(fileManager.browseFile(), textFieldFilePath,
+				fileManager = new FileManager();
+				textFieldFilePath.setText(fileManager.browseFile(DefineUtils.DB_pathqueueexistingfile, "Pliki tekstowe (*.txt)", "*.txt"));
+				queueManager = new QueueManager(textFieldFilePath,
 						panelQueueTable.getTable());
 				queueManager.parseFile(false);
 				textFieldSendQueue.setText(textFieldFilePath.getText());

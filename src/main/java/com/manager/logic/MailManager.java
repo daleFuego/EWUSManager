@@ -3,6 +3,7 @@ package com.manager.logic;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -20,6 +21,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,24 +29,25 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import com.manager.dao.DBData;
-import com.manager.gui.panel.export.PasswordPanel;
+import com.manager.gui.PasswordPanel;
+import com.manager.gui.panel.mail.EncryptionPanel;
 import com.manager.utils.DefineUtils;
+import com.manager.utils.EncryptionUtils;
 
 public class MailManager {
 
 	private String receiver;
 	private String sender;
-	private String filePath;
 	private String topic;
 	private JDialog waitDialog;
 	private PasswordPanel passwordPanel;
+	private String attachementPath;
 
-	public MailManager(String sender, String receiver, String filePath, String topic) {
+	public MailManager(String sender, String receiver, String topic) {
 
 		this.receiver = receiver;
 		this.sender = sender;
-		this.filePath = filePath;
-		this.topic = topic;
+		this.topic = "EWUŚ : " + topic;
 
 		waitDialog = new JDialog();
 		waitDialog.setLocationRelativeTo(null);
@@ -58,7 +61,7 @@ public class MailManager {
 
 	}
 
-	public void sendMail() {
+	public void sendMail(String filePath, boolean encryptionEnabled) {
 
 		passwordPanel = new PasswordPanel();
 		passwordPanel.btnConfirm.addActionListener(new ActionListener() {
@@ -71,7 +74,7 @@ public class MailManager {
 				Thread thread = new Thread(new Runnable() {
 
 					public void run() {
-						if (sendMail(passwordPanel.passwordField.getText())) {
+						if (sendMail(passwordPanel.passwordField.getText(), filePath, encryptionEnabled)) {
 							DefineUtils.MAIL_PASSWORD = passwordPanel.passwordField.getText();
 							passwordPanel.dispose();
 						}
@@ -88,51 +91,91 @@ public class MailManager {
 		});
 	}
 
-	private boolean sendMail(final String password) {
-		boolean result = true;
+	private boolean sendMail(final String password, String filePath, boolean encryptionEnabled) {
+		if (encryptionEnabled) {
+			EncryptionPanel encryptionPanel = new EncryptionPanel(true, filePath, "");
+			JFrame encryptionSettings = new JFrame(DefineUtils.APP_TITLE);
+			encryptionSettings.getContentPane().add(encryptionPanel);
+			encryptionSettings.setSize(549, 136);
+			encryptionSettings.setVisible(true);
 
-		try {
-			Properties props = new Properties();
-			props.put("mail.smtp.auth", "true");
-			props.put("mail.smtp.starttls.enable", "true");
-			props.put("mail.smtp.host", "smtp.gmail.com");
-			props.put("mail.smtp.port", "587");
+			encryptionPanel.getButtonEncryptOptions().addActionListener(new ActionListener() {
 
-			Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(sender, password);
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					setAttachementPath(EncryptionUtils.getInstance().encryptMessage(filePath, "",
+							Paths.get(encryptionPanel.getTextFieldPublicKeyPath().getText())));
+
+					try {
+						sendMail(password, filePath);
+						encryptionSettings.dispose();
+					} catch (MessagingException ex) {
+						waitDialog.dispose();
+						JOptionPane.showMessageDialog(null, "Logowanie nie powiodło się", DefineUtils.APP_TITLE,
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 				}
 			});
 
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(sender));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiver));
-			message.setSubject(topic);
-			BodyPart messageBodyPart = new MimeBodyPart();
-			messageBodyPart.setText("");
-			Multipart multipart = new MimeMultipart();
-			multipart.addBodyPart(messageBodyPart);
-			messageBodyPart = new MimeBodyPart();
-			DataSource source = new FileDataSource(filePath);
-			messageBodyPart.setDataHandler(new DataHandler(source));
-			messageBodyPart.setFileName(source.getName());
-			multipart.addBodyPart(messageBodyPart);
-			message.setContent(multipart);
-			Transport.send(message);
-			waitDialog.dispose();
-			JOptionPane.showMessageDialog(null, "Wiadomość została wysłana", "EWUŚ MANAGER",
-					JOptionPane.INFORMATION_MESSAGE);
-			DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailreceiver, receiver);
-			DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailfile, filePath);
-			DBData.getInstance().update(DefineUtils.DB_TABLE_CONTACTS, DefineUtils.DB_mailAddress, receiver);
-		} catch (MessagingException e) {
-			waitDialog.dispose();
-			JOptionPane.showMessageDialog(null, "Logowanie nie powiodło się", "EWUŚ MANAGER",
-					JOptionPane.ERROR_MESSAGE);
-			result = false;
+		} else {
+			try {
+				sendMail(password, filePath);
+			} catch (MessagingException ex) {
+				waitDialog.dispose();
+				JOptionPane.showMessageDialog(null, "Logowanie nie powiodło się", DefineUtils.APP_TITLE,
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+
 		}
 
-		return result;
+		return true;
+
 	}
 
+	private void setAttachementPath(String[] strings) {
+		this.attachementPath = strings[1];
+	}
+
+	private void sendMail(String password, String filePath) throws MessagingException {
+		
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(sender, password);
+			}
+		});
+
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress(sender));
+		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiver));
+		message.setSubject(topic);
+		BodyPart messageBodyPart = new MimeBodyPart();
+		messageBodyPart.setText("");
+		Multipart multipart = new MimeMultipart();
+		multipart.addBodyPart(messageBodyPart);
+		messageBodyPart = new MimeBodyPart();
+
+		DataSource source = new FileDataSource(attachementPath);
+		messageBodyPart.setDataHandler(new DataHandler(source));
+		messageBodyPart.setFileName(source.getName());
+		multipart.addBodyPart(messageBodyPart);
+		message.setContent(multipart);
+
+		Transport.send(message);
+		waitDialog.dispose();
+
+		JOptionPane.showMessageDialog(null, "Wiadomość została wysłana", DefineUtils.APP_TITLE,
+				JOptionPane.INFORMATION_MESSAGE);
+
+		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailreceiver, receiver);
+		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailfile, filePath);
+
+	}
 }

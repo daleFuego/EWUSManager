@@ -1,4 +1,4 @@
-package com.manager.gui.panel.export;
+package com.manager.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +21,7 @@ import com.manager.utils.DefineUtils;
 public class AddresssBook extends JFrame {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public AddresssBook(final JTextField textFieldReceiver) {
+	public AddresssBook(final JTextField textFieldAddress) {
 		setResizable(false);
 		setSize(416, 168);
 		getContentPane().setLayout(null);
@@ -36,15 +36,15 @@ public class AddresssBook extends JFrame {
 		scrollPaneReceivers.setBounds(8, 30, 260, 87);
 		getContentPane().add(scrollPaneReceivers);
 
-		final JList listReceivers = new JList(DBData.getInstance().getReceivers());
-		listReceivers.setFont(DefineUtils.FONT);
-		scrollPaneReceivers.setViewportView(listReceivers);
+		final JList listAddresses = new JList(DBData.getInstance().getReceivers());
+		listAddresses.setFont(DefineUtils.FONT);
+		scrollPaneReceivers.setViewportView(listAddresses);
 
 		JButton btnSelect = new JButton("Wybierz");
 		btnSelect.setFont(DefineUtils.FONT);
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				textFieldReceiver.setText(listReceivers.getSelectedValue().toString());
+				textFieldAddress.setText(listAddresses.getSelectedValue().toString());
 				dispose();
 			}
 		});
@@ -56,9 +56,9 @@ public class AddresssBook extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					DBData.getInstance().removeFromContacts(listReceivers.getSelectedValue().toString());
-					DefaultListModel model = (DefaultListModel) listReceivers.getModel();
-					model.remove(listReceivers.getSelectedIndex());
+					DBData.getInstance().removeFromContacts(listAddresses.getSelectedValue().toString());
+					DefaultListModel model = (DefaultListModel) listAddresses.getModel();
+					model.remove(listAddresses.getSelectedIndex());
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(new JFrame(), "Wystąpił błąd", DefineUtils.APP_TITLE,
 							JOptionPane.ERROR_MESSAGE);
@@ -67,10 +67,10 @@ public class AddresssBook extends JFrame {
 			}
 		});
 
-		listReceivers.addMouseListener(new MouseAdapter() {
+		listAddresses.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
-					textFieldReceiver.setText(listReceivers.getSelectedValue().toString());
+					textFieldAddress.setText(listAddresses.getSelectedValue().toString());
 					dispose();
 				}
 			}
