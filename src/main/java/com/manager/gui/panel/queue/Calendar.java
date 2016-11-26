@@ -47,16 +47,16 @@ public class Calendar extends JFrame {
 
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
+					String date = calendarFirstMonth.getDayChooser().getDay() + "/"
+							+ (calendarFirstMonth.getMonthChooser().getMonth() + 1) + "/"
+							+ calendarFirstMonth.getYearChooser().getYear();
+
 					if (addVisit.dayOfSave) {
-						addVisit.textFieldDayOfSave.setText(calendarFirstMonth.getDayChooser().getDay() + "/"
-								+ (calendarFirstMonth.getMonthChooser().getMonth() + 1) + "/"
-								+ calendarFirstMonth.getYearChooser().getYear());
-
+						addVisit.textFieldDayOfSave.setText(date);
+						DefineUtils.PREVIOUS_DAY_OF_SAVE = date;
 					} else {
-						addVisit.textFieldDate.setText(calendarFirstMonth.getDayChooser().getDay() + "/"
-								+ (calendarFirstMonth.getMonthChooser().getMonth() + 1) + "/"
-								+ calendarFirstMonth.getYearChooser().getYear());
-
+						addVisit.textFieldDate.setText(date);
+						DefineUtils.PREVIOUS_DATE = date;
 					}
 					setVisible(false);
 				} catch (Exception ex) {
@@ -68,16 +68,16 @@ public class Calendar extends JFrame {
 
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
+					String date = calendarSecondMonth.getDayChooser().getDay() + "/"
+							+ (calendarSecondMonth.getMonthChooser().getMonth() + 1) + "/"
+							+ calendarSecondMonth.getYearChooser().getYear();
+
 					if (addVisit.dayOfSave) {
-						addVisit.textFieldDayOfSave.setText(calendarSecondMonth.getDayChooser().getDay() + "/"
-								+ (calendarSecondMonth.getMonthChooser().getMonth() + 1) + "/"
-								+ calendarSecondMonth.getYearChooser().getYear());
-
+						addVisit.textFieldDayOfSave.setText(date);
+						DefineUtils.PREVIOUS_DAY_OF_SAVE = date;
 					} else {
-						addVisit.textFieldDate.setText(calendarSecondMonth.getDayChooser().getDay() + "/"
-								+ (calendarSecondMonth.getMonthChooser().getMonth() + 1) + "/"
-								+ calendarSecondMonth.getYearChooser().getYear());
-
+						addVisit.textFieldDate.setText(date);
+						DefineUtils.PREVIOUS_DATE = date;
 					}
 					setVisible(false);
 				} catch (Exception ex) {
@@ -89,16 +89,16 @@ public class Calendar extends JFrame {
 
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
+					String date = calendarThirdMonth.getDayChooser().getDay() + "/"
+							+ (calendarThirdMonth.getMonthChooser().getMonth() + 1) + "/"
+							+ calendarThirdMonth.getYearChooser().getYear();
+
 					if (addVisit.dayOfSave) {
-						addVisit.textFieldDayOfSave.setText(calendarThirdMonth.getDayChooser().getDay() + "/"
-								+ (calendarThirdMonth.getMonthChooser().getMonth() + 1) + "/"
-								+ calendarThirdMonth.getYearChooser().getYear());
-
+						addVisit.textFieldDayOfSave.setText(date);
+						DefineUtils.PREVIOUS_DAY_OF_SAVE = date;
 					} else {
-						addVisit.textFieldDate.setText(calendarThirdMonth.getDayChooser().getDay() + "/"
-								+ (calendarThirdMonth.getMonthChooser().getMonth() + 1) + "/"
-								+ calendarThirdMonth.getYearChooser().getYear());
-
+						addVisit.textFieldDate.setText(date);
+						DefineUtils.PREVIOUS_DATE = date;
 					}
 					setVisible(false);
 				} catch (Exception ex) {

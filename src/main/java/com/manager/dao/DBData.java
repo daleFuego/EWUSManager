@@ -63,6 +63,7 @@ public class DBData {
 
 	public void update(String table, String target, String value) {
 		String query = "UPDATE \"" + table + "\" SET " + target + "='" + value + "';";
+		System.out.println(query);
 		executeQuery(query);
 	}
 
@@ -124,6 +125,7 @@ public class DBData {
 	public void removeFromContacts(String mailAddress) {
 		String query = "DELETE FROM \"" + DefineUtils.DB_TABLE_CONTACTS + "\" WHERE " + DefineUtils.DB_mailAddress
 				+ " = '" + mailAddress + "';";
+		System.out.println(query);
 		executeQuery(query);
 	}
 
@@ -153,6 +155,7 @@ public class DBData {
 	public void insertOrUpdate(String table, String target, String value) {
 		if (!checkIfExists(table, target, value)) {
 			String query = "INSERT INTO \"" + table + "\" (" + target + ") VALUES ('" + value + "');";
+			System.out.println(query);
 			executeQuery(query);
 		}
 	}
@@ -171,8 +174,14 @@ public class DBData {
 
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				if (rs.getString(target).equals(value)) {
-					return true;
+				try {
+					System.out.println(table + " : " + target + " : " + value);
+
+					if (rs.getString(target)!= null && rs.getString(target).equals(value)) {
+						return true;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 			rs.close();

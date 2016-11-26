@@ -91,6 +91,7 @@ public class QueueExportPanel extends JPanel {
 		labelReceiver.setBounds(10, 49, 65, 14);
 		add(labelReceiver);
 
+		System.out.println(DBData.pathInitSendMailReceiver);
 		textFieldReceiver = new JTextField(DBData.pathInitSendMailReceiver);
 		textFieldReceiver.setFont(DefineUtils.FONT);
 		textFieldReceiver.setFont(DefineUtils.FONT);
@@ -148,9 +149,9 @@ public class QueueExportPanel extends JPanel {
 						textFieldReceiver.getText());
 				DBData.getInstance().insertOrUpdate(DefineUtils.DB_TABLE_CONTACTS, DefineUtils.DB_mailAddress,
 						textFieldSender.getText());
-				DBData.getInstance().insertOrUpdate(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailsender,
+				DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailsender,
 						textFieldSender.getText());
-				DBData.getInstance().insertOrUpdate(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailreceiver,
+				DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, DefineUtils.DB_pathsendmailreceiver,
 						textFieldReceiver.getText());
 			}
 		});

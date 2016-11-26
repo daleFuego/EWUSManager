@@ -26,7 +26,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 
 import com.manager.dao.DBData;
 import com.manager.gui.PasswordPanel;
@@ -41,8 +40,6 @@ public class MailManager {
 	private String topic;
 	private JDialog waitDialog;
 	private PasswordPanel passwordPanel;
-	private String attachementPath;
-
 	public MailManager(String sender, String receiver, String topic) {
 
 		this.receiver = receiver;
@@ -74,6 +71,7 @@ public class MailManager {
 				Thread thread = new Thread(new Runnable() {
 
 					public void run() {
+						System.out.println("Sendig with attachemment " + filePath);
 						if (sendMail(passwordPanel.passwordField.getText(), filePath, encryptionEnabled)) {
 							DefineUtils.MAIL_PASSWORD = passwordPanel.passwordField.getText();
 							passwordPanel.dispose();
@@ -83,10 +81,10 @@ public class MailManager {
 
 				thread.start();
 
-				try {
-					SwingUtilities.invokeAndWait(thread);
-				} catch (Exception ex) {
-				}
+//				try {
+//					SwingUtilities.invokeAndWait(thread);
+//				} catch (Exception ex) {
+//				}
 			}
 		});
 	}
@@ -98,7 +96,6 @@ public class MailManager {
 			encryptionSettings.getContentPane().add(encryptionPanel);
 			encryptionSettings.setSize(549, 136);
 			encryptionSettings.setVisible(true);
-
 			encryptionPanel.getButtonEncryptOptions().addActionListener(new ActionListener() {
 
 				@Override
@@ -135,7 +132,6 @@ public class MailManager {
 	}
 
 	private void setAttachementPath(String[] strings) {
-		this.attachementPath = strings[1];
 	}
 
 	private void sendMail(String password, String filePath) throws MessagingException {
@@ -162,7 +158,7 @@ public class MailManager {
 		multipart.addBodyPart(messageBodyPart);
 		messageBodyPart = new MimeBodyPart();
 
-		DataSource source = new FileDataSource(attachementPath);
+		DataSource source = new FileDataSource(filePath);
 		messageBodyPart.setDataHandler(new DataHandler(source));
 		messageBodyPart.setFileName(source.getName());
 		multipart.addBodyPart(messageBodyPart);
