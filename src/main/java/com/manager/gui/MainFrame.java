@@ -2,6 +2,7 @@ package com.manager.gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
@@ -54,6 +55,7 @@ public class MainFrame extends JFrame {
 		setResizable(false);
 		setLocale(new Locale("pl", "PL"));
 		setTitle(DefineUtils.APP_TITLE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Icon.png")));
 		DefineUtils.initDataLoad();
 		DBData.getInstance().getInitData();
 		DBData.getInstance().checkEncryptionStatus();

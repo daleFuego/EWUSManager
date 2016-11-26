@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -33,8 +31,6 @@ public class VisitDialog extends JDialog {
 	public JTextField textFieldDate;
 	public JTextField textFieldDayOfSave;
 	public boolean dayOfSave = false;
-	private String currentDate = new SimpleDateFormat("dd/MM/yyyy").format((new Date())).toString();
-
 	public VisitDialog(final QueueManager queueManager) {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -97,7 +93,7 @@ public class VisitDialog extends JDialog {
 			contentPanel.add(lblSurname);
 		}
 		{
-			textFieldDate = new JTextField(currentDate);
+			textFieldDate = new JTextField(DefineUtils.PREVIOUS_DATE);
 			textFieldDate.setFont(DefineUtils.FONT);
 			textFieldDate.setEditable(false);
 			textFieldDate.setBounds(128, 108, 99, 20);
@@ -129,7 +125,7 @@ public class VisitDialog extends JDialog {
 			contentPanel.add(lblDayOfSave);
 		}
 		{
-			textFieldDayOfSave = new JTextField(currentDate);
+			textFieldDayOfSave = new JTextField(DefineUtils.PREVIOUS_DAY_OF_SAVE);
 			textFieldDayOfSave.setEditable(false);
 			textFieldDayOfSave.setColumns(10);
 			textFieldDayOfSave.setBounds(128, 8, 99, 20);

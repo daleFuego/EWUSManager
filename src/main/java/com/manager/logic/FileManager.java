@@ -30,7 +30,9 @@ public class FileManager {
 		if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
 			path = fileChooser.getSelectedFile().getAbsolutePath();
 		}
-		DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, dbPath, path);
+		if (!dbPath.equals("")) {
+			DBData.getInstance().update(DefineUtils.DB_TABLE_PATHS, dbPath, path);
+		}
 		return path;
 	}
 }

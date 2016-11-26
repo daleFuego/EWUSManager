@@ -2,8 +2,8 @@ package com.manager.utils;
 
 import java.awt.Font;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 import com.manager.dao.DBData;
@@ -35,14 +35,15 @@ public class DefineUtils {
 	public static String DB_pathprivatekey 			= "pathprivatekey";
 	public static String DB_pathArchive 			= "patharchive";
 	public static String DB_mailAddress 			= "mailaddress";
-	
-	public static final String ALGORITHM 			= "RSA";
-	public static final int INBOX_SIZE 				= 30;
-	public static final int OUTBOX_SIZE 			= 30;
+	public static String PREVIOUS_DAY_OF_SAVE		= "";
+	public static String PREVIOUS_DATE				= "";
+	public static String ALGORITHM 					= "RSA";
+	public static int INBOX_SIZE 					= 30;
+	public static int OUTBOX_SIZE 					= 30;
 	public static boolean FILE_ENCRYPTION_STATUS 	= true;
 	public static boolean QUEUE_ENCRYPTION_STATUS 	= true;
-	
 	public static Font FONT 						= new Font("Arial", Font.PLAIN, 11);
+	
 
 	public static void initDataLoad() {
 		if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {
@@ -53,8 +54,7 @@ public class DefineUtils {
 
 		String content = "";
 		try {
-			@SuppressWarnings("resource")
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(DefineUtils.class.getClassLoader().getResource("Init.txt").getFile()));
+			BufferedReader bufferedReader  = new BufferedReader(new InputStreamReader(DefineUtils.class.getResourceAsStream("/Init.txt"), "UTF-8" ));
 			while ((content = bufferedReader.readLine()) != null) {
 				if (content.contains("#BRWOSE_DESCRIPTION")) {
 					CERTIFICATES_DESCRIPTION = content.split("=")[1];

@@ -128,7 +128,7 @@ public class QueuePanel extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				fileManager = new FileManager();
-				textFieldFilePath.setText(fileManager.browseFile(DefineUtils.DB_pathqueueexistingfile, "Pliki tekstowe (*.txt)", "*.txt"));
+				textFieldFilePath.setText(fileManager.browseFile(DefineUtils.DB_pathqueueexistingfile, "Pliki tekstowe (.txt)", "txt"));
 				queueManager = new QueueManager(textFieldFilePath,
 						panelQueueTable.getTable());
 				queueManager.parseFile(false);
