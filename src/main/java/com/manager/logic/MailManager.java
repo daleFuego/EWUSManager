@@ -3,7 +3,6 @@ package com.manager.logic;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.file.Paths;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -31,7 +30,6 @@ import com.manager.dao.DBData;
 import com.manager.gui.PasswordPanel;
 import com.manager.gui.panel.mail.EncryptionPanel;
 import com.manager.utils.DefineUtils;
-import com.manager.utils.EncryptionUtils;
 
 public class MailManager {
 
@@ -80,11 +78,6 @@ public class MailManager {
 				});
 
 				thread.start();
-
-//				try {
-//					SwingUtilities.invokeAndWait(thread);
-//				} catch (Exception ex) {
-//				}
 			}
 		});
 	}
@@ -100,11 +93,8 @@ public class MailManager {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					setAttachementPath(EncryptionUtils.getInstance().encryptMessage(filePath, "",
-							Paths.get(encryptionPanel.getTextFieldPublicKeyPath().getText())));
-
 					try {
-						sendMail(password, filePath);
+						sendMail(password, filePath + "_encrypted");
 						encryptionSettings.dispose();
 					} catch (MessagingException ex) {
 						waitDialog.dispose();
@@ -129,9 +119,6 @@ public class MailManager {
 
 		return true;
 
-	}
-
-	private void setAttachementPath(String[] strings) {
 	}
 
 	private void sendMail(String password, String filePath) throws MessagingException {

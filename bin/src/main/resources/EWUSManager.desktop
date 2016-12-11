@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=EWUŚ Manager
-Comment=Test hello world script
-Exec=/home/gosia/EWUSManager/run.sh
-Icon=/home/gosia/EWUSManager/Icon.png
-Terminal=false
-Type=Application
-Name[pl_PL]=EWUSManager
